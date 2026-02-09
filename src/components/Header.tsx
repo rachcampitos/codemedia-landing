@@ -89,7 +89,7 @@ export function Header() {
                 priority
               />
               <span className="text-xl font-bold text-[var(--secondary)] dark:text-white">
-                Code<span className="text-[var(--primary)]">Media</span>
+                Code<span className="gradient-text-animated">Media</span><span className="text-[#06B6D4]">/</span>
               </span>
             </Link>
 

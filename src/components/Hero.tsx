@@ -1,9 +1,15 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { siteConfig } from "@/data/content";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const codeLines = [
   { indent: 0, tokens: [{ text: "const", color: "#c792ea" }, { text: " app ", color: "#eeffff" }, { text: "=", color: "#89ddff" }, { text: " createApp", color: "#82aaff" }, { text: "({", color: "#89ddff" }] },
@@ -15,8 +21,14 @@ const codeLines = [
   { indent: 0, tokens: [{ text: "});", color: "#89ddff" }] },
   { indent: 0, tokens: [] },
   { indent: 0, tokens: [{ text: "await", color: "#c792ea" }, { text: " app", color: "#eeffff" }, { text: ".", color: "#89ddff" }, { text: "deploy", color: "#82aaff" }, { text: "(", color: "#89ddff" }, { text: '"production"', color: "#c3e88d" }, { text: ");", color: "#89ddff" }] },
-  { indent: 0, tokens: [{ text: "// ✓ Build exitoso — 0 errores", color: "#546e7a" }] },
+  { indent: 0, tokens: [{ text: "// \u2713 Build exitoso \u2014 0 errores", color: "#546e7a" }] },
 ];
+
+const FULL_NAME = "CodeMedia";
+const CHAR_DELAY = 100;
+const SLASH_JUMP_DELAY = 350;
+
+type Phase = "waiting" | "typing" | "jumping" | "done";
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -32,11 +44,55 @@ export function Hero() {
   const scale = useTransform(scrollProgress, [0, 0.35, 0.7], [1, 1, 0.92]);
   const y = useTransform(scrollProgress, [0, 0.35, 0.7], [0, 0, 100]);
 
+  const [phase, setPhase] = useState<Phase>("waiting");
+  const [charIndex, setCharIndex] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) {
+      setReducedMotion(true);
+      setPhase("done");
+      setCharIndex(FULL_NAME.length);
+      return;
+    }
+
+    // Phase 1: slash alone blinks for 0.6s
+    const startTimer = setTimeout(() => {
+      setPhase("typing");
+    }, 600);
+
+    return () => clearTimeout(startTimer);
+  }, []);
+
+  // Phase 2: typing characters one by one
+  useEffect(() => {
+    if (phase !== "typing") return;
+
+    if (charIndex < FULL_NAME.length) {
+      const timer = setTimeout(() => {
+        setCharIndex((prev) => prev + 1);
+      }, CHAR_DELAY);
+      return () => clearTimeout(timer);
+    }
+
+    // Typing complete, jump slash to end
+    const jumpTimer = setTimeout(() => {
+      setPhase("jumping");
+      setTimeout(() => setPhase("done"), 100);
+    }, SLASH_JUMP_DELAY);
+
+    return () => clearTimeout(jumpTimer);
+  }, [phase, charIndex]);
+
   const scrollTo = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
   };
+
+  const contentReady = phase === "done";
+  const showSlashBefore = phase === "waiting" || phase === "typing";
 
   return (
     <section
@@ -58,48 +114,77 @@ export function Hero() {
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           {/* Text */}
           <div className="flex-1 text-center lg:text-left">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            {/* Typewriter brand name */}
+            <h1
+              aria-label="CodeMedia"
+              className="text-5xl sm:text-6xl md:text-7xl font-bold text-[var(--secondary)] dark:text-white mb-6"
             >
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-6"
-              >
-                Desarrollo de Software
-              </motion.p>
+              <span aria-hidden="true">
+                {/* Slash before text (typing phase) */}
+                <AnimatePresence mode="wait">
+                  {showSlashBefore && (
+                    <motion.span
+                      key="slash-before"
+                      exit={{ opacity: 0, x: -8 }}
+                      transition={{ duration: 0.15 }}
+                      className="text-[#06B6D4]"
+                    >
+                      /
+                    </motion.span>
+                  )}
+                </AnimatePresence>
 
-              <h1 className="text-[var(--secondary)] dark:text-white mb-8">
-                {siteConfig.tagline.split(" ").slice(0, 2).join(" ")}{" "}
-                <span className="gradient-text-animated">
-                  {siteConfig.tagline.split(" ").slice(2).join(" ")}
+                {/* Typed characters */}
+                <span>
+                  {FULL_NAME.slice(0, 4).slice(0, charIndex)}
                 </span>
-              </h1>
+                <span className="gradient-text-animated">
+                  {charIndex > 4 ? FULL_NAME.slice(4, charIndex) : ""}
+                </span>
 
-              <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                {/* Slash after text (done phase) */}
+                <AnimatePresence>
+                  {(phase === "jumping" || phase === "done") && (
+                    <motion.span
+                      key="slash-after"
+                      initial={{ opacity: 0, x: 8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-[#06B6D4]"
+                    >
+                      /
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+
+                {/* Blinking cursor */}
+                {!contentReady && (
+                  <span className="inline-block w-[3px] h-[0.85em] bg-[#06B6D4] ml-0.5 align-middle animate-[cursor-blink_0.8s_linear_infinite]" />
+                )}
+              </span>
+            </h1>
+
+            {/* Content that appears after typewriter completes */}
+            <motion.div
+              initial={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={contentReady ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
+                Desarrollo de Software
+              </p>
+
+              <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
                 {siteConfig.description}
               </p>
 
               {/* Availability */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)]"
-              >
+              <div className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)]">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 Disponibles para nuevos proyectos
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              >
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a
                   href="#producto"
                   onClick={(e) => scrollTo(e, "producto")}
@@ -115,16 +200,16 @@ export function Hero() {
                 >
                   Agendar consultoria
                 </a>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
 
           {/* Code Editor */}
           <motion.div
             className="flex-1 flex justify-center w-full"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
+            animate={contentReady ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <div className="relative w-full max-w-[520px]">
               {/* Glow behind editor */}
@@ -150,9 +235,9 @@ export function Hero() {
                   {codeLines.map((line, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 + i * 0.08, duration: 0.3 }}
+                      initial={reducedMotion ? {} : { opacity: 0, x: -10 }}
+                      animate={contentReady ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: 0.3 + i * 0.08, duration: 0.3 }}
                       className="flex"
                     >
                       <span className="text-[#546e7a] w-8 text-right mr-4 select-none text-xs leading-7">
@@ -170,19 +255,15 @@ export function Hero() {
 
                   {/* Blinking cursor */}
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.6 }}
+                    initial={reducedMotion ? {} : { opacity: 0 }}
+                    animate={contentReady ? { opacity: 1 } : {}}
+                    transition={{ delay: 1.4 }}
                     className="flex mt-1"
                   >
                     <span className="text-[#546e7a] w-8 text-right mr-4 select-none text-xs leading-7">
                       11
                     </span>
-                    <motion.span
-                      animate={{ opacity: [1, 0] }}
-                      transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-                      className="w-[2px] h-5 bg-[#06B6D4] inline-block mt-1"
-                    />
+                    <span className="inline-block w-[2px] h-5 bg-[#06B6D4] mt-1 animate-[cursor-blink_0.8s_linear_infinite]" />
                   </motion.div>
                 </div>
 
@@ -209,7 +290,7 @@ export function Hero() {
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={contentReady ? { opacity: 1 } : {}}
         transition={{ delay: 1.5 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
