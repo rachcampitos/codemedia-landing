@@ -28,9 +28,9 @@ export function Hero() {
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
   const scrollProgress = useSpring(scrollYProgress, springConfig);
 
-  const opacity = useTransform(scrollProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollProgress, [0, 0.5], [1, 0.92]);
-  const y = useTransform(scrollProgress, [0, 0.5], [0, 100]);
+  const opacity = useTransform(scrollProgress, [0, 0.35, 0.7], [1, 1, 0]);
+  const scale = useTransform(scrollProgress, [0, 0.35, 0.7], [1, 1, 0.92]);
+  const y = useTransform(scrollProgress, [0, 0.35, 0.7], [0, 0, 100]);
 
   const scrollTo = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -83,6 +83,17 @@ export function Hero() {
                 {siteConfig.description}
               </p>
 
+              {/* Availability */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)]"
+              >
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                Disponibles para nuevos proyectos
+              </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -104,17 +115,6 @@ export function Hero() {
                 >
                   Agendar consultoria
                 </a>
-              </motion.div>
-
-              {/* Availability */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="mt-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)]"
-              >
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                Disponibles para nuevos proyectos
               </motion.div>
             </motion.div>
           </div>
