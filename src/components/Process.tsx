@@ -36,8 +36,8 @@ export function Process() {
                   className="flex items-start gap-6"
                 >
                   {/* Step number */}
-                  <div className="relative z-10 w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-[var(--primary-light)] flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <span className="text-white font-bold text-sm">
+                  <div className="relative z-10 w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#1E40AF] dark:from-[#06B6D4] dark:to-[#0891B2] flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <span className="text-white dark:text-[#0F172A] font-bold text-sm">
                       {item.step}
                     </span>
                   </div>
