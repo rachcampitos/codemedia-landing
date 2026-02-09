@@ -46,8 +46,8 @@ export function About() {
           ].map((item, index) => (
             <AnimatedSection key={item.title} delay={index * 0.15}>
               <div className="glass-card rounded-2xl p-8 text-center h-full">
-                <div className="w-14 h-14 rounded-xl bg-[var(--primary)] bg-opacity-10 flex items-center justify-center mx-auto mb-5">
-                  <item.icon className="w-7 h-7 text-[var(--primary)]" />
+                <div className="w-14 h-14 rounded-xl bg-[#E74C3C]/10 dark:bg-[#FF6B5A]/15 flex items-center justify-center mx-auto mb-5">
+                  <item.icon className="w-7 h-7 text-[#E74C3C] dark:text-[#FF6B5A]" />
                 </div>
                 <h3 className="text-[var(--secondary)] dark:text-white mb-3 text-xl font-bold">
                   {item.title}

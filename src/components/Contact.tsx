@@ -29,8 +29,8 @@ export function Contact() {
                 href={`mailto:${siteConfig.email}`}
                 className="glass-card rounded-2xl p-8 flex flex-col items-center text-center h-full"
               >
-                <div className="w-14 h-14 rounded-xl bg-[var(--primary)] bg-opacity-10 flex items-center justify-center mb-4">
-                  <Mail className="w-7 h-7 text-[var(--primary)]" />
+                <div className="w-14 h-14 rounded-xl bg-[#E74C3C]/10 dark:bg-[#FF6B5A]/15 flex items-center justify-center mb-4">
+                  <Mail className="w-7 h-7 text-[#E74C3C] dark:text-[#FF6B5A]" />
                 </div>
                 <h3 className="text-[var(--secondary)] dark:text-white font-bold mb-2">
                   Email
@@ -49,7 +49,7 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="glass-card rounded-2xl p-8 flex flex-col items-center text-center h-full"
               >
-                <div className="w-14 h-14 rounded-xl bg-green-500 bg-opacity-10 flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-xl bg-green-500/10 flex items-center justify-center mb-4">
                   <MessageCircle className="w-7 h-7 text-green-500" />
                 </div>
                 <h3 className="text-[var(--secondary)] dark:text-white font-bold mb-2">
@@ -65,8 +65,8 @@ export function Contact() {
           {/* Location */}
           <AnimatedSection delay={0.2} className="mt-6">
             <div className="glass-card rounded-2xl p-8 flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[var(--accent)] bg-opacity-10 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-6 h-6 text-[var(--accent)]" />
+              <div className="w-12 h-12 rounded-xl bg-[#3498DB]/10 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-6 h-6 text-[#3498DB]" />
               </div>
               <div>
                 <h3 className="text-[var(--secondary)] dark:text-white font-bold">
