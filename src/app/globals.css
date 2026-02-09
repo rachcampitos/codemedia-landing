@@ -216,7 +216,7 @@ button:focus-visible {
 
 .dark .btn-primary {
   background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
-  color: #0F172A;
+  color: #ffffff;
   box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
