@@ -68,8 +68,11 @@ const screenLabels = [
   "Perfil Enfermera",
   "Chat",
   "Pagos",
-  "Tracking",
+  "Estados del Servicio",
+  "Codigo de Seguridad",
 ];
+
+const slideDurations = [4500, 4500, 4500, 4500, 9000, 5000];
 
 /* Star SVG reusable */
 const Star = () => (
@@ -153,7 +156,7 @@ function HomeScreen({ isDark }: ScreenProps) {
 function NurseProfileScreen({ isDark }: ScreenProps) {
   return (
     <>
-      <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-4 pt-2 pb-8 relative">
+      <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-4 pt-2 pb-14 relative">
         <div className="flex items-center justify-between mb-2">
           <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
             <span className="text-white text-[8px]">&larr;</span>
@@ -162,7 +165,7 @@ function NurseProfileScreen({ isDark }: ScreenProps) {
           <div className="w-5 h-5" />
         </div>
       </div>
-      <div className={`px-4 -mt-6 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
+      <div className={`px-4 -mt-10 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
         <div className="flex flex-col items-center mb-3">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-3 ring-[#f59e0b] shadow-lg">
             <span className="text-white text-sm font-bold">MC</span>
@@ -339,72 +342,217 @@ function PaymentScreen({ isDark }: ScreenProps) {
   );
 }
 
-function TrackingScreen({ isDark }: ScreenProps) {
+/* ── Service status steps ── */
+const serviceSteps = [
+  { label: "Aceptado", sublabel: "Enfermera confirmada", color: "#22c55e" },
+  { label: "En camino", sublabel: "Llegando en 8 min", color: "#06B6D4" },
+  { label: "Llego", sublabel: "En tu domicilio", color: "#f59e0b" },
+  { label: "En servicio", sublabel: "Atencion en progreso", color: "#1E40AF" },
+  { label: "Completado", sublabel: "Servicio finalizado", color: "#10B981" },
+];
+
+function ServiceStatusScreen({ isDark }: ScreenProps) {
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % serviceSteps.length);
+    }, 1600);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <>
-      <div className="bg-[#0F172A] px-4 pt-2 pb-2.5">
+      <div className="bg-[#0F172A] px-4 pt-2 pb-3">
         <div className="flex items-center justify-between">
           <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
             <span className="text-white text-[8px]">&larr;</span>
           </div>
-          <span className="text-white text-[9px] font-semibold">Servicio en Curso</span>
+          <span className="text-white text-[9px] font-semibold">Servicio Activo</span>
           <div className="w-5 h-5" />
         </div>
       </div>
-      <div className={`flex-1 relative ${t(isDark, "bg-[#e2e8f0]", "bg-[#1E293B]")}`}>
-        {/* Map placeholder */}
-        <div className={`absolute inset-0 ${t(isDark, "bg-gradient-to-b from-[#e8f4f8] to-[#d1e7dd]", "bg-gradient-to-b from-[#0F172A] to-[#1E293B]")}`}>
-          {/* Grid lines simulating map */}
-          <div className={`absolute inset-0 ${t(isDark, "opacity-20", "opacity-10")}`}>
-            {[...Array(6)].map((_, i) => (
-              <div key={`h${i}`} className={`absolute w-full h-px ${t(isDark, "bg-[#94a3b8]", "bg-[#64748b]")}`} style={{ top: `${(i + 1) * 16}%` }} />
-            ))}
-            {[...Array(4)].map((_, i) => (
-              <div key={`v${i}`} className={`absolute h-full w-px ${t(isDark, "bg-[#94a3b8]", "bg-[#64748b]")}`} style={{ left: `${(i + 1) * 25}%` }} />
-            ))}
-          </div>
-          {/* Route line */}
-          <div className="absolute top-[30%] left-[25%] w-[50%] h-px bg-[#06B6D4] opacity-60" style={{ transform: "rotate(-25deg)" }} />
-          {/* Nurse pin */}
-          <div className="absolute top-[25%] left-[30%]">
-            <div className={`w-6 h-6 rounded-full bg-[#06B6D4] flex items-center justify-center shadow-lg ring-2 ${t(isDark, "ring-white", "ring-[#0F172A]")}`}>
-              <span className="text-white text-[6px] font-bold">MC</span>
+      <div className={`px-4 py-3 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
+        {/* Active status banner */}
+        <motion.div
+          key={activeStep}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="rounded-xl p-3 mb-3"
+          style={{ background: `${serviceSteps[activeStep].color}15`, borderLeft: `3px solid ${serviceSteps[activeStep].color}` }}
+        >
+          <div className="flex items-center gap-2.5">
+            <motion.div
+              animate={{ scale: [1, 1.15, 1] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+              className="w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ background: serviceSteps[activeStep].color }}
+            >
+              <span className="text-white text-[10px] font-bold">
+                {activeStep < serviceSteps.length - 1 ? activeStep + 1 : "\u2713"}
+              </span>
+            </motion.div>
+            <div>
+              <p className={`text-[10px] font-bold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>
+                {serviceSteps[activeStep].label}
+              </p>
+              <p className="text-[7px] text-[#64748b]">
+                {serviceSteps[activeStep].sublabel}
+              </p>
             </div>
-            <div className="w-2 h-2 bg-[#06B6D4] rotate-45 mx-auto -mt-1" />
           </div>
-          {/* Home pin */}
-          <div className="absolute bottom-[35%] right-[25%]">
-            <div className={`w-5 h-5 rounded-full bg-[#0F172A] flex items-center justify-center shadow-lg ring-2 ${t(isDark, "ring-white", "ring-[#06B6D4]")}`}>
-              <span className="text-white text-[6px]">&#8962;</span>
+        </motion.div>
+
+        {/* Vertical timeline */}
+        <div className="pl-1 mb-3">
+          {serviceSteps.map((step, i) => (
+            <div key={step.label} className="flex items-start gap-2.5">
+              <div className="flex flex-col items-center">
+                <motion.div
+                  animate={i === activeStep ? { boxShadow: [`0 0 0px ${step.color}00`, `0 0 10px ${step.color}80`, `0 0 0px ${step.color}00`] } : {}}
+                  transition={i === activeStep ? { duration: 1.2, repeat: Infinity } : {}}
+                  className="w-4 h-4 rounded-full flex items-center justify-center transition-all duration-400"
+                  style={{
+                    background: i <= activeStep ? step.color : isDark ? "#334155" : "#e2e8f0",
+                  }}
+                >
+                  {i < activeStep ? (
+                    <span className="text-white text-[6px] font-bold">{"\u2713"}</span>
+                  ) : i === activeStep ? (
+                    <motion.span
+                      animate={{ opacity: [1, 0.4, 1] }}
+                      transition={{ duration: 0.8, repeat: Infinity }}
+                      className="w-1.5 h-1.5 rounded-full bg-white"
+                    />
+                  ) : (
+                    <span className={`w-1 h-1 rounded-full ${isDark ? "bg-[#64748b]" : "bg-[#94a3b8]"}`} />
+                  )}
+                </motion.div>
+                {i < serviceSteps.length - 1 && (
+                  <div
+                    className="w-0.5 h-4 transition-all duration-400"
+                    style={{ background: i < activeStep ? step.color : isDark ? "#334155" : "#e2e8f0" }}
+                  />
+                )}
+              </div>
+              <div className="-mt-0.5 pb-1">
+                <p className={`text-[8px] font-semibold transition-colors duration-300 ${
+                  i <= activeStep
+                    ? t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")
+                    : "text-[#94a3b8]"
+                }`}>
+                  {step.label}
+                </p>
+                {i <= activeStep && (
+                  <p className="text-[6px] text-[#64748b]">
+                    {i < activeStep ? "Completado" : "Ahora"}
+                  </p>
+                )}
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Nurse card */}
+        <div className={`rounded-xl p-2.5 flex items-center gap-2 border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-2 ring-[#f59e0b]">
+            <span className="text-white text-[7px] font-bold">MC</span>
+          </div>
+          <div className="flex-1">
+            <p className={`text-[8px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria C.</p>
+            <p className="text-[7px] text-[#06B6D4]">Enfermera Elite</p>
+          </div>
+          <div className={`rounded-lg px-2 py-1 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+            <span className={`text-[7px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Chat</span>
           </div>
         </div>
-        {/* Bottom card */}
-        <div className={`absolute bottom-0 left-0 right-0 rounded-t-2xl p-3 shadow-lg ${t(isDark, "bg-white", "bg-[#1E293B]")}`}>
-          <div className="flex items-center gap-2.5 mb-2">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-2 ring-[#f59e0b]">
-              <span className="text-white text-[8px] font-bold">MC</span>
-            </div>
-            <div className="flex-1">
-              <p className={`text-[9px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria C. viene en camino</p>
-              <p className="text-[8px] text-[#06B6D4] font-medium">Llegando en 8 minutos</p>
-            </div>
+      </div>
+    </>
+  );
+}
+
+function SecurityCodeScreen({ isDark }: ScreenProps) {
+  const [seconds, setSeconds] = useState(247);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prev) => (prev > 0 ? prev - 1 : 299));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+
+  return (
+    <>
+      <div className="bg-[#0F172A] px-4 pt-2 pb-3">
+        <div className="flex items-center justify-between">
+          <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+            <span className="text-white text-[8px]">&larr;</span>
           </div>
-          {/* Progress */}
-          <div className="flex items-center gap-1.5 mb-2">
-            {["Confirmado", "En camino", "Llego", "En servicio"].map((step, i) => (
-              <div key={step} className="flex-1">
-                <div className={`h-1 rounded-full ${i < 2 ? "bg-[#06B6D4]" : t(isDark, "bg-[#e2e8f0]", "bg-[#334155]")}`} />
-                <p className={`text-[6px] mt-0.5 ${i < 2 ? "text-[#06B6D4] font-medium" : "text-[#94a3b8]"}`}>{step}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <div className={`flex-1 rounded-lg py-1.5 text-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
-              <span className={`text-[8px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Chat</span>
+          <span className="text-white text-[9px] font-semibold">Verificacion</span>
+          <div className="w-5 h-5" />
+        </div>
+      </div>
+      <div className={`px-4 py-4 flex-1 flex flex-col items-center ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
+        {/* Shield */}
+        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#06B6D4] to-[#0891B2] flex items-center justify-center mb-3 shadow-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </div>
+
+        <p className={`text-[10px] font-bold mb-0.5 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>
+          Codigo de Seguridad
+        </p>
+        <p className="text-[7px] text-[#64748b] text-center mb-3 px-2 leading-relaxed">
+          Comparte este codigo con tu enfermera al llegar
+        </p>
+
+        {/* Code display */}
+        <div className="flex gap-2 mb-3">
+          {["4", "7", "2", "8"].map((digit, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, duration: 0.3 }}
+              className={`w-10 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-sm border ${
+                t(isDark,
+                  "bg-white border-[#e2e8f0] text-[#0F172A]",
+                  "bg-[#1E293B] border-[#334155] text-[#F8FAFC]"
+                )
+              }`}
+            >
+              {digit}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Timer */}
+        <div className={`rounded-full px-3 py-1 flex items-center gap-1.5 mb-3 ${t(isDark, "bg-[#06B6D4]/10", "bg-[#06B6D4]/20")}`}>
+          <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4] animate-pulse" />
+          <span className="text-[8px] font-mono font-semibold text-[#06B6D4]">
+            Expira en {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
+          </span>
+        </div>
+
+        {/* Info card */}
+        <div className={`rounded-xl p-2.5 w-full border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
+          <div className="flex items-start gap-2">
+            <div className="w-4 h-4 rounded-full bg-[#22c55e]/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-[#22c55e] text-[6px] font-bold">{"\u2713"}</span>
             </div>
-            <div className={`flex-1 rounded-lg py-1.5 text-center border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#0F172A] border-[#334155]")}`}>
-              <span className={`text-[8px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Llamar</span>
+            <div>
+              <p className={`text-[7px] font-semibold mb-0.5 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>
+                Verificacion doble
+              </p>
+              <p className="text-[6px] text-[#64748b] leading-relaxed">
+                La enfermera ingresa este codigo al llegar para confirmar su identidad y proteger tu seguridad.
+              </p>
             </div>
           </div>
         </div>
@@ -413,7 +561,7 @@ function TrackingScreen({ isDark }: ScreenProps) {
   );
 }
 
-const screens = [HomeScreen, NurseProfileScreen, ChatScreen, PaymentScreen, TrackingScreen];
+const screens = [HomeScreen, NurseProfileScreen, ChatScreen, PaymentScreen, ServiceStatusScreen, SecurityCodeScreen];
 
 /* ── Main Product Section ── */
 export function Product() {
@@ -428,9 +576,9 @@ export function Product() {
 
   useEffect(() => {
     if (isPaused) return;
-    const timer = setInterval(nextScreen, 4500);
-    return () => clearInterval(timer);
-  }, [isPaused, nextScreen]);
+    const timer = setTimeout(nextScreen, slideDurations[activeScreen]);
+    return () => clearTimeout(timer);
+  }, [isPaused, nextScreen, activeScreen]);
 
   const ActiveScreenComponent = screens[activeScreen];
 
@@ -525,9 +673,9 @@ export function Product() {
                   <div className="bg-[#0F172A] px-6 pt-3 pb-1.5 flex justify-between items-center text-white text-[10px] flex-shrink-0">
                     <span>9:41</span>
                     <div className="flex items-center gap-1">
-                      <div className="flex gap-0.5">
+                      <div className="flex gap-0.5 items-end">
                         {[...Array(4)].map((_, i) => (
-                          <div key={i} className={`w-0.5 rounded-full bg-white ${i < 3 ? "h-1.5" : "h-2"}`} style={{ height: `${(i + 2) * 2}px` }} />
+                          <div key={i} className="w-0.5 rounded-full bg-white" style={{ height: `${(i + 2) * 2}px` }} />
                         ))}
                       </div>
                       <div className="w-3.5 h-2 border border-white/80 rounded-sm relative ml-1">
