@@ -501,7 +501,7 @@ export function Product() {
           {/* Right: Phone mockup with carousel */}
           <AnimatedSection direction="right" className="lg:sticky lg:top-28">
             <div
-              className="relative max-w-[280px] mx-auto"
+              className="relative w-[280px] mx-auto"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
