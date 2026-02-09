@@ -526,19 +526,21 @@ export function Product() {
                     </div>
                   </div>
 
-                  {/* Screen content */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeScreen}
-                      initial={{ opacity: 0, x: 60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -60 }}
-                      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                      className="flex-1 flex flex-col overflow-hidden"
-                    >
-                      <ActiveScreenComponent />
-                    </motion.div>
-                  </AnimatePresence>
+                  {/* Screen content - fixed area prevents resize between slides */}
+                  <div className="flex-1 relative overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeScreen}
+                        initial={{ opacity: 0, x: 60 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -60 }}
+                        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                        className="absolute inset-0 flex flex-col overflow-hidden"
+                      >
+                        <ActiveScreenComponent />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
 
                   {/* Tab bar */}
                   <div className="bg-white border-t border-[#e2e8f0] px-5 py-1.5 flex justify-between flex-shrink-0">
