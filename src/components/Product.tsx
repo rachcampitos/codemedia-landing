@@ -4,6 +4,7 @@ import { AnimatedSection } from "./ui/AnimatedSection";
 import { product } from "@/data/content";
 import { ExternalLink, CheckCircle, BadgeCheck } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Product() {
   return (
@@ -91,9 +92,13 @@ export function Product() {
                   {/* NurseLite header */}
                   <div className="bg-gradient-to-b from-[#1e3a5f] to-[#2d5f8a] px-5 pt-3 pb-6">
                     <div className="flex items-center gap-2 mb-4">
-                      <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">NL</span>
-                      </div>
+                      <Image
+                        src="/nurselite-logo.png"
+                        alt="NurseLite"
+                        width={32}
+                        height={32}
+                        className="w-8 h-8 rounded-lg object-cover"
+                      />
                       <span className="text-white font-bold text-sm">NurseLite</span>
                     </div>
                     <p className="text-white/90 text-xs mb-3">Encuentra tu enfermera</p>
