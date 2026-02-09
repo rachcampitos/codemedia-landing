@@ -74,22 +74,11 @@ export const services: Service[] = [
 
 export const product = {
   name: "NurseLite",
-  tagline: "Plataforma de enfermeria a domicilio en produccion",
+  tagline: "Plataforma de enfermeria a domicilio que conecta familias con enfermeras certificadas en Peru.",
   description:
-    "NurseLite conecta familias con enfermeras certificadas para atencion domiciliaria en Peru. Es nuestra prueba de que construimos software que resuelve problemas reales: verificacion profesional, pagos seguros y comunicacion en tiempo real.",
+    "Verificacion profesional contra el Colegio de Enfermeros, pagos seguros, chat en tiempo real. Software que resuelve problemas reales.",
   url: "https://nurse-lite.com",
   appUrl: "https://app.nurse-lite.com",
-  stats: [
-    { value: "1,000+", label: "Servicios" },
-    { value: "100%", label: "Verificadas" },
-    { value: "99.9%", label: "Uptime" },
-  ],
-  features: [
-    "Verificacion CEP en tiempo real",
-    "Pagos seguros con Culqi y Yape",
-    "Chat en tiempo real con Socket.io",
-    "768 tests automatizados",
-  ],
 };
 
 export const techStack = {
