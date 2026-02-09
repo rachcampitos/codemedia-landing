@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
+import { useTheme } from "./ThemeProvider";
 
 /* ── Feature cards data ── */
 const features = [
@@ -77,8 +78,15 @@ const Star = () => (
   </svg>
 );
 
+/* ── Theme-aware color helpers ── */
+interface ScreenProps {
+  isDark: boolean;
+}
+
+const t = (isDark: boolean, light: string, dark: string) => isDark ? dark : light;
+
 /* ── Individual phone screens ── */
-function HomeScreen() {
+function HomeScreen({ isDark }: ScreenProps) {
   return (
     <>
       <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-4 pt-2 pb-5">
@@ -97,34 +105,34 @@ function HomeScreen() {
           <span className="text-white/50 text-[9px]">Buscar servicio de enfermeria...</span>
         </div>
       </div>
-      <div className="px-3 py-3 bg-[#f8fafc] flex-1">
-        <p className="text-[9px] font-semibold text-[#0F172A] mb-2">Servicios Populares</p>
+      <div className={`px-3 py-3 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
+        <p className={`text-[9px] font-semibold mb-2 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Servicios Populares</p>
         <div className="grid grid-cols-2 gap-1.5 mb-3">
           {[
             { label: "Inyecciones", color: "#06B6D4", price: "S/50" },
-            { label: "Curaciones", color: "#0F172A", price: "S/60" },
+            { label: "Curaciones", color: isDark ? "#38BDF8" : "#0F172A", price: "S/60" },
             { label: "Control vital", color: "#f59e0b", price: "S/45" },
             { label: "Terapia", color: "#22c55e", price: "S/80" },
           ].map((s) => (
-            <div key={s.label} className="bg-white rounded-xl p-2 shadow-sm border border-[#e2e8f0]">
+            <div key={s.label} className={`rounded-xl p-2 shadow-sm border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
               <div className="flex items-center justify-between mb-1">
                 <div className="w-5 h-5 rounded-lg flex items-center justify-center" style={{ background: `${s.color}15` }}>
                   <div className="w-2.5 h-2.5 rounded" style={{ background: s.color }} />
                 </div>
                 <span className="text-[7px] font-semibold text-[#06B6D4]">{s.price}</span>
               </div>
-              <p className="text-[8px] font-medium text-[#0F172A]">{s.label}</p>
+              <p className={`text-[8px] font-medium ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>{s.label}</p>
             </div>
           ))}
         </div>
-        <p className="text-[9px] font-semibold text-[#0F172A] mb-1.5">Enfermeras Elite Cerca de Ti</p>
-        <div className="bg-white rounded-xl p-2.5 shadow-sm border border-[#e2e8f0] flex items-center gap-2.5">
+        <p className={`text-[9px] font-semibold mb-1.5 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Enfermeras Elite Cerca de Ti</p>
+        <div className={`rounded-xl p-2.5 shadow-sm border flex items-center gap-2.5 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center flex-shrink-0 ring-2 ring-[#f59e0b]">
             <span className="text-white text-[9px] font-bold">MC</span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1">
-              <p className="text-[9px] font-semibold text-[#0F172A]">Maria C.</p>
+              <p className={`text-[9px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria C.</p>
               <span className="text-[6px] px-1 py-0.5 rounded bg-[#f59e0b]/15 text-[#d97706] font-bold">ELITE</span>
             </div>
             <div className="flex items-center gap-0.5">
@@ -133,8 +141,8 @@ function HomeScreen() {
             </div>
             <p className="text-[7px] text-[#06B6D4] font-medium">CEP 108887 Verificada</p>
           </div>
-          <div className="bg-[#0F172A] rounded-lg px-2 py-1">
-            <span className="text-white text-[7px] font-semibold">Ver</span>
+          <div className={`rounded-lg px-2 py-1 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+            <span className={`text-[7px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Ver</span>
           </div>
         </div>
       </div>
@@ -142,7 +150,7 @@ function HomeScreen() {
   );
 }
 
-function NurseProfileScreen() {
+function NurseProfileScreen({ isDark }: ScreenProps) {
   return (
     <>
       <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-4 pt-2 pb-8 relative">
@@ -154,13 +162,13 @@ function NurseProfileScreen() {
           <div className="w-5 h-5" />
         </div>
       </div>
-      <div className="px-4 -mt-6 flex-1 bg-[#f8fafc]">
+      <div className={`px-4 -mt-6 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
         <div className="flex flex-col items-center mb-3">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-3 ring-[#f59e0b] shadow-lg">
             <span className="text-white text-sm font-bold">MC</span>
           </div>
           <span className="text-[7px] px-1.5 py-0.5 rounded-full bg-[#f59e0b]/15 text-[#d97706] font-bold mt-1">ELITE</span>
-          <p className="text-[10px] font-bold text-[#0F172A] mt-1">Maria Claudia C.</p>
+          <p className={`text-[10px] font-bold mt-1 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria Claudia C.</p>
           <div className="flex items-center gap-1 mt-0.5">
             <div className="w-2 h-2 rounded-full bg-[#22c55e]" />
             <span className="text-[7px] text-[#22c55e] font-medium">CEP 108887 - HABIL</span>
@@ -170,33 +178,33 @@ function NurseProfileScreen() {
             <span className="text-[7px] text-[#64748b] ml-0.5">4.9 (245 resenas)</span>
           </div>
         </div>
-        <div className="flex justify-around bg-white rounded-xl p-2 shadow-sm border border-[#e2e8f0] mb-2.5">
+        <div className={`flex justify-around rounded-xl p-2 shadow-sm border mb-2.5 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
           {[
             { val: "52", lbl: "Servicios" },
             { val: "245", lbl: "Resenas" },
             { val: "2 anos", lbl: "Experiencia" },
           ].map((s) => (
             <div key={s.lbl} className="text-center">
-              <p className="text-[10px] font-bold text-[#0F172A]">{s.val}</p>
+              <p className={`text-[10px] font-bold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>{s.val}</p>
               <p className="text-[6px] text-[#64748b]">{s.lbl}</p>
             </div>
           ))}
         </div>
-        <p className="text-[8px] font-semibold text-[#0F172A] mb-1">Especialidades</p>
+        <p className={`text-[8px] font-semibold mb-1 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Especialidades</p>
         <div className="flex flex-wrap gap-1 mb-2.5">
           {["Inyectables", "Curaciones", "Terapia", "Control Vital"].map((s) => (
-            <span key={s} className="text-[7px] px-1.5 py-0.5 rounded-full bg-[#06B6D4]/10 text-[#0891B2] font-medium">{s}</span>
+            <span key={s} className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium ${t(isDark, "bg-[#06B6D4]/10 text-[#0891B2]", "bg-[#06B6D4]/20 text-[#22D3EE]")}`}>{s}</span>
           ))}
         </div>
-        <div className="bg-[#0F172A] rounded-xl py-2 text-center">
-          <span className="text-white text-[9px] font-semibold">Solicitar Servicio</span>
+        <div className={`rounded-xl py-2 text-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+          <span className={`text-[9px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Solicitar Servicio</span>
         </div>
       </div>
     </>
   );
 }
 
-function ChatScreen() {
+function ChatScreen({ isDark }: ScreenProps) {
   return (
     <>
       <div className="bg-[#0F172A] px-4 pt-2 pb-2.5">
@@ -216,9 +224,9 @@ function ChatScreen() {
           </div>
         </div>
       </div>
-      <div className="bg-[#f8fafc] px-3 py-3 flex-1 flex flex-col justify-end gap-2">
+      <div className={`px-3 py-3 flex-1 flex flex-col justify-end gap-2 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
         <div className="flex items-center justify-center">
-          <span className="text-[7px] text-[#94a3b8] bg-white px-2 py-0.5 rounded-full shadow-sm">Hoy, 14:30</span>
+          <span className={`text-[7px] text-[#94a3b8] px-2 py-0.5 rounded-full shadow-sm ${t(isDark, "bg-white", "bg-[#1E293B]")}`}>Hoy, 14:30</span>
         </div>
         {/* Nurse message */}
         <div className="flex gap-1.5 max-w-[85%]">
@@ -226,8 +234,8 @@ function ChatScreen() {
             <span className="text-white text-[6px] font-bold">MC</span>
           </div>
           <div>
-            <div className="bg-white rounded-2xl rounded-bl-sm px-2.5 py-1.5 shadow-sm border border-[#e2e8f0]">
-              <p className="text-[8px] text-[#0F172A]">Hola Maria, confirmo tu servicio de inyeccion para las 3pm. Ya estoy en camino.</p>
+            <div className={`rounded-2xl rounded-bl-sm px-2.5 py-1.5 shadow-sm border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
+              <p className={`text-[8px] ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Hola Maria, confirmo tu servicio de inyeccion para las 3pm. Ya estoy en camino.</p>
             </div>
             <span className="text-[6px] text-[#94a3b8] ml-1">14:30</span>
           </div>
@@ -235,8 +243,8 @@ function ChatScreen() {
         {/* User message */}
         <div className="flex justify-end max-w-[80%] ml-auto">
           <div>
-            <div className="bg-[#0F172A] rounded-2xl rounded-br-sm px-2.5 py-1.5">
-              <p className="text-[8px] text-white">Perfecto, gracias! Te espero.</p>
+            <div className={`rounded-2xl rounded-br-sm px-2.5 py-1.5 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+              <p className={`text-[8px] ${t(isDark, "text-white", "text-[#0F172A]")}`}>Perfecto, gracias! Te espero.</p>
             </div>
             <div className="flex items-center justify-end gap-0.5 mt-0.5">
               <span className="text-[6px] text-[#94a3b8]">14:31</span>
@@ -249,18 +257,18 @@ function ChatScreen() {
           <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center flex-shrink-0 mt-auto">
             <span className="text-white text-[6px] font-bold">MC</span>
           </div>
-          <div className="bg-white rounded-2xl rounded-bl-sm px-3 py-2 shadow-sm border border-[#e2e8f0] flex items-center gap-1">
+          <div className={`rounded-2xl rounded-bl-sm px-3 py-2 shadow-sm border flex items-center gap-1 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
             <span className="w-1 h-1 rounded-full bg-[#94a3b8] animate-bounce [animation-delay:0ms]" />
             <span className="w-1 h-1 rounded-full bg-[#94a3b8] animate-bounce [animation-delay:150ms]" />
             <span className="w-1 h-1 rounded-full bg-[#94a3b8] animate-bounce [animation-delay:300ms]" />
           </div>
         </div>
         {/* Input bar */}
-        <div className="bg-white rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm border border-[#e2e8f0] mt-1">
-          <div className="w-4 h-4 rounded-full bg-[#e2e8f0]" />
+        <div className={`rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm border mt-1 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
+          <div className={`w-4 h-4 rounded-full ${t(isDark, "bg-[#e2e8f0]", "bg-[#334155]")}`} />
           <span className="text-[8px] text-[#94a3b8] flex-1">Escribe un mensaje...</span>
-          <div className="w-5 h-5 rounded-full bg-[#0F172A] flex items-center justify-center">
-            <span className="text-white text-[7px]">&uarr;</span>
+          <div className={`w-5 h-5 rounded-full flex items-center justify-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+            <span className={`text-[7px] ${t(isDark, "text-white", "text-[#0F172A]")}`}>&uarr;</span>
           </div>
         </div>
       </div>
@@ -268,7 +276,7 @@ function ChatScreen() {
   );
 }
 
-function PaymentScreen() {
+function PaymentScreen({ isDark }: ScreenProps) {
   return (
     <>
       <div className="bg-[#0F172A] px-4 pt-2 pb-3">
@@ -282,56 +290,56 @@ function PaymentScreen() {
           </div>
         </div>
       </div>
-      <div className="px-4 py-3 bg-[#f8fafc] flex-1">
-        <div className="bg-white rounded-xl p-3 shadow-sm border border-[#e2e8f0] mb-3">
+      <div className={`px-4 py-3 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
+        <div className={`rounded-xl p-3 shadow-sm border mb-3 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
           <p className="text-[8px] text-[#64748b] mb-1">Resumen del servicio</p>
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-lg bg-[#06B6D4]/10 flex items-center justify-center">
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${t(isDark, "bg-[#06B6D4]/10", "bg-[#06B6D4]/20")}`}>
               <div className="w-4 h-4 rounded bg-[#06B6D4]" />
             </div>
             <div className="flex-1">
-              <p className="text-[9px] font-semibold text-[#0F172A]">Inyeccion Intramuscular</p>
+              <p className={`text-[9px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Inyeccion Intramuscular</p>
               <p className="text-[7px] text-[#64748b]">Maria C. - Elite - 30 min</p>
             </div>
           </div>
-          <div className="border-t border-[#e2e8f0] pt-2 flex justify-between">
+          <div className={`border-t pt-2 flex justify-between ${t(isDark, "border-[#e2e8f0]", "border-[#334155]")}`}>
             <span className="text-[8px] text-[#64748b]">Total</span>
-            <span className="text-[12px] font-bold text-[#0F172A]">S/ 80.00</span>
+            <span className={`text-[12px] font-bold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>S/ 80.00</span>
           </div>
         </div>
-        <p className="text-[8px] font-semibold text-[#0F172A] mb-2">Metodo de pago</p>
+        <p className={`text-[8px] font-semibold mb-2 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Metodo de pago</p>
         <div className="space-y-1.5 mb-3">
-          <div className="bg-white rounded-xl p-2.5 shadow-sm border-2 border-[#06B6D4] flex items-center gap-2.5">
+          <div className={`rounded-xl p-2.5 shadow-sm border-2 border-[#06B6D4] flex items-center gap-2.5 ${t(isDark, "bg-white", "bg-[#1E293B]")}`}>
             <div className="w-8 h-5 rounded bg-gradient-to-r from-[#1A1F71] to-[#2566AF] flex items-center justify-center">
               <span className="text-white text-[6px] font-bold">VISA</span>
             </div>
             <div className="flex-1">
-              <p className="text-[8px] font-medium text-[#0F172A]">**** **** **** 4532</p>
+              <p className={`text-[8px] font-medium ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>**** **** **** 4532</p>
             </div>
             <div className="w-3 h-3 rounded-full bg-[#06B6D4] flex items-center justify-center">
               <span className="text-white text-[6px]">&#10003;</span>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-2.5 shadow-sm border border-[#e2e8f0] flex items-center gap-2.5">
+          <div className={`rounded-xl p-2.5 shadow-sm border flex items-center gap-2.5 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
             <div className="w-8 h-5 rounded bg-[#6C2DC7] flex items-center justify-center">
               <span className="text-white text-[6px] font-bold">Yape</span>
             </div>
-            <p className="text-[8px] text-[#0F172A]">Pagar con Yape</p>
+            <p className={`text-[8px] ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Pagar con Yape</p>
           </div>
         </div>
         <div className="flex items-center justify-center gap-1 mb-2.5">
           <span className="text-[7px]">&#128274;</span>
           <span className="text-[7px] text-[#64748b]">Procesado por Culqi - SSL 256-bit</span>
         </div>
-        <div className="bg-gradient-to-r from-[#0F172A] to-[#1E40AF] rounded-xl py-2.5 text-center">
-          <span className="text-white text-[9px] font-semibold">Pagar S/ 80.00</span>
+        <div className={`rounded-xl py-2.5 text-center ${t(isDark, "bg-gradient-to-r from-[#0F172A] to-[#1E40AF]", "bg-gradient-to-r from-[#06B6D4] to-[#0891B2]")}`}>
+          <span className={`text-[9px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Pagar S/ 80.00</span>
         </div>
       </div>
     </>
   );
 }
 
-function TrackingScreen() {
+function TrackingScreen({ isDark }: ScreenProps) {
   return (
     <>
       <div className="bg-[#0F172A] px-4 pt-2 pb-2.5">
@@ -343,42 +351,42 @@ function TrackingScreen() {
           <div className="w-5 h-5" />
         </div>
       </div>
-      <div className="bg-[#e2e8f0] flex-1 relative">
+      <div className={`flex-1 relative ${t(isDark, "bg-[#e2e8f0]", "bg-[#1E293B]")}`}>
         {/* Map placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#e8f4f8] to-[#d1e7dd]">
+        <div className={`absolute inset-0 ${t(isDark, "bg-gradient-to-b from-[#e8f4f8] to-[#d1e7dd]", "bg-gradient-to-b from-[#0F172A] to-[#1E293B]")}`}>
           {/* Grid lines simulating map */}
-          <div className="absolute inset-0 opacity-20">
+          <div className={`absolute inset-0 ${t(isDark, "opacity-20", "opacity-10")}`}>
             {[...Array(6)].map((_, i) => (
-              <div key={`h${i}`} className="absolute w-full h-px bg-[#94a3b8]" style={{ top: `${(i + 1) * 16}%` }} />
+              <div key={`h${i}`} className={`absolute w-full h-px ${t(isDark, "bg-[#94a3b8]", "bg-[#64748b]")}`} style={{ top: `${(i + 1) * 16}%` }} />
             ))}
             {[...Array(4)].map((_, i) => (
-              <div key={`v${i}`} className="absolute h-full w-px bg-[#94a3b8]" style={{ left: `${(i + 1) * 25}%` }} />
+              <div key={`v${i}`} className={`absolute h-full w-px ${t(isDark, "bg-[#94a3b8]", "bg-[#64748b]")}`} style={{ left: `${(i + 1) * 25}%` }} />
             ))}
           </div>
           {/* Route line */}
           <div className="absolute top-[30%] left-[25%] w-[50%] h-px bg-[#06B6D4] opacity-60" style={{ transform: "rotate(-25deg)" }} />
           {/* Nurse pin */}
           <div className="absolute top-[25%] left-[30%]">
-            <div className="w-6 h-6 rounded-full bg-[#06B6D4] flex items-center justify-center shadow-lg ring-2 ring-white">
+            <div className={`w-6 h-6 rounded-full bg-[#06B6D4] flex items-center justify-center shadow-lg ring-2 ${t(isDark, "ring-white", "ring-[#0F172A]")}`}>
               <span className="text-white text-[6px] font-bold">MC</span>
             </div>
             <div className="w-2 h-2 bg-[#06B6D4] rotate-45 mx-auto -mt-1" />
           </div>
           {/* Home pin */}
           <div className="absolute bottom-[35%] right-[25%]">
-            <div className="w-5 h-5 rounded-full bg-[#0F172A] flex items-center justify-center shadow-lg ring-2 ring-white">
+            <div className={`w-5 h-5 rounded-full bg-[#0F172A] flex items-center justify-center shadow-lg ring-2 ${t(isDark, "ring-white", "ring-[#06B6D4]")}`}>
               <span className="text-white text-[6px]">&#8962;</span>
             </div>
           </div>
         </div>
         {/* Bottom card */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-3 shadow-lg">
+        <div className={`absolute bottom-0 left-0 right-0 rounded-t-2xl p-3 shadow-lg ${t(isDark, "bg-white", "bg-[#1E293B]")}`}>
           <div className="flex items-center gap-2.5 mb-2">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-2 ring-[#f59e0b]">
               <span className="text-white text-[8px] font-bold">MC</span>
             </div>
             <div className="flex-1">
-              <p className="text-[9px] font-semibold text-[#0F172A]">Maria C. viene en camino</p>
+              <p className={`text-[9px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria C. viene en camino</p>
               <p className="text-[8px] text-[#06B6D4] font-medium">Llegando en 8 minutos</p>
             </div>
           </div>
@@ -386,17 +394,17 @@ function TrackingScreen() {
           <div className="flex items-center gap-1.5 mb-2">
             {["Confirmado", "En camino", "Llego", "En servicio"].map((step, i) => (
               <div key={step} className="flex-1">
-                <div className={`h-1 rounded-full ${i < 2 ? "bg-[#06B6D4]" : "bg-[#e2e8f0]"}`} />
+                <div className={`h-1 rounded-full ${i < 2 ? "bg-[#06B6D4]" : t(isDark, "bg-[#e2e8f0]", "bg-[#334155]")}`} />
                 <p className={`text-[6px] mt-0.5 ${i < 2 ? "text-[#06B6D4] font-medium" : "text-[#94a3b8]"}`}>{step}</p>
               </div>
             ))}
           </div>
           <div className="flex gap-2">
-            <div className="flex-1 bg-[#0F172A] rounded-lg py-1.5 text-center">
-              <span className="text-white text-[8px] font-semibold">Chat</span>
+            <div className={`flex-1 rounded-lg py-1.5 text-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+              <span className={`text-[8px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Chat</span>
             </div>
-            <div className="flex-1 bg-white rounded-lg py-1.5 text-center border border-[#e2e8f0]">
-              <span className="text-[#0F172A] text-[8px] font-semibold">Llamar</span>
+            <div className={`flex-1 rounded-lg py-1.5 text-center border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#0F172A] border-[#334155]")}`}>
+              <span className={`text-[8px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Llamar</span>
             </div>
           </div>
         </div>
@@ -411,6 +419,8 @@ const screens = [HomeScreen, NurseProfileScreen, ChatScreen, PaymentScreen, Trac
 export function Product() {
   const [activeScreen, setActiveScreen] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const nextScreen = useCallback(() => {
     setActiveScreen((prev) => (prev + 1) % screens.length);
@@ -505,12 +515,12 @@ export function Product() {
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
-              {/* Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] to-[#06B6D4] opacity-15 blur-[60px] rounded-full scale-110" />
+              {/* Glow - stronger in dark mode */}
+              <div className={`absolute inset-0 bg-gradient-to-br from-[#06B6D4] to-[#1E40AF] blur-[60px] rounded-full scale-110 transition-opacity duration-500 ${isDark ? "opacity-25" : "opacity-15"}`} />
 
               {/* Phone frame */}
-              <div className="relative bg-[#0F172A] rounded-[3rem] p-3 shadow-2xl">
-                <div className="bg-white rounded-[2.4rem] overflow-hidden aspect-[9/19] flex flex-col">
+              <div className={`relative bg-[#0F172A] rounded-[3rem] p-3 transition-shadow duration-500 ${isDark ? "shadow-[0_0_50px_rgba(6,182,212,0.2),0_0_100px_rgba(6,182,212,0.1)] ring-1 ring-[#06B6D4]/20" : "shadow-2xl"}`}>
+                <div className={`rounded-[2.4rem] overflow-hidden aspect-[9/19] flex flex-col ${t(isDark, "bg-white", "bg-[#0F172A]")}`}>
                   {/* Status bar */}
                   <div className="bg-[#0F172A] px-6 pt-3 pb-1.5 flex justify-between items-center text-white text-[10px] flex-shrink-0">
                     <span>9:41</span>
@@ -537,17 +547,17 @@ export function Product() {
                         transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                         className="absolute inset-0 flex flex-col overflow-hidden"
                       >
-                        <ActiveScreenComponent />
+                        <ActiveScreenComponent isDark={isDark} />
                       </motion.div>
                     </AnimatePresence>
                   </div>
 
                   {/* Tab bar */}
-                  <div className="bg-white border-t border-[#e2e8f0] px-5 py-1.5 flex justify-between flex-shrink-0">
+                  <div className={`border-t px-5 py-1.5 flex justify-between flex-shrink-0 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#0F172A] border-[#334155]")}`}>
                     {["Inicio", "Buscar", "Citas", "Perfil"].map((item, i) => (
                       <div key={item} className="flex flex-col items-center gap-0.5">
-                        <div className={`w-4 h-4 rounded-sm ${i === 0 ? "bg-[#0F172A]" : "bg-[#cbd5e1]"}`} />
-                        <span className={`text-[7px] ${i === 0 ? "text-[#0F172A] font-semibold" : "text-[#94a3b8]"}`}>{item}</span>
+                        <div className={`w-4 h-4 rounded-sm ${i === 0 ? (isDark ? "bg-[#06B6D4]" : "bg-[#0F172A]") : t(isDark, "bg-[#cbd5e1]", "bg-[#334155]")}`} />
+                        <span className={`text-[7px] ${i === 0 ? (isDark ? "text-[#06B6D4] font-semibold" : "text-[#0F172A] font-semibold") : "text-[#94a3b8]"}`}>{item}</span>
                       </div>
                     ))}
                   </div>
