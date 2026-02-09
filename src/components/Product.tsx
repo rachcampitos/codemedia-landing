@@ -416,6 +416,7 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
                 <div className="relative">
                   {/* Pulse ring - always rendered, animated via props for smooth transitions */}
                   <motion.div
+                    key={`pulse-${i}-${activeStep}`}
                     animate={
                       i === activeStep
                         ? { scale: [1, 2.5], opacity: [0.4, 0] }
@@ -423,7 +424,7 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
                     }
                     transition={
                       i === activeStep
-                        ? { duration: 1.5, repeat: Infinity, ease: "easeOut" }
+                        ? { duration: 1.4, ease: "easeOut" }
                         : { duration: 0.4 }
                     }
                     className="absolute inset-0 rounded-full"
