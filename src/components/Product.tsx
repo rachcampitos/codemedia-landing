@@ -24,7 +24,7 @@ const features = [
     icon: Shield,
     title: "Verificacion CEP",
     description:
-      "Cada enfermera es validada contra la base de datos del Colegio de Enfermeros del Peru.",
+      "Cada enfermera es validada directamente con la base de datos del Colegio de Enfermeros del Peru.",
     stat: "100% verificadas",
     gradient: "from-[#06B6D4] to-[#0891B2]",
   },

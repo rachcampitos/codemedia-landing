@@ -76,7 +76,7 @@ export const product = {
   name: "NurseLite",
   tagline: "Plataforma de enfermeria a domicilio que conecta familias con enfermeras certificadas en Peru.",
   description:
-    "Verificacion profesional contra el Colegio de Enfermeros, pagos seguros, chat en tiempo real. Software que resuelve problemas reales.",
+    "Verificacion profesional con el Colegio de Enfermeros del Peru, pagos seguros, chat en tiempo real. Software que resuelve problemas reales.",
   url: "https://nurse-lite.com",
   appUrl: "https://app.nurse-lite.com",
 };
