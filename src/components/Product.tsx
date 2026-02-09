@@ -145,7 +145,7 @@ function HomeScreen() {
 function NurseProfileScreen() {
   return (
     <>
-      <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-4 pt-2 pb-8 relative">
+      <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-4 pt-2 pb-5 relative">
         <div className="flex items-center justify-between mb-2">
           <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
             <span className="text-white text-[8px]">&larr;</span>
@@ -154,7 +154,7 @@ function NurseProfileScreen() {
           <div className="w-5 h-5" />
         </div>
       </div>
-      <div className="px-4 -mt-6 flex-1 bg-[#f8fafc]">
+      <div className="px-4 -mt-3 flex-1 bg-[#f8fafc]">
         <div className="flex flex-col items-center mb-3">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-3 ring-[#f59e0b] shadow-lg">
             <span className="text-white text-sm font-bold">MC</span>
