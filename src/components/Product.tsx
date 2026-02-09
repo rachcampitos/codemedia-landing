@@ -48,7 +48,7 @@ const features = [
     icon: Trophy,
     title: "Sistema de Niveles",
     description:
-      "Gamificacion profesional: Certified, Outstanding, Experienced y Elite basado en rendimiento.",
+      "Gamificacion profesional: Certificada, Destacada, Experimentada y Elite basado en rendimiento.",
     stat: "4 niveles",
     gradient: "from-[#D97706] to-[#F59E0B]",
   },
@@ -414,15 +414,21 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
             <div key={s.label} className="flex items-start gap-2.5">
               <div className="flex flex-col items-center">
                 <div className="relative">
-                  {/* Pulse ring on active step */}
-                  {i === activeStep && (
-                    <motion.div
-                      animate={{ scale: [1, 2.5], opacity: [0.5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                      className="absolute inset-0 rounded-full"
-                      style={{ background: s.color }}
-                    />
-                  )}
+                  {/* Pulse ring - always rendered, animated via props for smooth transitions */}
+                  <motion.div
+                    animate={
+                      i === activeStep
+                        ? { scale: [1, 2.5], opacity: [0.4, 0] }
+                        : { scale: 1, opacity: 0 }
+                    }
+                    transition={
+                      i === activeStep
+                        ? { duration: 1.5, repeat: Infinity, ease: "easeOut" }
+                        : { duration: 0.4 }
+                    }
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: s.color }}
+                  />
                   <div
                     className="relative w-4 h-4 rounded-full flex items-center justify-center transition-all duration-400"
                     style={{
