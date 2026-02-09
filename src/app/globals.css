@@ -391,6 +391,11 @@ section {
   50% { background-position: 100% 50%; }
 }
 
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.15; transform: scale(0.9); }
+  50% { opacity: 0.35; transform: scale(1.1); }
+}
+
 .gradient-text-animated {
   background: linear-gradient(90deg, #0F172A 0%, #1E40AF 25%, #06B6D4 50%, #1E40AF 75%, #0F172A 100%);
   background-size: 300% 100%;

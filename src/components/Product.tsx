@@ -342,13 +342,13 @@ function PaymentScreen({ isDark }: ScreenProps) {
   );
 }
 
-/* ── Service status steps ── */
+/* ── Service status steps (matching real NurseLite app) ── */
 const serviceSteps = [
-  { label: "Aceptado", sublabel: "Enfermera confirmada", color: "#22c55e" },
-  { label: "En camino", sublabel: "Llegando en 8 min", color: "#06B6D4" },
-  { label: "Llego", sublabel: "En tu domicilio", color: "#f59e0b" },
-  { label: "En servicio", sublabel: "Atencion en progreso", color: "#1E40AF" },
-  { label: "Completado", sublabel: "Servicio finalizado", color: "#10B981" },
+  { label: "Aceptado", sublabel: "Enfermera confirmada", gradient: "from-[#3b82f6] via-[#2563eb] to-[#1d4ed8]", color: "#3b82f6", icon: "\u2713" },
+  { label: "En camino", sublabel: "Llegando en 8 min", gradient: "from-[#f97316] via-[#ea580c] to-[#f97316]", color: "#f97316", icon: "\u2192" },
+  { label: "Llego", sublabel: "En tu domicilio", gradient: "from-[#f59e0b] via-[#d97706] to-[#f59e0b]", color: "#f59e0b", icon: "\u25CF" },
+  { label: "En servicio", sublabel: "Atencion en progreso", gradient: "from-[#10b981] via-[#059669] to-[#10b981]", color: "#10b981", icon: "\u2695" },
+  { label: "Completado", sublabel: "Servicio finalizado", gradient: "from-[#34d399] via-[#10b981] to-[#34d399]", color: "#10b981", icon: "\u2713" },
 ];
 
 function ServiceStatusScreen({ isDark }: ScreenProps) {
@@ -361,9 +361,11 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
     return () => clearInterval(timer);
   }, []);
 
+  const step = serviceSteps[activeStep];
+
   return (
     <>
-      <div className="bg-[#0F172A] px-4 pt-2 pb-3">
+      <div className="bg-[#0F172A] px-4 pt-2 pb-2.5">
         <div className="flex items-center justify-between">
           <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
             <span className="text-white text-[8px]">&larr;</span>
@@ -372,68 +374,87 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
           <div className="w-5 h-5" />
         </div>
       </div>
-      <div className={`px-4 py-3 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
-        {/* Active status banner */}
+      <div className={`px-3.5 py-3 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
+        {/* Gradient Banner - hero element with gradient-shift animation */}
         <motion.div
           key={activeStep}
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="rounded-xl p-3 mb-3"
-          style={{ background: `${serviceSteps[activeStep].color}15`, borderLeft: `3px solid ${serviceSteps[activeStep].color}` }}
+          transition={{ duration: 0.35 }}
+          className={`relative rounded-xl p-3 mb-3 overflow-hidden bg-gradient-to-r ${step.gradient}`}
+          style={{ backgroundSize: "200% 200%", animation: "gradient-shift 3s ease infinite" }}
         >
-          <div className="flex items-center gap-2.5">
+          {/* Pulse overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(circle at 30% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)",
+              animation: "pulse-glow 2s ease-in-out infinite",
+            }}
+          />
+          <div className="relative flex items-center gap-2.5">
             <motion.div
-              animate={{ scale: [1, 1.15, 1] }}
-              transition={{ duration: 1.2, repeat: Infinity }}
-              className="w-8 h-8 rounded-full flex items-center justify-center"
-              style={{ background: serviceSteps[activeStep].color }}
+              animate={{ scale: [1, 1.12, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm"
             >
-              <span className="text-white text-[10px] font-bold">
-                {activeStep < serviceSteps.length - 1 ? activeStep + 1 : "\u2713"}
-              </span>
+              <span className="text-white text-sm font-bold">{step.icon}</span>
             </motion.div>
-            <div>
-              <p className={`text-[10px] font-bold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>
-                {serviceSteps[activeStep].label}
-              </p>
-              <p className="text-[7px] text-[#64748b]">
-                {serviceSteps[activeStep].sublabel}
-              </p>
+            <div className="flex-1">
+              <p className="text-white text-[11px] font-bold">{step.label}</p>
+              <p className="text-white/70 text-[7px]">{step.sublabel}</p>
             </div>
+            <div className="text-white/40 text-[8px] font-mono">{activeStep + 1}/5</div>
           </div>
         </motion.div>
 
-        {/* Vertical timeline */}
-        <div className="pl-1 mb-3">
-          {serviceSteps.map((step, i) => (
-            <div key={step.label} className="flex items-start gap-2.5">
+        {/* Vertical timeline with pulse rings */}
+        <div className="pl-1 mb-2.5">
+          {serviceSteps.map((s, i) => (
+            <div key={s.label} className="flex items-start gap-2.5">
               <div className="flex flex-col items-center">
-                <motion.div
-                  animate={i === activeStep ? { boxShadow: [`0 0 0px ${step.color}00`, `0 0 10px ${step.color}80`, `0 0 0px ${step.color}00`] } : {}}
-                  transition={i === activeStep ? { duration: 1.2, repeat: Infinity } : {}}
-                  className="w-4 h-4 rounded-full flex items-center justify-center transition-all duration-400"
-                  style={{
-                    background: i <= activeStep ? step.color : isDark ? "#334155" : "#e2e8f0",
-                  }}
-                >
-                  {i < activeStep ? (
-                    <span className="text-white text-[6px] font-bold">{"\u2713"}</span>
-                  ) : i === activeStep ? (
-                    <motion.span
-                      animate={{ opacity: [1, 0.4, 1] }}
-                      transition={{ duration: 0.8, repeat: Infinity }}
-                      className="w-1.5 h-1.5 rounded-full bg-white"
+                <div className="relative">
+                  {/* Pulse ring on active step */}
+                  {i === activeStep && (
+                    <motion.div
+                      animate={{ scale: [1, 2.5], opacity: [0.5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-full"
+                      style={{ background: s.color }}
                     />
-                  ) : (
-                    <span className={`w-1 h-1 rounded-full ${isDark ? "bg-[#64748b]" : "bg-[#94a3b8]"}`} />
                   )}
-                </motion.div>
-                {i < serviceSteps.length - 1 && (
                   <div
-                    className="w-0.5 h-4 transition-all duration-400"
-                    style={{ background: i < activeStep ? step.color : isDark ? "#334155" : "#e2e8f0" }}
-                  />
+                    className="relative w-4 h-4 rounded-full flex items-center justify-center transition-all duration-400"
+                    style={{
+                      background: i <= activeStep ? s.color : isDark ? "#334155" : "#e2e8f0",
+                    }}
+                  >
+                    {i < activeStep ? (
+                      <span className="text-white text-[6px] font-bold">{"\u2713"}</span>
+                    ) : i === activeStep ? (
+                      <motion.span
+                        animate={{ opacity: [1, 0.3, 1] }}
+                        transition={{ duration: 0.8, repeat: Infinity }}
+                        className="w-1.5 h-1.5 rounded-full bg-white"
+                      />
+                    ) : (
+                      <span className={`w-1 h-1 rounded-full ${isDark ? "bg-[#64748b]" : "bg-[#94a3b8]"}`} />
+                    )}
+                  </div>
+                </div>
+                {i < serviceSteps.length - 1 && (
+                  <div className="relative w-0.5 h-4">
+                    <div className={`absolute inset-0 ${isDark ? "bg-[#334155]" : "bg-[#e2e8f0]"}`} />
+                    {i < activeStep && (
+                      <motion.div
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 origin-top"
+                        style={{ background: s.color }}
+                      />
+                    )}
+                  </div>
                 )}
               </div>
               <div className="-mt-0.5 pb-1">
@@ -442,7 +463,7 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
                     ? t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")
                     : "text-[#94a3b8]"
                 }`}>
-                  {step.label}
+                  {s.label}
                 </p>
                 {i <= activeStep && (
                   <p className="text-[6px] text-[#64748b]">
@@ -455,13 +476,13 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
         </div>
 
         {/* Nurse card */}
-        <div className={`rounded-xl p-2.5 flex items-center gap-2 border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-2 ring-[#f59e0b]">
-            <span className="text-white text-[7px] font-bold">MC</span>
+        <div className={`rounded-xl p-2 flex items-center gap-2 border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
+          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-2 ring-[#f59e0b]">
+            <span className="text-white text-[6px] font-bold">MC</span>
           </div>
           <div className="flex-1">
             <p className={`text-[8px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria C.</p>
-            <p className="text-[7px] text-[#06B6D4]">Enfermera Elite</p>
+            <p className="text-[6px] text-[#06B6D4]">Enfermera Elite</p>
           </div>
           <div className={`rounded-lg px-2 py-1 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
             <span className={`text-[7px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Chat</span>
@@ -512,15 +533,15 @@ function SecurityCodeScreen({ isDark }: ScreenProps) {
           Comparte este codigo con tu enfermera al llegar
         </p>
 
-        {/* Code display */}
-        <div className="flex gap-2 mb-3">
-          {["4", "7", "2", "8"].map((digit, i) => (
+        {/* Code display - 6 digits like the real app */}
+        <div className="flex gap-1.5 mb-3">
+          {["4", "7", "2", "8", "1", "5"].map((digit, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.3 }}
-              className={`w-10 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-sm border ${
+              transition={{ delay: i * 0.08, duration: 0.3 }}
+              className={`w-8 h-10 rounded-lg flex items-center justify-center text-base font-bold shadow-sm border ${
                 t(isDark,
                   "bg-white border-[#e2e8f0] text-[#0F172A]",
                   "bg-[#1E293B] border-[#334155] text-[#F8FAFC]"
