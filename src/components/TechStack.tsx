@@ -10,19 +10,19 @@ const categories = [
     key: "frontend" as const,
     label: "Frontend",
     icon: Monitor,
-    gradient: "from-[#E74C3C] to-[#FF6B5A]",
+    gradient: "from-[#0F172A] to-[#1E40AF]",
   },
   {
     key: "backend" as const,
     label: "Backend",
     icon: Server,
-    gradient: "from-[#3498DB] to-[#2980B9]",
+    gradient: "from-[#06B6D4] to-[#0891B2]",
   },
   {
     key: "devops" as const,
     label: "DevOps",
     icon: Cloud,
-    gradient: "from-[#F39C12] to-[#E67E22]",
+    gradient: "from-[#F59E0B] to-[#D97706]",
   },
   {
     key: "integrations" as const,

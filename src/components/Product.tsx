@@ -31,7 +31,7 @@ export function Product() {
       <div className="container mx-auto px-6">
         <AnimatedSection className="text-center mb-20">
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Producto Destacado
+            Caso de Exito
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
             {product.name}
@@ -64,7 +64,7 @@ export function Product() {
                   transition={{ delay: i * 0.12 }}
                   className="glass-card rounded-2xl p-5 flex items-start gap-4"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#1e3a5f] to-[#4a9d9a] flex items-center justify-center flex-shrink-0">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#0F172A] to-[#06B6D4] flex items-center justify-center flex-shrink-0">
                     <feature.icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -118,18 +118,18 @@ export function Product() {
           <AnimatedSection direction="right">
             <div className="relative max-w-[280px] mx-auto">
               {/* Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f] to-[#4a9d9a] opacity-15 blur-[60px] rounded-full scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] to-[#06B6D4] opacity-15 blur-[60px] rounded-full scale-110" />
 
-              <div className="relative bg-[#1a1a2e] rounded-[3rem] p-3 shadow-2xl">
+              <div className="relative bg-[#0F172A] rounded-[3rem] p-3 shadow-2xl">
                 <div className="bg-white rounded-[2.4rem] overflow-hidden aspect-[9/19]">
-                  <div className="bg-[#1e3a5f] px-6 pt-3 pb-2 flex justify-between items-center text-white text-[10px]">
+                  <div className="bg-[#0F172A] px-6 pt-3 pb-2 flex justify-between items-center text-white text-[10px]">
                     <span>9:41</span>
                     <div className="w-3.5 h-2 border border-white/80 rounded-sm relative">
                       <div className="absolute inset-0.5 bg-white/80 rounded-[1px]" />
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-b from-[#1e3a5f] to-[#2d5f8a] px-5 pt-3 pb-6">
+                  <div className="bg-gradient-to-b from-[#0F172A] to-[#1E40AF] px-5 pt-3 pb-6">
                     <div className="flex items-center gap-2 mb-4">
                       <Image
                         src="/nurselite-logo.png"
@@ -148,11 +148,11 @@ export function Product() {
                   </div>
 
                   <div className="px-4 py-4 bg-[#f8fafc]">
-                    <p className="text-[10px] font-semibold text-[#1a1a2e] mb-2">Servicios populares</p>
+                    <p className="text-[10px] font-semibold text-[#0F172A] mb-2">Servicios populares</p>
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       {[
-                        { label: "Inyecciones", color: "#4a9d9a" },
-                        { label: "Curaciones", color: "#1e3a5f" },
+                        { label: "Inyecciones", color: "#06B6D4" },
+                        { label: "Curaciones", color: "#0F172A" },
                         { label: "Control vital", color: "#f59e0b" },
                         { label: "Terapia", color: "#22c55e" },
                       ].map((s) => (
@@ -160,18 +160,18 @@ export function Product() {
                           <div className="w-6 h-6 rounded-lg mb-1.5" style={{ background: `${s.color}20` }}>
                             <div className="w-3 h-3 rounded m-1.5" style={{ background: s.color }} />
                           </div>
-                          <p className="text-[9px] font-medium text-[#1a1a2e]">{s.label}</p>
+                          <p className="text-[9px] font-medium text-[#0F172A]">{s.label}</p>
                         </div>
                       ))}
                     </div>
 
-                    <p className="text-[10px] font-semibold text-[#1a1a2e] mb-2">Enfermera destacada</p>
+                    <p className="text-[10px] font-semibold text-[#0F172A] mb-2">Enfermera destacada</p>
                     <div className="bg-white rounded-xl p-3 shadow-sm border border-[#e2e8f0] flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#4a9d9a] to-[#1e3a5f] flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center flex-shrink-0">
                         <span className="text-white text-xs font-bold">MC</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-semibold text-[#1a1a2e]">Maria C.</p>
+                        <p className="text-[10px] font-semibold text-[#0F172A]">Maria C.</p>
                         <div className="flex items-center gap-1">
                           <div className="flex">
                             {[...Array(5)].map((_, i) => (
@@ -182,9 +182,9 @@ export function Product() {
                           </div>
                           <span className="text-[8px] text-[#64748b]">4.9</span>
                         </div>
-                        <p className="text-[8px] text-[#4a9d9a] font-medium">CEP Verificada</p>
+                        <p className="text-[8px] text-[#06B6D4] font-medium">CEP Verificada</p>
                       </div>
-                      <div className="bg-[#1e3a5f] rounded-lg px-2 py-1">
+                      <div className="bg-[#0F172A] rounded-lg px-2 py-1">
                         <span className="text-white text-[8px] font-semibold">Ver</span>
                       </div>
                     </div>
@@ -193,8 +193,8 @@ export function Product() {
                   <div className="bg-white border-t border-[#e2e8f0] px-6 py-2 flex justify-between">
                     {["Inicio", "Buscar", "Citas", "Perfil"].map((item, i) => (
                       <div key={item} className="flex flex-col items-center gap-0.5">
-                        <div className={`w-4 h-4 rounded-sm ${i === 0 ? 'bg-[#1e3a5f]' : 'bg-[#cbd5e1]'}`} />
-                        <span className={`text-[7px] ${i === 0 ? 'text-[#1e3a5f] font-semibold' : 'text-[#94a3b8]'}`}>{item}</span>
+                        <div className={`w-4 h-4 rounded-sm ${i === 0 ? 'bg-[#0F172A]' : 'bg-[#cbd5e1]'}`} />
+                        <span className={`text-[7px] ${i === 0 ? 'text-[#0F172A] font-semibold' : 'text-[#94a3b8]'}`}>{item}</span>
                       </div>
                     ))}
                   </div>

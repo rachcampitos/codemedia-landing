@@ -9,9 +9,9 @@ import {
 export const siteConfig = {
   name: "Code Media",
   legalName: "Code Media EIRL",
-  tagline: "Tecnologia peruana que conquista el mundo",
+  tagline: "Software profesional para empresas que crecen",
   description:
-    "Desarrollamos software con la precision de nuestros ancestros y la innovacion del siglo XXI. Apps y plataformas que conectan tu negocio con miles de usuarios.",
+    "Desarrollamos aplicaciones moviles, web y APIs que escalan con tu negocio. Arquitecturas solidas, codigo limpio, resultados medibles.",
   url: "https://codemediaperu.com",
   location: "Lima, Peru",
   email: "contacto@codemediaperu.com",
@@ -31,7 +31,7 @@ export const navLinks = [
 export const stats = [
   { value: "1,000+", label: "Usuarios Activos" },
   { value: "99.9%", label: "Uptime Produccion" },
-  { value: "8+", label: "Tecnologias Modernas" },
+  { value: "80%+", label: "Cobertura de Tests" },
 ];
 
 export interface Service {
@@ -46,37 +46,37 @@ export const services: Service[] = [
     icon: Smartphone,
     title: "Aplicaciones Moviles",
     description:
-      "Apps iOS y Android con un solo codigo base. Misma tecnologia que impulsa NurseLite, donde enfermeras verificadas atienden pacientes reales todos los dias.",
+      "Apps nativas e hibridas optimizadas para iOS y Android. Misma tecnologia que impulsa NurseLite en produccion con miles de usuarios.",
     tags: ["Ionic", "Angular", "Capacitor"],
   },
   {
     icon: Globe,
-    title: "Aplicaciones Web",
+    title: "Plataformas Web",
     description:
-      "Desde landing pages de alta conversion hasta dashboards empresariales. Esta misma web esta hecha con Next.js: rapida, SEO-optimizada y en Cloudflare.",
+      "Interfaces rapidas, modernas y responsive. Desde landing pages de alta conversion hasta dashboards empresariales complejos.",
     tags: ["Next.js", "React", "TypeScript"],
   },
   {
     icon: Server,
     title: "Backend & APIs",
     description:
-      "Arquitecturas que aguantan crecimiento. Chat en tiempo real, pagos con Culqi, autenticacion JWT: todo lo que NurseLite necesito, lo construimos.",
+      "Arquitecturas escalables y seguras. Chat en tiempo real, pagos integrados, autenticacion robusta: infraestructura que crece contigo.",
     tags: ["NestJS", "Node.js", "MongoDB"],
   },
   {
     icon: Palette,
-    title: "UI/UX Design",
+    title: "Diseno UI/UX",
     description:
-      "Interfaces que los peruanos realmente usan. Diseno mobile-first que funciona con 3G. Botones grandes, flujos claros, cero confusion.",
+      "Interfaces que los usuarios entienden desde el primer uso. Mobile-first, accesibles, con design systems documentados.",
     tags: ["Figma", "Design Systems", "Prototyping"],
   },
 ];
 
 export const product = {
   name: "NurseLite",
-  tagline: "1,000+ conexiones entre pacientes y enfermeras CEP",
+  tagline: "Plataforma de enfermeria a domicilio en produccion",
   description:
-    "NurseLite es la prueba de que Code Media no solo escribe codigo, sino que resuelve problemas reales. Conectamos familias peruanas con enfermeras verificadas 24/7 con pagos seguros y chat en tiempo real.",
+    "NurseLite conecta familias con enfermeras certificadas para atencion domiciliaria en Peru. Es nuestra prueba de que construimos software que resuelve problemas reales: verificacion profesional, pagos seguros y comunicacion en tiempo real.",
   url: "https://nurse-lite.com",
   appUrl: "https://app.nurse-lite.com",
   stats: [

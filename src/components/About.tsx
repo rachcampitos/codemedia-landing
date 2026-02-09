@@ -10,22 +10,22 @@ const values = [
     icon: Target,
     title: "Enfoque a Medida",
     description:
-      "Cada proyecto es unico. Desarrollamos soluciones personalizadas que se adaptan exactamente a las necesidades del negocio.",
-    gradient: "from-[#E74C3C] to-[#C0392B]",
+      "Cada proyecto es unico. Desarrollamos soluciones que se adaptan a las necesidades reales del negocio, no al reves.",
+    gradient: "from-[#0F172A] to-[#1E40AF]",
   },
   {
     icon: Lightbulb,
     title: "Stack Probado en Produccion",
     description:
-      "Ionic, Next.js, NestJS, MongoDB. No experimentamos con tu presupuesto. Usamos tecnologias que las grandes empresas ya validaron.",
-    gradient: "from-[#3498DB] to-[#2980B9]",
+      "Ionic, Next.js, NestJS, MongoDB. No experimentamos con tu presupuesto. Usamos tecnologias que ya validamos con usuarios reales.",
+    gradient: "from-[#06B6D4] to-[#0891B2]",
   },
   {
     icon: Zap,
     title: "Entrega Continua",
     description:
       "Deploy automatico en cada push. Tu producto evoluciona cada semana. Veras progreso real en dias, no en meses.",
-    gradient: "from-[#F39C12] to-[#E67E22]",
+    gradient: "from-[#F59E0B] to-[#D97706]",
   },
 ];
 
@@ -38,13 +38,13 @@ export function About() {
             Sobre Nosotros
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Software peruano,{" "}
-            <span className="gradient-text-animated">estandares globales</span>
+            Experiencia tecnica,{" "}
+            <span className="gradient-text-animated">comunicacion clara</span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            En Code Media fusionamos la identidad cultural peruana con las
-            tecnologias mas avanzadas del mercado. Nuestro codigo esta en
-            produccion, atendiendo usuarios reales todos los dias.
+            Somos un equipo de ingenieros especializados en aplicaciones
+            de alto rendimiento. Nuestro codigo esta en produccion,
+            atendiendo usuarios reales todos los dias.
           </p>
         </AnimatedSection>
 

@@ -83,7 +83,7 @@ export function Hero() {
                   onClick={(e) => scrollTo(e, "producto")}
                   className="btn-primary justify-center"
                 >
-                  Ver nuestro caso de exito
+                  Ver nuestro trabajo
                   <ArrowDown className="w-4 h-4" />
                 </a>
                 <a
@@ -91,7 +91,7 @@ export function Hero() {
                   onClick={(e) => scrollTo(e, "contacto")}
                   className="btn-secondary justify-center"
                 >
-                  Cotiza tu proyecto
+                  Agendar consultoria
                 </a>
               </motion.div>
 

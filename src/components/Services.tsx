@@ -18,11 +18,11 @@ export function Services() {
             Servicios
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            El stack completo para tu idea
+            Servicios end-to-end
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            Ofrecemos servicios integrales de desarrollo de software,
-            desde la concepcion hasta el despliegue y mantenimiento.
+            Desde el diseno UX hasta el deployment en produccion.
+            Todo bajo un mismo equipo.
           </p>
         </AnimatedSection>
 
@@ -38,7 +38,7 @@ export function Services() {
           >
             <div className="glass-premium rounded-3xl p-10 h-full flex flex-col justify-between">
               <div>
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#E74C3C] to-[#FF6B5A] flex items-center justify-center mb-6 shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#1E40AF] flex items-center justify-center mb-6 shadow-lg">
                   <FeaturedIcon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-bold text-[var(--secondary)] dark:text-white mb-4">
@@ -74,8 +74,8 @@ export function Services() {
               >
                 <div className="glass-card rounded-3xl p-8 h-full">
                   <div className="flex items-start gap-5">
-                    <div className="w-14 h-14 rounded-xl bg-[#E74C3C]/10 dark:bg-[#FF7A68]/15 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-7 h-7 text-[#E74C3C] dark:text-[#FF7A68]" />
+                    <div className="w-14 h-14 rounded-xl bg-[#06B6D4]/10 dark:bg-[#22D3EE]/15 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-7 h-7 text-[#06B6D4] dark:text-[#22D3EE]" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-bold text-[var(--secondary)] dark:text-white mb-3">
@@ -112,7 +112,7 @@ export function Services() {
             >
               <div className="glass-card rounded-3xl p-10">
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#3498DB] to-[#2980B9] flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#06B6D4] to-[#0891B2] flex items-center justify-center flex-shrink-0 shadow-lg">
                     <BottomIcon className="w-10 h-10 text-white" />
                   </div>
                   <div className="flex-1 text-center md:text-left">

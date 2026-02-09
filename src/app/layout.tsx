@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Code Media - Desarrollo de Software a Medida",
     description:
-      "Transformamos ideas en software. Aplicaciones moviles, web y APIs con tecnologias modernas.",
+      "Software profesional para empresas que crecen. Aplicaciones moviles, web y APIs.",
     url: "https://codemediaperu.com",
     siteName: "Code Media",
     locale: "es_PE",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Code Media - Desarrollo de Software a Medida",
     description:
-      "Transformamos ideas en software. Aplicaciones moviles, web y APIs con tecnologias modernas.",
+      "Software profesional para empresas que crecen. Aplicaciones moviles, web y APIs.",
   },
   robots: {
     index: true,
@@ -77,7 +77,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#E74C3C" />
+        <meta name="theme-color" content="#0F172A" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -101,7 +101,7 @@ export default function RootLayout({
       >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#E74C3C] focus:text-white focus:rounded-lg"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#0F172A] focus:text-white focus:rounded-lg"
         >
           Saltar al contenido principal
         </a>

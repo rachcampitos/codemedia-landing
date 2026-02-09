@@ -13,12 +13,12 @@ export function Contact() {
             Contacto
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Cotiza tu proyecto en{" "}
-            <span className="gradient-text">24 horas</span>
+            Listo para{" "}
+            <span className="gradient-text">comenzar?</span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            Ya construimos una plataforma de salud en produccion. Ya integramos
-            APIs del gobierno peruano. Tu proyecto es el siguiente.
+            Agenda una consultoria tecnica gratuita.
+            Conversemos sobre tu idea, presupuesto y timeline.
           </p>
         </AnimatedSection>
 
@@ -52,7 +52,7 @@ export function Contact() {
                 href={`mailto:${siteConfig.email}`}
                 className="glass-premium rounded-3xl p-8 flex flex-col items-center text-center h-full block"
               >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#E74C3C] to-[#C0392B] flex items-center justify-center mb-5 shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#1E40AF] flex items-center justify-center mb-5 shadow-lg">
                   <Mail className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-[var(--secondary)] dark:text-white font-bold text-xl mb-2">
@@ -71,8 +71,8 @@ export function Contact() {
 
           <AnimatedSection delay={0.2} className="mt-6">
             <div className="glass-card rounded-2xl p-6 flex items-center justify-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-[#3498DB]/10 flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-5 h-5 text-[#3498DB]" />
+              <div className="w-11 h-11 rounded-xl bg-[#06B6D4]/10 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-5 h-5 text-[#06B6D4]" />
               </div>
               <div>
                 <p className="font-bold text-[var(--secondary)] dark:text-white">

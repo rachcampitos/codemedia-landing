@@ -72,7 +72,7 @@ export function Header() {
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/90 dark:bg-black/90 backdrop-blur-lg shadow-md"
+            ? "bg-white/90 dark:bg-[#0A0A0A]/90 backdrop-blur-lg shadow-md"
             : "bg-transparent"
         }`}
       >
@@ -159,7 +159,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-black pt-24 px-6 lg:hidden"
+            className="fixed inset-0 z-40 bg-white dark:bg-[#0A0A0A] pt-24 px-6 lg:hidden"
           >
             <nav className="flex flex-col gap-4">
               {navLinks.map((link, index) => (
