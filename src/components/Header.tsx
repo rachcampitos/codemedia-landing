@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { ThemeToggle } from "./ui/ThemeToggle";
 import { navLinks } from "@/data/content";
 
@@ -79,15 +78,7 @@ export function Header() {
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/codemedia-logo.png"
-                alt="Code Media logo"
-                width={40}
-                height={40}
-                className="rounded-lg object-contain"
-                priority
-              />
+            <Link href="/" className="flex items-center">
               <span className="text-xl font-bold text-[var(--secondary)] dark:text-white">
                 Code<span className="gradient-text-animated">Media</span><span className="text-[#06B6D4]">/</span>
               </span>

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  AnimatePresence,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { siteConfig } from "@/data/content";
 import { useRef, useState, useEffect } from "react";
@@ -26,9 +20,8 @@ const codeLines = [
 
 const FULL_NAME = "CodeMedia";
 const CHAR_DELAY = 100;
-const SLASH_JUMP_DELAY = 350;
 
-type Phase = "waiting" | "typing" | "jumping" | "done";
+type Phase = "waiting" | "typing" | "done";
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -76,13 +69,9 @@ export function Hero() {
       return () => clearTimeout(timer);
     }
 
-    // Typing complete, jump slash to end
-    const jumpTimer = setTimeout(() => {
-      setPhase("jumping");
-      setTimeout(() => setPhase("done"), 100);
-    }, SLASH_JUMP_DELAY);
-
-    return () => clearTimeout(jumpTimer);
+    // Typing complete
+    const doneTimer = setTimeout(() => setPhase("done"), 300);
+    return () => clearTimeout(doneTimer);
   }, [phase, charIndex]);
 
   const scrollTo = (e: React.MouseEvent, id: string) => {
@@ -92,7 +81,7 @@ export function Hero() {
   };
 
   const contentReady = phase === "done";
-  const showSlashBefore = phase === "waiting" || phase === "typing";
+  const isTyping = phase === "waiting" || phase === "typing";
 
   return (
     <section
@@ -120,21 +109,7 @@ export function Hero() {
               className="text-5xl sm:text-6xl md:text-7xl font-bold text-[var(--secondary)] dark:text-white mb-6"
             >
               <span aria-hidden="true">
-                {/* Slash before text (typing phase) */}
-                <AnimatePresence mode="wait">
-                  {showSlashBefore && (
-                    <motion.span
-                      key="slash-before"
-                      exit={{ opacity: 0, x: -8 }}
-                      transition={{ duration: 0.15 }}
-                      className="text-[#06B6D4]"
-                    >
-                      /
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-
-                {/* Typed characters */}
+                {/* Typed characters appear BEFORE the slash */}
                 <span>
                   {FULL_NAME.slice(0, 4).slice(0, charIndex)}
                 </span>
@@ -142,25 +117,12 @@ export function Hero() {
                   {charIndex > 4 ? FULL_NAME.slice(4, charIndex) : ""}
                 </span>
 
-                {/* Slash after text (done phase) */}
-                <AnimatePresence>
-                  {(phase === "jumping" || phase === "done") && (
-                    <motion.span
-                      key="slash-after"
-                      initial={{ opacity: 0, x: 8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="text-[#06B6D4]"
-                    >
-                      /
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-
-                {/* Blinking cursor */}
-                {!contentReady && (
-                  <span className="inline-block w-[3px] h-[0.85em] bg-[#06B6D4] ml-0.5 align-middle animate-[cursor-blink_0.8s_linear_infinite]" />
-                )}
+                {/* Single slash - always at the end, acts as cursor while typing */}
+                <span
+                  className={`text-[#06B6D4] ${isTyping ? "animate-[cursor-blink_0.8s_linear_infinite]" : ""}`}
+                >
+                  /
+                </span>
               </span>
             </h1>
 
