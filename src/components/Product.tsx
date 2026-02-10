@@ -72,7 +72,7 @@ const screenLabels = [
   "Codigo de Seguridad",
 ];
 
-const slideDurations = [4500, 4500, 4500, 4500, 9000, 5000];
+const slideDurations = [4500, 4500, 4500, 4500, 7500, 5000];
 
 /* Star SVG reusable */
 const Star = () => (
@@ -144,8 +144,8 @@ function HomeScreen({ isDark }: ScreenProps) {
             </div>
             <p className="text-[7px] text-[#06B6D4] font-medium">CEP 108887 Verificada</p>
           </div>
-          <div className={`rounded-lg px-2 py-1 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
-            <span className={`text-[7px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Ver</span>
+          <div className={`rounded-lg px-2 py-1 flex items-center justify-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+            <span className={`text-[7px] font-semibold leading-none ${t(isDark, "text-white", "text-[#0F172A]")}`}>Ver</span>
           </div>
         </div>
       </div>
@@ -199,8 +199,8 @@ function NurseProfileScreen({ isDark }: ScreenProps) {
             <span key={s} className={`text-[7px] px-1.5 py-0.5 rounded-full font-medium ${t(isDark, "bg-[#06B6D4]/10 text-[#0891B2]", "bg-[#06B6D4]/20 text-[#22D3EE]")}`}>{s}</span>
           ))}
         </div>
-        <div className={`rounded-xl py-2 text-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
-          <span className={`text-[9px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Solicitar Servicio</span>
+        <div className={`rounded-xl py-2 flex items-center justify-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+          <span className={`text-[9px] font-semibold leading-none ${t(isDark, "text-white", "text-[#0F172A]")}`}>Solicitar Servicio</span>
         </div>
       </div>
     </>
@@ -334,8 +334,8 @@ function PaymentScreen({ isDark }: ScreenProps) {
           <span className="text-[7px]">&#128274;</span>
           <span className="text-[7px] text-[#64748b]">Procesado por Culqi - SSL 256-bit</span>
         </div>
-        <div className={`rounded-xl py-2.5 text-center ${t(isDark, "bg-gradient-to-r from-[#0F172A] to-[#1E40AF]", "bg-gradient-to-r from-[#06B6D4] to-[#0891B2]")}`}>
-          <span className={`text-[9px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Pagar S/ 80.00</span>
+        <div className={`rounded-xl py-2.5 flex items-center justify-center ${t(isDark, "bg-gradient-to-r from-[#0F172A] to-[#1E40AF]", "bg-gradient-to-r from-[#06B6D4] to-[#0891B2]")}`}>
+          <span className={`text-[9px] font-semibold leading-none ${t(isDark, "text-white", "text-[#0F172A]")}`}>Pagar S/ 80.00</span>
         </div>
       </div>
     </>
@@ -355,9 +355,10 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
   const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
+    setActiveStep(0);
     const timer = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % serviceSteps.length);
-    }, 1600);
+      setActiveStep((prev) => (prev >= serviceSteps.length - 1 ? prev : prev + 1));
+    }, 1500);
     return () => clearInterval(timer);
   }, []);
 
@@ -491,8 +492,8 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
             <p className={`text-[8px] font-semibold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Maria C.</p>
             <p className="text-[6px] text-[#06B6D4]">Enfermera Elite</p>
           </div>
-          <div className={`rounded-lg px-2 py-1 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
-            <span className={`text-[7px] font-semibold ${t(isDark, "text-white", "text-[#0F172A]")}`}>Chat</span>
+          <div className={`rounded-lg px-2 py-1 flex items-center justify-center ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
+            <span className={`text-[7px] font-semibold leading-none ${t(isDark, "text-white", "text-[#0F172A]")}`}>Chat</span>
           </div>
         </div>
       </div>
