@@ -15,9 +15,9 @@ export const siteConfig = {
   url: "https://codemediaperu.com",
   location: "Lima, Peru",
   email: "contacto@codemediaperu.com",
-  whatsapp: "+51987654321",
+  whatsapp: "+51939175392",
   whatsappLink:
-    "https://wa.me/51987654321?text=Hola%20Code%20Media%2C%20tengo%20un%20proyecto%20en%20mente",
+    "https://wa.me/51939175392?text=Hola%20Code%20Media%2C%20tengo%20un%20proyecto%20en%20mente",
 };
 
 export const navLinks = [
