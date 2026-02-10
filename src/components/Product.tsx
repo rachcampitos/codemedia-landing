@@ -307,7 +307,7 @@ function PaymentScreen({ isDark }: ScreenProps) {
           </div>
           <div className={`border-t pt-2 flex justify-between ${t(isDark, "border-[#e2e8f0]", "border-[#334155]")}`}>
             <span className="text-[8px] text-[#64748b]">Total</span>
-            <span className={`text-[12px] font-bold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>S/ 80.00</span>
+            <span className={`text-[12px] font-bold ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>S/ 40.00</span>
           </div>
         </div>
         <p className={`text-[8px] font-semibold mb-2 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>Metodo de pago</p>
@@ -335,7 +335,7 @@ function PaymentScreen({ isDark }: ScreenProps) {
           <span className="text-[7px] text-[#64748b]">Procesado por Culqi - SSL 256-bit</span>
         </div>
         <div className={`rounded-xl py-2.5 flex items-center justify-center ${t(isDark, "bg-gradient-to-r from-[#0F172A] to-[#1E40AF]", "bg-gradient-to-r from-[#06B6D4] to-[#0891B2]")}`}>
-          <span className={`text-[9px] font-semibold leading-none ${t(isDark, "text-white", "text-[#0F172A]")}`}>Pagar S/ 80.00</span>
+          <span className={`text-[9px] font-semibold leading-none ${t(isDark, "text-white", "text-[#0F172A]")}`}>Pagar S/ 40.00</span>
         </div>
       </div>
     </>
