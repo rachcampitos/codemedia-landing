@@ -24,6 +24,7 @@ export const navLinks = [
   { href: "#inicio", label: "Inicio", sectionId: "inicio" },
   { href: "#nosotros", label: "Nosotros", sectionId: "nosotros" },
   { href: "#producto", label: "Producto", sectionId: "producto" },
+  { href: "#portafolio", label: "Portafolio", sectionId: "portafolio" },
   { href: "#servicios", label: "Servicios", sectionId: "servicios" },
   { href: "#contacto", label: "Contacto", sectionId: "contacto" },
 ];
@@ -107,6 +108,52 @@ export const techStack = {
     { name: "Cloudinary", category: "Media" },
   ],
 };
+
+export interface PortfolioProject {
+  title: string;
+  subtitle: string;
+  description: string;
+  image?: string;
+  gradient: string;
+  tags: string[];
+  category: string;
+  url?: string;
+  highlights: string[];
+}
+
+export const portfolio: PortfolioProject[] = [
+  {
+    title: "NurseLite",
+    subtitle: "Plataforma de enfermeria a domicilio",
+    description:
+      "App movil y web que conecta pacientes con enfermeras certificadas en Peru. Verificacion profesional CEP, pagos con Culqi/Yape, chat en tiempo real y sistema de niveles.",
+    gradient: "from-[#0F172A] to-[#06B6D4]",
+    tags: ["Ionic", "Angular", "NestJS", "MongoDB", "Socket.io", "Culqi"],
+    category: "Healthcare SaaS",
+    url: "https://nurse-lite.com",
+    highlights: [
+      "1,000+ usuarios activos",
+      "768 tests automatizados",
+      "Chat en tiempo real",
+    ],
+  },
+  {
+    title: "Frankie & Rodrigo",
+    subtitle: "Sitio web de boda interactivo",
+    description:
+      "Pagina web de boda con estetica mistica y tarot. Incluye RSVP con base de datos, galeria de fotos, countdown animado, sistema de FAQ y panel de administracion.",
+    image: "/portfolio/boda-rodrigo.jpg",
+    gradient: "from-[#1a1025] to-[#8B7BB8]",
+    tags: ["HTML/CSS/JS", "Express.js", "MongoDB", "Cloudflare"],
+    category: "Web Design",
+    url: undefined,
+    highlights: [
+      "Tema tarot/mistico",
+      "RSVP en tiempo real",
+      "Animaciones canvas",
+    ],
+  },
+];
 
 export const process = [
   {
