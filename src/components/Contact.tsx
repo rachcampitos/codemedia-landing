@@ -2,23 +2,25 @@
 
 import { AnimatedSection } from "./ui/AnimatedSection";
 import { siteConfig } from "@/data/content";
+import { useLanguage } from "@/i18n";
 import { Mail, MessageCircle, MapPin, Clock } from "lucide-react";
 
 export function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id="contacto">
       <div className="container mx-auto px-6">
         <AnimatedSection className="text-center mb-20">
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Contacto
+            {t("contact.label")}
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Listo para{" "}
-            <span className="gradient-text">comenzar?</span>
+            {t("contact.title")}{" "}
+            <span className="gradient-text">{t("contact.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            Agenda una consultoria tecnica gratuita.
-            Conversemos sobre tu idea, presupuesto y timeline.
+            {t("contact.description")}
           </p>
         </AnimatedSection>
 
@@ -35,14 +37,14 @@ export function Contact() {
                   <MessageCircle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-[var(--secondary)] dark:text-white font-bold text-xl mb-2">
-                  Respuesta Inmediata
+                  {t("contact.whatsapp.title")}
                 </h3>
                 <p className="text-[var(--text-secondary)] mb-3">
-                  Escribenos y conversamos hoy mismo
+                  {t("contact.whatsapp.desc")}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 font-medium">
                   <Clock className="w-3 h-3" />
-                  Responde en &lt;1 hora
+                  {t("contact.whatsapp.time")}
                 </span>
               </a>
             </AnimatedSection>
@@ -56,14 +58,14 @@ export function Contact() {
                   <Mail className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-[var(--secondary)] dark:text-white font-bold text-xl mb-2">
-                  Cotizacion Formal
+                  {t("contact.email.title")}
                 </h3>
                 <p className="text-[var(--text-secondary)] mb-3">
-                  Propuesta tecnica + timeline + presupuesto
+                  {t("contact.email.desc")}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-xs text-[var(--text-muted)] font-medium">
                   <Clock className="w-3 h-3" />
-                  Respuesta en 24h habiles
+                  {t("contact.email.time")}
                 </span>
               </a>
             </AnimatedSection>
@@ -79,7 +81,7 @@ export function Contact() {
                   {siteConfig.location}
                 </p>
                 <p className="text-sm text-[var(--text-secondary)]">
-                  Trabajamos remoto con clientes en todo el Peru
+                  {t("contact.location.desc")}
                 </p>
               </div>
             </div>

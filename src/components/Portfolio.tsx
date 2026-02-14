@@ -1,10 +1,12 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { portfolio } from "@/data/content";
+import { getPortfolio } from "@/data/content";
+import { useLanguage } from "@/i18n";
 import { motion } from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useMemo } from "react";
 
 /* ── Sparkle star SVG ── */
 const Sparkle = ({ size = 12 }: { size?: number }) => (
@@ -215,19 +217,21 @@ const previews: Record<string, () => React.JSX.Element> = {
 };
 
 export function Portfolio() {
+  const { locale, t } = useLanguage();
+  const portfolio = useMemo(() => getPortfolio(locale), [locale]);
+
   return (
     <section id="portafolio">
       <div className="container mx-auto px-6">
         <AnimatedSection className="text-center mb-20">
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Portafolio
+            {t("portfolio.label")}
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Proyectos en produccion
+            {t("portfolio.title")}
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            Software real, funcionando, con usuarios reales.
-            Cada proyecto resuelve un problema concreto.
+            {t("portfolio.description")}
           </p>
         </AnimatedSection>
 
@@ -302,13 +306,13 @@ export function Portfolio() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 text-[#06B6D4] dark:text-[#22D3EE] font-semibold group/link hover:gap-3 transition-all"
                         >
-                          Ver proyecto
+                          {t("portfolio.viewProject")}
                           <ExternalLink className="w-4 h-4" />
                         </Link>
                       ) : (
                         <span className="inline-flex items-center gap-2 text-[var(--text-muted)] text-sm">
                           <ArrowRight className="w-4 h-4" />
-                          Proyecto privado
+                          {t("portfolio.privateProject")}
                         </span>
                       )}
                     </div>

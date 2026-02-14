@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/i18n";
 
 const technologies = [
   "Next.js",
@@ -16,11 +17,13 @@ const technologies = [
 ];
 
 export function TrustBar() {
+  const { t } = useLanguage();
+
   return (
     <section className="!py-12 border-y border-[var(--border)] bg-[var(--surface)]">
       <div className="container mx-auto px-6">
         <p className="text-center text-xs uppercase tracking-[0.25em] text-[var(--text-muted)] mb-8 font-semibold">
-          Stack en Produccion
+          {t("trustbar.label")}
         </p>
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
           {technologies.map((tech, i) => (

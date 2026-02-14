@@ -3,7 +3,8 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { siteConfig } from "@/data/content";
-import { useRef, useState, useEffect } from "react";
+import { useLanguage } from "@/i18n";
+import { useRef, useState, useEffect, useMemo } from "react";
 
 const codeLines = [
   { indent: 0, tokens: [{ text: "const", color: "#c792ea" }, { text: " app ", color: "#eeffff" }, { text: "=", color: "#89ddff" }, { text: " createApp", color: "#82aaff" }, { text: "({", color: "#89ddff" }] },
@@ -15,7 +16,6 @@ const codeLines = [
   { indent: 0, tokens: [{ text: "});", color: "#89ddff" }] },
   { indent: 0, tokens: [] },
   { indent: 0, tokens: [{ text: "await", color: "#c792ea" }, { text: " app", color: "#eeffff" }, { text: ".", color: "#89ddff" }, { text: "deploy", color: "#82aaff" }, { text: "(", color: "#89ddff" }, { text: '"production"', color: "#c3e88d" }, { text: ");", color: "#89ddff" }] },
-  { indent: 0, tokens: [{ text: "// \u2713 Build exitoso \u2014 0 errores", color: "#546e7a" }] },
 ];
 
 const FULL_NAME = "CodeMedia";
@@ -25,6 +25,7 @@ type Phase = "waiting" | "typing" | "done";
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null);
+  const { locale, t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -40,6 +41,11 @@ export function Hero() {
   const [phase, setPhase] = useState<Phase>("waiting");
   const [charIndex, setCharIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  const codeLinesWithComment = useMemo(() => [
+    ...codeLines,
+    { indent: 0, tokens: [{ text: t("hero.codeComment"), color: "#546e7a" }] },
+  ], [t]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -133,17 +139,17 @@ export function Hero() {
               transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-                Desarrollo de Software
+                {t("hero.subtitle")}
               </p>
 
               <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                {siteConfig.description}
+                {siteConfig.description(locale)}
               </p>
 
               {/* Availability */}
               <div className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--text-muted)]">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                Disponibles para nuevos proyectos
+                {t("hero.availability")}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -152,7 +158,7 @@ export function Hero() {
                   onClick={(e) => scrollTo(e, "producto")}
                   className="btn-primary justify-center"
                 >
-                  Ver nuestro trabajo
+                  {t("hero.cta1")}
                   <ArrowDown className="w-4 h-4" />
                 </a>
                 <a
@@ -160,7 +166,7 @@ export function Hero() {
                   onClick={(e) => scrollTo(e, "contacto")}
                   className="btn-secondary justify-center"
                 >
-                  Agendar consultoria
+                  {t("hero.cta2")}
                 </a>
               </div>
             </motion.div>
@@ -194,7 +200,7 @@ export function Hero() {
 
                 {/* Code area */}
                 <div className="bg-[#0d1117] px-5 py-5 font-mono text-sm leading-7">
-                  {codeLines.map((line, i) => (
+                  {codeLinesWithComment.map((line, i) => (
                     <motion.div
                       key={i}
                       initial={reducedMotion ? {} : { opacity: 0, x: -10 }}

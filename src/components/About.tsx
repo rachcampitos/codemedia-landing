@@ -1,50 +1,39 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { stats } from "@/data/content";
+import { getStats, getAboutValues } from "@/data/content";
+import { useLanguage } from "@/i18n";
 import { Target, Lightbulb, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
-const values = [
-  {
-    icon: Target,
-    title: "Enfoque a Medida",
-    description:
-      "Cada proyecto es unico. Desarrollamos soluciones que se adaptan a las necesidades reales del negocio, no al reves.",
-    gradient: "from-[#0F172A] to-[#1E40AF]",
-  },
-  {
-    icon: Lightbulb,
-    title: "Stack Probado en Produccion",
-    description:
-      "Ionic, Next.js, NestJS, MongoDB. No experimentamos con tu presupuesto. Usamos tecnologias que ya validamos con usuarios reales.",
-    gradient: "from-[#06B6D4] to-[#0891B2]",
-  },
-  {
-    icon: Zap,
-    title: "Entrega Continua",
-    description:
-      "Deploy automatico en cada push. Tu producto evoluciona cada semana. Veras progreso real en dias, no en meses.",
-    gradient: "from-[#F59E0B] to-[#D97706]",
-  },
-];
+const valueIcons = [Target, Lightbulb, Zap];
 
 export function About() {
+  const { locale, t } = useLanguage();
+  const stats = useMemo(() => getStats(locale), [locale]);
+  const values = useMemo(
+    () =>
+      getAboutValues(locale).map((v, i) => ({
+        ...v,
+        icon: valueIcons[i],
+      })),
+    [locale]
+  );
+
   return (
     <section id="nosotros">
       <div className="container mx-auto px-6">
         <AnimatedSection className="text-center mb-20">
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Sobre Nosotros
+            {t("about.label")}
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Experiencia tecnica,{" "}
-            <span className="gradient-text-animated">comunicacion clara</span>
+            {t("about.title")}{" "}
+            <span className="gradient-text-animated">{t("about.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            Somos un equipo de ingenieros especializados en aplicaciones
-            de alto rendimiento. Nuestro codigo esta en produccion,
-            atendiendo usuarios reales todos los dias.
+            {t("about.description")}
           </p>
         </AnimatedSection>
 

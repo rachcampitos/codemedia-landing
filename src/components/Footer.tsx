@@ -1,7 +1,14 @@
+"use client";
+
 import Image from "next/image";
-import { siteConfig, navLinks } from "@/data/content";
+import { siteConfig, getNavLinks } from "@/data/content";
+import { useLanguage } from "@/i18n";
+import { useMemo } from "react";
 
 export function Footer() {
+  const { locale, t } = useLanguage();
+  const navLinks = useMemo(() => getNavLinks(locale), [locale]);
+
   return (
     <footer className="bg-[var(--surface)] dark:bg-[var(--surface)] border-t border-[var(--border)] py-12">
       <div className="container mx-auto px-6">
@@ -41,8 +48,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-[var(--border)] text-center">
           <p className="text-sm text-[var(--text-muted)]">
-            &copy; {new Date().getFullYear()} {siteConfig.legalName}. Todos los
-            derechos reservados.
+            &copy; {new Date().getFullYear()} {siteConfig.legalName}. {t("footer.rights")}
           </p>
         </div>
       </div>

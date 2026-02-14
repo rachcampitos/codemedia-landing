@@ -1,16 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "./ui/ThemeToggle";
-import { navLinks } from "@/data/content";
+import { LanguageToggle } from "./ui/LanguageToggle";
+import { useLanguage } from "@/i18n";
+import { getNavLinks } from "@/data/content";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("inicio");
+  const { locale, t } = useLanguage();
+  const navLinks = useMemo(() => getNavLinks(locale), [locale]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +47,7 @@ export function Header() {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [navLinks]);
 
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -110,25 +114,27 @@ export function Header() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-3">
+              <LanguageToggle />
               <ThemeToggle />
               <a
                 href="#contacto"
                 onClick={(e) => scrollToSection(e, "#contacto")}
                 className="btn-primary !py-3 !px-6 text-sm"
               >
-                Contactar
+                {t("header.contact")}
               </a>
             </div>
 
             {/* Mobile */}
             <div className="lg:hidden flex items-center gap-2">
+              <LanguageToggle />
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2 text-[var(--secondary)] dark:text-white"
                 aria-label={
-                  isMobileMenuOpen ? "Cerrar menu" : "Abrir menu"
+                  isMobileMenuOpen ? t("header.closeMenu") : t("header.openMenu")
                 }
               >
                 {isMobileMenuOpen ? (
@@ -180,7 +186,7 @@ export function Header() {
                   onClick={(e) => scrollToSection(e, "#contacto")}
                   className="btn-primary text-center w-full justify-center"
                 >
-                  Contactar
+                  {t("header.contact")}
                 </a>
               </div>
             </nav>

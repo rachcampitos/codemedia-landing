@@ -1,22 +1,27 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { process } from "@/data/content";
+import { getProcess } from "@/data/content";
+import { useLanguage } from "@/i18n";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 export function Process() {
+  const { locale, t } = useLanguage();
+  const processSteps = useMemo(() => getProcess(locale), [locale]);
+
   return (
     <section id="proceso">
       <div className="container mx-auto px-6">
         <AnimatedSection className="text-center mb-20">
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Proceso
+            {t("process.label")}
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Como trabajamos
+            {t("process.title")}
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            Transparencia total. Sabes que estamos haciendo en cada momento.
+            {t("process.description")}
           </p>
         </AnimatedSection>
 
@@ -26,7 +31,7 @@ export function Process() {
             <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--primary)] via-[var(--accent)] to-transparent hidden sm:block" />
 
             <div className="space-y-8">
-              {process.map((item, i) => (
+              {processSteps.map((item, i) => (
                 <motion.div
                   key={item.step}
                   initial={{ opacity: 0, x: -30 }}

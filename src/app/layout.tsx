@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,6 +92,11 @@ export default function RootLayout({
                 if (theme === 'dark' || (!theme && systemPrefersDark)) {
                   document.documentElement.classList.add('dark');
                 }
+                var locale = localStorage.getItem('locale');
+                if (!locale) {
+                  locale = navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en';
+                }
+                document.documentElement.lang = locale;
               })();
             `,
           }}
@@ -102,10 +108,13 @@ export default function RootLayout({
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#0F172A] focus:text-white focus:rounded-lg"
+          id="skip-link"
         >
           Saltar al contenido principal
         </a>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

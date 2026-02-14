@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { product } from "@/data/content";
+import { product, getProductFeatures, getScreenLabels, getTabBarLabels } from "@/data/content";
+import { useLanguage } from "@/i18n";
 import {
   ExternalLink,
   Shield,
@@ -15,61 +16,18 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTheme } from "./ThemeProvider";
 
-/* ── Feature cards data ── */
-const features = [
-  {
-    icon: Shield,
-    title: "Verificacion CEP",
-    description:
-      "Cada enfermera es validada directamente con la base de datos del Colegio de Enfermeros del Peru.",
-    stat: "100% verificadas",
-    gradient: "from-[#06B6D4] to-[#0891B2]",
-  },
-  {
-    icon: MessageCircle,
-    title: "Chat en Tiempo Real",
-    description:
-      "Socket.io para comunicacion instantanea entre pacientes y enfermeras con notificaciones push.",
-    stat: "<100ms latencia",
-    gradient: "from-[#1E40AF] to-[#3B82F6]",
-  },
-  {
-    icon: CreditCard,
-    title: "Pagos Integrados",
-    description:
-      "Culqi + Yape para tarjetas de credito/debito y billeteras digitales.",
-    stat: "Culqi + Yape",
-    gradient: "from-[#059669] to-[#10B981]",
-  },
-  {
-    icon: Trophy,
-    title: "Sistema de Niveles",
-    description:
-      "Gamificacion profesional: Certificada, Destacada, Experimentada y Elite basado en rendimiento.",
-    stat: "4 niveles",
-    gradient: "from-[#D97706] to-[#F59E0B]",
-  },
-];
+/* ── Feature icons (stable reference) ── */
+const featureIcons = [Shield, MessageCircle, CreditCard, Trophy];
 
-/* ── Tech badges ── */
+/* ── Tech badges (not translated - tech names) ── */
 const techBadges = [
   { icon: FlaskConical, label: "768 Tests" },
   { icon: BarChart3, label: "82% Coverage" },
   { icon: Wifi, label: "Socket.io" },
   { icon: Smartphone, label: "iOS + Android + Web" },
-];
-
-/* ── Phone screen definitions ── */
-const screenLabels = [
-  "Inicio",
-  "Perfil Enfermera",
-  "Chat",
-  "Pagos",
-  "Estados del Servicio",
-  "Codigo de Seguridad",
 ];
 
 const slideDurations = [4500, 4500, 4500, 4500, 7500, 5000];
@@ -88,7 +46,7 @@ interface ScreenProps {
 
 const t = (isDark: boolean, light: string, dark: string) => isDark ? dark : light;
 
-/* ── Individual phone screens ── */
+/* ── Individual phone screens (NOT translated - show real app in Spanish) ── */
 function HomeScreen({ isDark }: ScreenProps) {
   return (
     <>
@@ -231,7 +189,6 @@ function ChatScreen({ isDark }: ScreenProps) {
         <div className="flex items-center justify-center">
           <span className={`text-[7px] text-[#94a3b8] px-2 py-0.5 rounded-full shadow-sm ${t(isDark, "bg-white", "bg-[#1E293B]")}`}>Hoy, 14:30</span>
         </div>
-        {/* Nurse message */}
         <div className="flex gap-1.5 max-w-[85%]">
           <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center flex-shrink-0 mt-auto">
             <span className="text-white text-[6px] font-bold">MC</span>
@@ -243,7 +200,6 @@ function ChatScreen({ isDark }: ScreenProps) {
             <span className="text-[6px] text-[#94a3b8] ml-1">14:30</span>
           </div>
         </div>
-        {/* User message */}
         <div className="flex justify-end max-w-[80%] ml-auto">
           <div>
             <div className={`rounded-2xl rounded-br-sm px-2.5 py-1.5 ${t(isDark, "bg-[#0F172A]", "bg-[#06B6D4]")}`}>
@@ -255,7 +211,6 @@ function ChatScreen({ isDark }: ScreenProps) {
             </div>
           </div>
         </div>
-        {/* Nurse typing */}
         <div className="flex gap-1.5 max-w-[40%]">
           <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center flex-shrink-0 mt-auto">
             <span className="text-white text-[6px] font-bold">MC</span>
@@ -266,7 +221,6 @@ function ChatScreen({ isDark }: ScreenProps) {
             <span className="w-1 h-1 rounded-full bg-[#94a3b8] animate-bounce [animation-delay:300ms]" />
           </div>
         </div>
-        {/* Input bar */}
         <div className={`rounded-full px-3 py-1.5 flex items-center gap-2 shadow-sm border mt-1 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
           <div className={`w-4 h-4 rounded-full ${t(isDark, "bg-[#e2e8f0]", "bg-[#334155]")}`} />
           <span className="text-[8px] text-[#94a3b8] flex-1">Escribe un mensaje...</span>
@@ -342,7 +296,7 @@ function PaymentScreen({ isDark }: ScreenProps) {
   );
 }
 
-/* ── Service status steps (matching real NurseLite app) ── */
+/* ── Service status steps (matching real NurseLite app - NOT translated) ── */
 const serviceSteps = [
   { label: "Aceptado", sublabel: "Enfermera confirmada", gradient: "from-[#3b82f6] via-[#2563eb] to-[#1d4ed8]", color: "#3b82f6", icon: "\u2713" },
   { label: "En camino", sublabel: "Llegando en 8 min", gradient: "from-[#f97316] via-[#ea580c] to-[#f97316]", color: "#f97316", icon: "\u2192" },
@@ -376,7 +330,6 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
         </div>
       </div>
       <div className={`px-3.5 py-3 flex-1 ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
-        {/* Gradient Banner - hero element with gradient-shift animation */}
         <motion.div
           key={activeStep}
           initial={{ opacity: 0, scale: 0.96 }}
@@ -385,7 +338,6 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
           className={`relative rounded-xl p-3 mb-3 overflow-hidden bg-gradient-to-r ${step.gradient}`}
           style={{ backgroundSize: "200% 200%", animation: "gradient-shift 3s ease infinite" }}
         >
-          {/* Pulse overlay */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -409,13 +361,11 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
           </div>
         </motion.div>
 
-        {/* Vertical timeline with pulse rings */}
         <div className="pl-1 mb-2.5">
           {serviceSteps.map((s, i) => (
             <div key={s.label} className="flex items-start gap-2.5">
               <div className="flex flex-col items-center">
                 <div className="relative">
-                  {/* Pulse ring - always rendered, animated via props for smooth transitions */}
                   <motion.div
                     key={`pulse-${i}-${activeStep}`}
                     animate={
@@ -483,7 +433,6 @@ function ServiceStatusScreen({ isDark }: ScreenProps) {
           ))}
         </div>
 
-        {/* Nurse card */}
         <div className={`rounded-xl p-2 flex items-center gap-2 border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
           <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#06B6D4] to-[#0F172A] flex items-center justify-center ring-2 ring-[#f59e0b]">
             <span className="text-white text-[6px] font-bold">MC</span>
@@ -526,22 +475,18 @@ function SecurityCodeScreen({ isDark }: ScreenProps) {
         </div>
       </div>
       <div className={`px-4 py-4 flex-1 flex flex-col items-center ${t(isDark, "bg-[#f8fafc]", "bg-[#0F172A]")}`}>
-        {/* Shield */}
         <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#06B6D4] to-[#0891B2] flex items-center justify-center mb-3 shadow-lg">
           <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             <path d="m9 12 2 2 4-4" />
           </svg>
         </div>
-
         <p className={`text-[10px] font-bold mb-0.5 ${t(isDark, "text-[#0F172A]", "text-[#F8FAFC]")}`}>
           Codigo de Seguridad
         </p>
         <p className="text-[7px] text-[#64748b] text-center mb-3 px-2 leading-relaxed">
           Comparte este codigo con tu enfermera al llegar
         </p>
-
-        {/* Code display - 6 digits like the real app */}
         <div className="flex gap-1.5 mb-3">
           {["4", "7", "2", "8", "1", "5"].map((digit, i) => (
             <motion.div
@@ -560,16 +505,12 @@ function SecurityCodeScreen({ isDark }: ScreenProps) {
             </motion.div>
           ))}
         </div>
-
-        {/* Timer */}
         <div className={`rounded-full px-3 py-1 flex items-center gap-1.5 mb-3 ${t(isDark, "bg-[#06B6D4]/10", "bg-[#06B6D4]/20")}`}>
           <div className="w-1.5 h-1.5 rounded-full bg-[#06B6D4] animate-pulse" />
           <span className="text-[8px] font-mono font-semibold text-[#06B6D4]">
             Expira en {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
           </span>
         </div>
-
-        {/* Info card */}
         <div className={`rounded-xl p-2.5 w-full border ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#1E293B] border-[#334155]")}`}>
           <div className="flex items-start gap-2">
             <div className="w-4 h-4 rounded-full bg-[#22c55e]/15 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -597,7 +538,16 @@ export function Product() {
   const [activeScreen, setActiveScreen] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const { theme } = useTheme();
+  const { locale, t: tr } = useLanguage();
   const isDark = theme === "dark";
+
+  const features = useMemo(() => {
+    const data = getProductFeatures(locale);
+    return data.map((f, i) => ({ ...f, icon: featureIcons[i] }));
+  }, [locale]);
+
+  const screenLabels = useMemo(() => getScreenLabels(locale), [locale]);
+  const tabBarLabels = useMemo(() => getTabBarLabels(locale), [locale]);
 
   const nextScreen = useCallback(() => {
     setActiveScreen((prev) => (prev + 1) % screens.length);
@@ -617,13 +567,13 @@ export function Product() {
         {/* Header */}
         <AnimatedSection className="text-center mb-16">
           <p className="text-[#06B6D4] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Lo Que Construimos
+            {tr("product.label")}
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-4">
             {product.name}
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            {product.tagline}
+            {tr("product.tagline")}
           </p>
         </AnimatedSection>
 
@@ -631,7 +581,7 @@ export function Product() {
           {/* Left: Feature cards + description */}
           <div>
             <p className="text-[var(--text-secondary)] leading-relaxed mb-8 max-w-2xl">
-              {product.description}
+              {tr("product.description")}
             </p>
 
             {/* Feature cards grid */}
@@ -680,7 +630,7 @@ export function Product() {
               rel="noopener noreferrer"
               className="btn-primary inline-flex"
             >
-              Visitar NurseLite
+              {tr("product.cta")}
               <ExternalLink className="w-4 h-4" />
             </Link>
           </div>
@@ -692,7 +642,7 @@ export function Product() {
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
-              {/* Glow - stronger in dark mode */}
+              {/* Glow */}
               <div className={`absolute inset-0 bg-gradient-to-br from-[#06B6D4] to-[#1E40AF] blur-[60px] rounded-full scale-110 transition-opacity duration-500 ${isDark ? "opacity-25" : "opacity-15"}`} />
 
               {/* Phone frame */}
@@ -713,7 +663,7 @@ export function Product() {
                     </div>
                   </div>
 
-                  {/* Screen content - fixed area prevents resize between slides */}
+                  {/* Screen content */}
                   <div className="flex-1 relative overflow-hidden">
                     <AnimatePresence mode="wait">
                       <motion.div
@@ -729,9 +679,9 @@ export function Product() {
                     </AnimatePresence>
                   </div>
 
-                  {/* Tab bar */}
+                  {/* Tab bar - translated labels */}
                   <div className={`border-t px-5 py-1.5 flex justify-between flex-shrink-0 ${t(isDark, "bg-white border-[#e2e8f0]", "bg-[#0F172A] border-[#334155]")}`}>
-                    {["Inicio", "Buscar", "Citas", "Perfil"].map((item, i) => (
+                    {tabBarLabels.map((item, i) => (
                       <div key={item} className="flex flex-col items-center gap-0.5">
                         <div className={`w-4 h-4 rounded-sm ${i === 0 ? (isDark ? "bg-[#06B6D4]" : "bg-[#0F172A]") : t(isDark, "bg-[#cbd5e1]", "bg-[#334155]")}`} />
                         <span className={`text-[7px] ${i === 0 ? (isDark ? "text-[#06B6D4] font-semibold" : "text-[#0F172A] font-semibold") : "text-[#94a3b8]"}`}>{item}</span>
@@ -750,7 +700,7 @@ export function Product() {
                   <button
                     key={label}
                     onClick={() => setActiveScreen(i)}
-                    aria-label={`Ver pantalla: ${label}`}
+                    aria-label={tr("product.screenLabel").replace("{label}", label)}
                     className={`transition-all duration-300 rounded-full ${
                       i === activeScreen
                         ? "w-6 h-2 bg-[#06B6D4]"

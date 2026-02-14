@@ -1,10 +1,15 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { services } from "@/data/content";
+import { getServices } from "@/data/content";
+import { useLanguage } from "@/i18n";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 export function Services() {
+  const { locale, t } = useLanguage();
+  const services = useMemo(() => getServices(locale), [locale]);
+
   const featured = services[0];
   const FeaturedIcon = featured.icon;
   const bottom = services[3];
@@ -15,14 +20,13 @@ export function Services() {
       <div className="container mx-auto px-6">
         <AnimatedSection className="text-center mb-20">
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
-            Servicios
+            {t("services.label")}
           </p>
           <h2 className="text-[var(--secondary)] dark:text-white mb-6">
-            Servicios end-to-end
+            {t("services.title")}
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            Desde el diseno UX hasta el deployment en produccion.
-            Todo bajo un mismo equipo.
+            {t("services.description")}
           </p>
         </AnimatedSection>
 
