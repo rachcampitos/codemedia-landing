@@ -113,7 +113,6 @@ export interface PortfolioProject {
   title: string;
   subtitle: string;
   description: string;
-  image?: string;
   gradient: string;
   tags: string[];
   category: string;
@@ -142,7 +141,6 @@ export const portfolio: PortfolioProject[] = [
     subtitle: "Sitio web de boda interactivo",
     description:
       "Pagina web de boda con estetica mistica y tarot. Incluye RSVP con base de datos, galeria de fotos, countdown animado, sistema de FAQ y panel de administracion.",
-    image: "/portfolio/boda-rodrigo.jpg",
     gradient: "from-[#1a1025] to-[#8B7BB8]",
     tags: ["HTML/CSS/JS", "Express.js", "MongoDB", "Cloudflare"],
     category: "Web Design",
