@@ -1,6 +1,8 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
+import { RevealText } from "./ui/RevealText";
+import { TiltCard } from "./ui/TiltCard";
 import { getServices } from "@/data/content";
 import { useLanguage } from "@/i18n";
 import { motion } from "framer-motion";
@@ -22,9 +24,12 @@ export function Services() {
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
             {t("services.label")}
           </p>
-          <h2 className="text-[var(--secondary)] dark:text-white mb-6">
+          <RevealText
+            as="h2"
+            className="text-[var(--secondary)] dark:text-white mb-6"
+          >
             {t("services.title")}
-          </h2>
+          </RevealText>
           <p className="text-lg text-[var(--text-secondary)] max-w-3xl mx-auto leading-relaxed">
             {t("services.description")}
           </p>
@@ -40,6 +45,7 @@ export function Services() {
             transition={{ duration: 0.6 }}
             className="md:row-span-2"
           >
+            <TiltCard maxTilt={5} className="h-full">
             <div className="glass-premium rounded-3xl p-10 h-full flex flex-col justify-between">
               <div>
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#1E40AF] flex items-center justify-center mb-6 shadow-lg">
@@ -63,6 +69,7 @@ export function Services() {
                 ))}
               </div>
             </div>
+            </TiltCard>
           </motion.div>
 
           {/* Services 2-3 stacked */}
@@ -76,6 +83,7 @@ export function Services() {
                 viewport={{ once: true }}
                 transition={{ delay: (i + 1) * 0.1, duration: 0.6 }}
               >
+                <TiltCard>
                 <div className="glass-card rounded-3xl p-8 h-full">
                   <div className="flex items-start gap-5">
                     <div className="w-14 h-14 rounded-xl bg-[#06B6D4]/10 dark:bg-[#22D3EE]/15 flex items-center justify-center flex-shrink-0">
@@ -101,6 +109,7 @@ export function Services() {
                     </div>
                   </div>
                 </div>
+                </TiltCard>
               </motion.div>
             );
           })}
@@ -114,6 +123,7 @@ export function Services() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="md:col-span-2"
             >
+              <TiltCard maxTilt={5}>
               <div className="glass-card rounded-3xl p-10">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#06B6D4] to-[#0891B2] flex items-center justify-center flex-shrink-0 shadow-lg">
@@ -139,6 +149,7 @@ export function Services() {
                   </div>
                 </div>
               </div>
+              </TiltCard>
             </motion.div>
           )}
         </div>
