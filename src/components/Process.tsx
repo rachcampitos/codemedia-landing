@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { RevealText } from "./ui/RevealText";
 import { getProcess } from "@/data/content";
 import { useLanguage } from "@/i18n";
 import { motion } from "framer-motion";
@@ -18,12 +17,9 @@ export function Process() {
           <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
             {t("process.label")}
           </p>
-          <RevealText
-            as="h2"
-            className="text-[var(--secondary)] dark:text-white mb-6"
-          >
+          <h2 className="text-[var(--secondary)] dark:text-white mb-6">
             {t("process.title")}
-          </RevealText>
+          </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
             {t("process.description")}
           </p>

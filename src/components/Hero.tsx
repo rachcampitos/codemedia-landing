@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { siteConfig } from "@/data/content";
 import { useLanguage } from "@/i18n";
-import { useRef, useState, useEffect, useMemo, useCallback } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 
 const codeLines = [
   { indent: 0, tokens: [{ text: "const", color: "#c792ea" }, { text: " app ", color: "#eeffff" }, { text: "=", color: "#89ddff" }, { text: " createApp", color: "#82aaff" }, { text: "({", color: "#89ddff" }] },
@@ -95,51 +89,12 @@ export function Hero() {
   const contentReady = phase === "done";
   const isTyping = phase === "waiting" || phase === "typing";
 
-  // Mouse parallax
-  const [hasHover, setHasHover] = useState(false);
-  useEffect(() => {
-    setHasHover(window.matchMedia("(hover: hover)").matches);
-  }, []);
-
-  const mouseSpring = { stiffness: 50, damping: 30 };
-  const rawMx = useMotionValue(0);
-  const rawMy = useMotionValue(0);
-  const mx = useSpring(rawMx, mouseSpring);
-  const my = useSpring(rawMy, mouseSpring);
-
-  // Code editor transforms
-  const editorX = useTransform(mx, [-1, 1], [-15, 15]);
-  const editorY = useTransform(my, [-1, 1], [-10, 10]);
-  const editorRotateY = useTransform(mx, [-1, 1], [-3, 3]);
-  const editorRotateX = useTransform(my, [-1, 1], [2, -2]);
-
-  // Text counter-parallax
-  const textX = useTransform(mx, [-1, 1], [5, -5]);
-  const textY = useTransform(my, [-1, 1], [3, -3]);
-
-  const handleSectionMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      if (!heroRef.current || !hasHover || reducedMotion) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      rawMx.set(((e.clientX - rect.left) / rect.width) * 2 - 1);
-      rawMy.set(((e.clientY - rect.top) / rect.height) * 2 - 1);
-    },
-    [hasHover, reducedMotion, rawMx, rawMy]
-  );
-
-  const handleSectionMouseLeave = useCallback(() => {
-    rawMx.set(0);
-    rawMy.set(0);
-  }, [rawMx, rawMy]);
-
   return (
     <section
       ref={heroRef}
       id="inicio"
       className="min-h-screen flex items-center relative overflow-hidden"
       style={{ background: "var(--gradient-hero)" }}
-      onMouseMove={handleSectionMouseMove}
-      onMouseLeave={handleSectionMouseLeave}
     >
       {/* Decorative blurs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -153,10 +108,7 @@ export function Hero() {
       >
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           {/* Text */}
-          <motion.div
-            className="flex-1 text-center lg:text-left"
-            style={{ x: textX, y: textY }}
-          >
+          <div className="flex-1 text-center lg:text-left">
             {/* Typewriter brand name */}
             <h1
               aria-label="CodeMedia"
@@ -218,7 +170,7 @@ export function Hero() {
                 </a>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Code Editor */}
           <motion.div
@@ -227,16 +179,7 @@ export function Hero() {
             animate={contentReady ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <motion.div
-              className="relative w-full max-w-[520px]"
-              style={{
-                x: editorX,
-                y: editorY,
-                rotateY: editorRotateY,
-                rotateX: editorRotateX,
-                perspective: 800,
-              }}
-            >
+            <div className="relative w-full max-w-[520px]">
               {/* Glow behind editor */}
               <div className="absolute -inset-4 bg-gradient-to-br from-[#06B6D4]/20 to-[#1E40AF]/20 blur-[40px] rounded-3xl" />
 
@@ -307,7 +250,7 @@ export function Hero() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </motion.div>
