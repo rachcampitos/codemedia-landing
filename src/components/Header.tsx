@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "./ui/ThemeToggle";
@@ -15,6 +15,8 @@ export function Header() {
   const [activeSection, setActiveSection] = useState("inicio");
   const { locale, t } = useLanguage();
   const navLinks = useMemo(() => getNavLinks(locale), [locale]);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -147,6 +149,12 @@ export function Header() {
           </div>
         </div>
       </motion.header>
+
+      {/* Scroll progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#06B6D4] to-[#1E40AF] z-[60] origin-left"
+        style={{ scaleX }}
+      />
 
       {/* Mobile Menu */}
       <AnimatePresence>

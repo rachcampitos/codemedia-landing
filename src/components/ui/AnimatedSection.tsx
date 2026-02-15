@@ -34,8 +34,8 @@ const getVariants = (
     };
 
   return {
-    hidden: { opacity: 0, ...directions[direction] },
-    visible: { opacity: 1, x: 0, y: 0, scale: 1 },
+    hidden: { opacity: 0, filter: "blur(8px)", ...directions[direction] },
+    visible: { opacity: 1, filter: "blur(0px)", x: 0, y: 0, scale: 1 },
   };
 };
 
@@ -116,10 +116,11 @@ export function StaggerItem({
   className?: string;
 }) {
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
     visible: {
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
     },
   };

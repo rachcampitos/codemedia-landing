@@ -3,10 +3,16 @@
 import { AnimatedSection } from "./ui/AnimatedSection";
 import { getPortfolio } from "@/data/content";
 import { useLanguage } from "@/i18n";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
+  useReducedMotion,
+} from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, useRef, useCallback, useState, useEffect } from "react";
 
 /* ── Sparkle star SVG ── */
 const Sparkle = ({ size = 12 }: { size?: number }) => (
@@ -15,15 +21,68 @@ const Sparkle = ({ size = 12 }: { size?: number }) => (
   </svg>
 );
 
-/* ── NurseLite phone mockup preview ── */
+/* ── NurseLite phone mockup preview with 3D tilt ── */
 function NurseLitePreview() {
+  const areaRef = useRef<HTMLDivElement>(null);
+  const prefersReduced = useReducedMotion();
+  const [hasHover, setHasHover] = useState(false);
+
+  useEffect(() => {
+    setHasHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  const springCfg = { stiffness: 150, damping: 20 };
+  const rawRx = useMotionValue(0);
+  const rawRy = useMotionValue(0);
+  const rotateX = useSpring(rawRx, springCfg);
+  const rotateY = useSpring(rawRy, springCfg);
+  const lightX = useMotionValue(50);
+  const lightY = useMotionValue(50);
+  const glare = useMotionTemplate`radial-gradient(circle at ${lightX}% ${lightY}%, rgba(255,255,255,0.12), transparent 60%)`;
+
+  const canTilt = hasHover && !prefersReduced;
+
+  const onMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!areaRef.current || !canTilt) return;
+      const rect = areaRef.current.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width;
+      const ny = (e.clientY - rect.top) / rect.height;
+      rawRx.set((ny - 0.5) * -20);
+      rawRy.set((nx - 0.5) * 20);
+      lightX.set(nx * 100);
+      lightY.set(ny * 100);
+    },
+    [canTilt, rawRx, rawRy, lightX, lightY]
+  );
+
+  const onLeave = useCallback(() => {
+    rawRx.set(0);
+    rawRy.set(0);
+    lightX.set(50);
+    lightY.set(50);
+  }, [rawRx, rawRy, lightX, lightY]);
+
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
+    <div
+      ref={areaRef}
+      className="absolute inset-0 flex items-center justify-center"
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ perspective: 800 }}
+    >
       <div className="absolute w-48 h-48 rounded-full bg-[#06B6D4]/20 blur-[60px] -top-10 -right-10" />
       <div className="absolute w-36 h-36 rounded-full bg-[#1E40AF]/30 blur-[40px] bottom-10 left-10" />
 
-      <div className="relative">
-        <div className="w-44 h-80 bg-[#0F172A] rounded-[2rem] p-2 shadow-2xl ring-1 ring-white/10">
+      <motion.div
+        className="relative"
+        style={{
+          rotateX: canTilt ? rotateX : 0,
+          rotateY: canTilt ? rotateY : 0,
+          transformStyle: "preserve-3d",
+        }}
+      >
+        <div className="w-44 h-80 bg-[#0F172A] rounded-[2rem] p-2 shadow-2xl ring-1 ring-white/10 relative overflow-hidden">
           <div className="w-full h-full rounded-[1.6rem] bg-gradient-to-b from-[#1E293B] to-[#0F172A] overflow-hidden flex flex-col">
             <div className="px-4 pt-2 pb-1 flex justify-between items-center text-white/60 text-[8px]">
               <span>9:41</span>
@@ -63,8 +122,15 @@ function NurseLitePreview() {
             </div>
           </div>
           <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full" />
+          {/* Glare overlay */}
+          {canTilt && (
+            <motion.div
+              className="pointer-events-none absolute inset-0 rounded-[2rem] z-10"
+              style={{ background: glare }}
+            />
+          )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -96,10 +96,38 @@ export function Hero() {
       className="min-h-screen flex items-center relative overflow-hidden"
       style={{ background: "var(--gradient-hero)" }}
     >
-      {/* Decorative blurs */}
+      {/* Liquid gradient blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-[var(--primary)] opacity-[0.06] blur-[100px]" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full bg-[var(--accent)] opacity-[0.04] blur-[80px]" />
+        <motion.div
+          className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#06B6D4] opacity-[0.07] blur-[100px]"
+          animate={{
+            x: [0, 30, -20, 0],
+            y: [0, -40, 30, 0],
+            scale: [1, 1.1, 0.9, 1],
+            borderRadius: ["60% 40% 30% 70%", "30% 60% 70% 40%", "50% 50% 40% 60%", "60% 40% 30% 70%"],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-[#1E40AF] opacity-[0.05] blur-[80px]"
+          animate={{
+            x: [0, -20, 30, 0],
+            y: [0, 30, -40, 0],
+            scale: [1, 0.9, 1.1, 1],
+            borderRadius: ["40% 60% 70% 30%", "60% 40% 30% 70%", "50% 50% 60% 40%", "40% 60% 70% 30%"],
+          }}
+          transition={{ duration: 25, delay: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-[#8B5CF6] opacity-[0.04] blur-[90px]"
+          animate={{
+            x: [0, 40, -30, 0],
+            y: [0, -20, 40, 0],
+            scale: [1, 1.15, 0.85, 1],
+            borderRadius: ["50% 50% 40% 60%", "40% 60% 60% 40%", "60% 40% 50% 50%", "50% 50% 40% 60%"],
+          }}
+          transition={{ duration: 18, delay: 3, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
 
       <motion.div
