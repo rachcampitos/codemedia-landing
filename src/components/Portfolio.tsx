@@ -141,7 +141,7 @@ const tarotCards = [
     numeral: "I",
     title: "The Stars",
     subtitle: "RSVP Constellation",
-    description: "Stars fly & form constellations when guests accept",
+    description: "Stars fly & form constellations on RSVP accept",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
         <path d="M12 2L14.09 8.26L20.18 8.27L15.23 12.14L17.18 18.27L12 14.77L6.82 18.27L8.77 12.14L3.82 8.27L9.91 8.26L12 2Z" />
@@ -196,7 +196,7 @@ function TarotCard({
   return (
     <motion.div
       className="relative cursor-pointer"
-      style={{ perspective: 600, width: 90, height: 140 }}
+      style={{ perspective: 600, width: 100, height: 150 }}
       initial={{ opacity: 0, y: 20, rotate: (index - 1) * 4 }}
       animate={{ opacity: 1, y: 0, rotate: 0 }}
       transition={{ delay: 0.3 + index * 0.15, duration: 0.5 }}
