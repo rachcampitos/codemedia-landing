@@ -30,12 +30,21 @@ export const metadata: Metadata = {
     siteName: "Code Media",
     locale: "es_PE",
     type: "website",
+    images: [
+      {
+        url: "https://codemediaperu.com/codemedia-logo.png",
+        width: 2048,
+        height: 2048,
+        alt: "Code Media Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Code Media - Desarrollo de Software a Medida",
     description:
       "Software profesional para empresas que crecen. Aplicaciones moviles, web y APIs.",
+    images: ["https://codemediaperu.com/codemedia-logo.png"],
   },
   robots: {
     index: true,
