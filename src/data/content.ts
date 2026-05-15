@@ -29,6 +29,7 @@ export const getNavLinks = (locale: Locale) => [
   { href: "#producto", label: locale === "en" ? "Product" : "Producto", sectionId: "producto" },
   { href: "#portafolio", label: locale === "en" ? "Portfolio" : "Portafolio", sectionId: "portafolio" },
   { href: "#servicios", label: locale === "en" ? "Services" : "Servicios", sectionId: "servicios" },
+  { href: "#estimador", label: locale === "en" ? "Estimator" : "Estimador", sectionId: "estimador" },
   { href: "#contacto", label: locale === "en" ? "Contact" : "Contacto", sectionId: "contacto" },
 ];
 
@@ -112,7 +113,7 @@ export const techStack = {
   integrations: [
     { name: "Culqi", category: (locale: Locale) => locale === "en" ? "Payments" : "Pagos" },
     { name: "API CEP", category: (locale: Locale) => locale === "en" ? "Verification" : "Verificacion" },
-    { name: "SendGrid", category: "Email" },
+    { name: "Brevo", category: "Email" },
     { name: "Cloudinary", category: "Media" },
   ],
 };

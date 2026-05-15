@@ -10,7 +10,7 @@ export const translations: Record<Locale, Record<string, string>> = {
     // Hero
     "hero.subtitle": "Desarrollo de Software",
     "hero.availability": "Disponibles para nuevos proyectos",
-    "hero.cta1": "Ver nuestro trabajo",
+    "hero.cta1": "Estima tu proyecto",
     "hero.cta2": "Agendar consultoria",
     "hero.codeComment": "// \u2713 Build exitoso \u2014 0 errores",
 
@@ -136,7 +136,7 @@ export const translations: Record<Locale, Record<string, string>> = {
 
     "hero.subtitle": "Software Development",
     "hero.availability": "Available for new projects",
-    "hero.cta1": "See our work",
+    "hero.cta1": "Estimate your project",
     "hero.cta2": "Book a consultation",
     "hero.codeComment": "// \u2713 Build successful \u2014 0 errors",
 
