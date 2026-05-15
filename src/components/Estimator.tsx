@@ -356,7 +356,7 @@ export function Estimator() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.05 }}
-              className="glass-card rounded-3xl p-6 md:p-8"
+              className={`glass-card rounded-3xl p-6 md:p-8 transition-opacity duration-300${!selectedProject ? " opacity-40 pointer-events-none select-none" : ""}`}
             >
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-5">
                 02 — {t("estimator.step2")}
@@ -416,7 +416,7 @@ export function Estimator() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="glass-card rounded-3xl p-6 md:p-8"
+              className={`glass-card rounded-3xl p-6 md:p-8 transition-opacity duration-300${!selectedProject ? " opacity-40 pointer-events-none select-none" : ""}`}
             >
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-5">
                 03 — {t("estimator.step3")}
