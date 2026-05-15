@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://codemediaperu.com/codemedia-logo.png",
-        width: 2048,
-        height: 2048,
-        alt: "Code Media Logo",
+        url: "https://codemediaperu.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Code Media — Desarrollo de Software a Medida | Lima, Peru",
       },
     ],
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Code Media - Desarrollo de Software a Medida",
     description:
       "Software profesional para empresas que crecen. Aplicaciones moviles, web y APIs.",
-    images: ["https://codemediaperu.com/codemedia-logo.png"],
+    images: ["https://codemediaperu.com/og-image.png"],
   },
   robots: {
     index: true,
