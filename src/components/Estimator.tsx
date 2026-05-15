@@ -229,6 +229,13 @@ export function Estimator() {
       maximumFractionDigits: 0,
     }).format(v);
 
+  const formatPEN = (usd: number) =>
+    new Intl.NumberFormat("es-PE", {
+      style: "currency",
+      currency: "PEN",
+      maximumFractionDigits: 0,
+    }).format(Math.round(usd * 3.75));
+
   const toggleFeature = (id: string) => {
     setSelectedFeatures((prev) => {
       const next = new Set(prev);
@@ -517,6 +524,11 @@ export function Estimator() {
                         USD
                       </span>
                     </p>
+                    {estimate.priceMin > 0 && (
+                      <p className="text-sm text-[var(--text-muted)] mt-1">
+                        ≈ {formatPEN(estimate.priceMin)} – {formatPEN(estimate.priceMax)}
+                      </p>
+                    )}
 
                     {estimate.weekMin > 0 && (
                       <p className="text-sm text-[var(--text-secondary)] mt-2">
