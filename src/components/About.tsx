@@ -97,7 +97,7 @@ export function About() {
                 <img
                   src="/self.jpeg"
                   alt="Raul Campos"
-                  className="w-full h-full object-cover rounded-full ring-2 ring-[var(--accent)]/30"
+                  className="w-full h-full object-cover object-top rounded-full ring-2 ring-[var(--accent)]/30"
                   loading="lazy"
                   width={112}
                   height={112}
