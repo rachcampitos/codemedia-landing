@@ -62,8 +62,8 @@ const INLINE_ALERT_STYLES: Record<
   { wrapper: string; icon: string }
 > = {
   warning: {
-    wrapper: "border-l-red-400 bg-red-50/70 dark:bg-red-950/25",
-    icon: "text-red-500 dark:text-red-400",
+    wrapper: "border-l-amber-400 bg-amber-50/70 dark:bg-amber-950/25",
+    icon: "text-amber-500 dark:text-amber-400",
   },
   info: {
     wrapper: "border-l-blue-400 bg-blue-50/70 dark:bg-blue-950/25",
@@ -241,11 +241,28 @@ export function Estimator() {
     });
   };
 
-  const scrollToContact = () => {
-    const el = document.getElementById("contacto");
-    if (el) {
-      el.scrollIntoView({ behavior: shouldReduce ? "auto" : "smooth" });
+  const buildWhatsAppUrl = () => {
+    const projectType = PROJECT_TYPES.find((p) => p.id === selectedProject);
+    const timelineOption = TIMELINE_OPTIONS.find((t) => t.id === selectedTimeline);
+    const selectedFeatures = FEATURES.filter((f) => selectedFeatureIds.includes(f.id));
+
+    if (!projectType) {
+      return "https://wa.me/51939175392?text=Hola%20Code%20Media%2C%20quisiera%20cotizar%20un%20proyecto.";
     }
+
+    const lines: string[] = [
+      "Hola Code Media, quisiera cotizar un proyecto:",
+      "",
+      `📌 Tipo: ${projectType.label[locale]}`,
+    ];
+    if (selectedFeatures.length > 0) {
+      lines.push(`⚙️ Funcionalidades: ${selectedFeatures.map((f) => f.name[locale]).join(", ")}`);
+    }
+    lines.push(`📅 Plazo: ${timelineOption?.label[locale] ?? "Estándar"}`);
+    lines.push(`💰 Estimado: $${estimate.priceMin.toLocaleString("en-US")} – $${estimate.priceMax.toLocaleString("en-US")} USD`);
+    lines.push(`⏱ Tiempo: ${estimate.weekMin}–${estimate.weekMax} semanas`);
+
+    return `https://wa.me/51939175392?text=${encodeURIComponent(lines.join("\n"))}`;
   };
 
   return (
@@ -520,16 +537,17 @@ export function Estimator() {
 
                   {/* CTAs */}
                   <div className="flex flex-col gap-3 flex-shrink-0">
-                    <motion.button
-                      type="button"
-                      onClick={scrollToContact}
+                    <motion.a
+                      href={buildWhatsAppUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       whileHover={shouldReduce ? {} : { scale: 1.02 }}
                       whileTap={shouldReduce ? {} : { scale: 0.98 }}
                       className="btn-primary"
                     >
                       {t("estimator.cta")}
                       <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                    </motion.button>
+                    </motion.a>
 
                     <button
                       type="button"

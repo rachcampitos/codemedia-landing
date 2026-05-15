@@ -18,21 +18,15 @@ const LanguageContext = createContext<LanguageContextType>({
 });
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("es");
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "es";
+    const fromHtml = document.documentElement.lang;
+    return fromHtml === "es" || fromHtml === "en" ? (fromHtml as Locale) : "es";
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("locale") as Locale | null;
-    if (saved && (saved === "es" || saved === "en")) {
-      setLocaleState(saved);
-      document.documentElement.lang = saved;
-    } else {
-      const browserLang = navigator.language.toLowerCase();
-      const detected: Locale = browserLang.startsWith("es") ? "es" : "en";
-      setLocaleState(detected);
-      document.documentElement.lang = detected;
-    }
   }, []);
 
   const setLocale = (newLocale: Locale) => {

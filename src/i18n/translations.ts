@@ -94,6 +94,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     "estimator.termsClose": "Cerrar",
     "estimator.weeksUnit": "semanas",
 
+    "contact.whatsapp.ariaLabel": "Contactar por WhatsApp",
+    "contact.email.ariaLabel": "Enviar correo electrónico",
+
     // Footer
     "footer.rights": "Todos los derechos reservados.",
 
@@ -187,6 +190,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     "estimator.noFeatures": "Base estimate without additional features",
     "estimator.termsClose": "Close",
     "estimator.weeksUnit": "weeks",
+
+    "contact.whatsapp.ariaLabel": "Contact via WhatsApp",
+    "contact.email.ariaLabel": "Send an email",
 
     "footer.rights": "All rights reserved.",
 

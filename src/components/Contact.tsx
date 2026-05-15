@@ -31,6 +31,7 @@ export function Contact() {
                 href={siteConfig.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={t("contact.whatsapp.ariaLabel")}
                 className="glass-premium rounded-3xl p-8 flex flex-col items-center text-center h-full block"
               >
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-5 shadow-lg">
@@ -52,6 +53,7 @@ export function Contact() {
             <AnimatedSection delay={0.1}>
               <a
                 href={`mailto:${siteConfig.email}`}
+                aria-label={t("contact.email.ariaLabel")}
                 className="glass-premium rounded-3xl p-8 flex flex-col items-center text-center h-full block"
               >
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0F172A] to-[#1E40AF] flex items-center justify-center mb-5 shadow-lg">
