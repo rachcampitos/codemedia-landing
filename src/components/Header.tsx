@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -13,6 +13,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("inicio");
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const { locale, t } = useLanguage();
   const navLinks = useMemo(() => getNavLinks(locale), [locale]);
   const { scrollYProgress } = useScroll();
@@ -50,6 +51,29 @@ export function Header() {
 
     return () => observers.forEach((o) => o.disconnect());
   }, [navLinks]);
+
+  // ESC to close + focus trap for mobile menu
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    setTimeout(() => {
+      mobileMenuRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+    }, 300);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setIsMobileMenuOpen(false); return; }
+      if (e.key !== "Tab" || !mobileMenuRef.current) return;
+      const focusable = Array.from(mobileMenuRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
 
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -160,6 +184,7 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            ref={mobileMenuRef}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}

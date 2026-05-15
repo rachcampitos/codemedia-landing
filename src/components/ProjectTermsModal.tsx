@@ -132,13 +132,24 @@ export function ProjectTermsModal({ isOpen, onClose }: ProjectTermsModalProps) {
   const { locale, t } = useLanguage();
   const [openSectionId, setOpenSectionId] = useState<string | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Close on ESC
+  // ESC to close + focus trap
   useEffect(() => {
     if (!isOpen) return;
+    const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
@@ -184,6 +195,7 @@ export function ProjectTermsModal({ isOpen, onClose }: ProjectTermsModalProps) {
                      bg-black/60 backdrop-blur-sm"
         >
           <motion.div
+            ref={panelRef}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
