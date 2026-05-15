@@ -26,7 +26,6 @@ export const siteConfig = {
 export const getNavLinks = (locale: Locale) => [
   { href: "#inicio", label: locale === "en" ? "Home" : "Inicio", sectionId: "inicio" },
   { href: "#nosotros", label: locale === "en" ? "About" : "Nosotros", sectionId: "nosotros" },
-  { href: "#producto", label: locale === "en" ? "Product" : "Producto", sectionId: "producto" },
   { href: "#portafolio", label: locale === "en" ? "Portfolio" : "Portafolio", sectionId: "portafolio" },
   { href: "#servicios", label: locale === "en" ? "Services" : "Servicios", sectionId: "servicios" },
   { href: "#estimador", label: locale === "en" ? "Estimator" : "Estimador", sectionId: "estimador" },
