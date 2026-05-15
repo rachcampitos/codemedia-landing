@@ -23,6 +23,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     "about.titleHighlight": "comunicacion clara",
     "about.description":
       "Somos un equipo de ingenieros especializados en aplicaciones de alto rendimiento. Nuestro codigo esta en produccion, atendiendo usuarios reales todos los dias.",
+    "about.founder.role": "Fundador & Lead Engineer",
+    "about.founder.bio":
+      "Ingeniero de software con experiencia en aplicaciones de alto rendimiento para produccion. Fundador de NurseLite, plataforma de enfermeria a domicilio con usuarios reales en Peru.",
 
     // Product
     "product.label": "Lo Que Construimos",
@@ -128,6 +131,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     "about.titleHighlight": "clear communication",
     "about.description":
       "We're a team of engineers specialized in high-performance applications. Our code is in production, serving real users every day.",
+    "about.founder.role": "Founder & Lead Engineer",
+    "about.founder.bio":
+      "Software engineer with experience in high-performance production applications. Founder of NurseLite, a home nursing platform with real users in Peru.",
 
     "product.label": "What We Build",
     "product.tagline":

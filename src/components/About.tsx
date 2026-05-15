@@ -88,6 +88,39 @@ export function About() {
             </div>
           </div>
         </AnimatedSection>
+
+        {/* Founder */}
+        <AnimatedSection delay={0.1} className="mt-8">
+          <div className="glass-card rounded-3xl p-8 md:p-10 flex flex-col sm:flex-row items-center gap-8">
+            <div className="flex-shrink-0">
+              <div className="relative w-24 h-24 md:w-28 md:h-28">
+                <img
+                  src="/self.jpeg"
+                  alt="Raul Campos"
+                  className="w-full h-full object-cover rounded-full ring-2 ring-[var(--accent)]/30"
+                  loading="lazy"
+                  width={112}
+                  height={112}
+                />
+                <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full ring-2 ring-[var(--background)]" aria-hidden="true" />
+              </div>
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--text-muted)] mb-1">
+                {t("about.label")}
+              </p>
+              <h3 className="text-xl md:text-2xl font-bold text-[var(--secondary)] dark:text-white mb-1">
+                Raul Campos
+              </h3>
+              <p className="text-sm font-semibold text-[var(--primary)] mb-3">
+                {t("about.founder.role")}
+              </p>
+              <p className="text-[var(--text-secondary)] leading-relaxed text-sm max-w-xl">
+                {t("about.founder.bio")}
+              </p>
+            </div>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
