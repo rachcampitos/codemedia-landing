@@ -87,25 +87,28 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0F172A" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var theme = localStorage.getItem('theme');
-                var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (theme === 'dark' || (!theme && systemPrefersDark)) {
-                  document.documentElement.classList.add('dark');
-                }
-                var locale = localStorage.getItem('locale');
-                if (!locale) {
-                  locale = navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en';
-                }
-                document.documentElement.lang = locale;
+                try {
+                  var theme = localStorage.getItem('theme');
+                  var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (theme === 'dark' || (!theme && systemPrefersDark)) {
+                    document.documentElement.classList.add('dark');
+                  }
+                  var locale = localStorage.getItem('locale');
+                  if (!locale) {
+                    locale = navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en';
+                  }
+                  document.documentElement.lang = locale;
+                } catch (e) {}
               })();
             `,
           }}

@@ -182,8 +182,8 @@ export function Hero() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a
-                  href="#producto"
-                  onClick={(e) => scrollTo(e, "producto")}
+                  href="#estimador"
+                  onClick={(e) => scrollTo(e, "estimador")}
                   className="btn-primary justify-center"
                 >
                   {t("hero.cta1")}

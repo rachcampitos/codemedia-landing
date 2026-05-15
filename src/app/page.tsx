@@ -1,5 +1,4 @@
 import { Header } from "@/components/Header";
-import { ScrollProgress } from "@/components/ScrollProgress";
 import { Hero } from "@/components/Hero";
 import { TrustBar } from "@/components/TrustBar";
 import { About } from "@/components/About";
@@ -8,13 +7,13 @@ import { Portfolio } from "@/components/Portfolio";
 import { Services } from "@/components/Services";
 import { TechStack } from "@/components/TechStack";
 import { Process } from "@/components/Process";
+import { Estimator } from "@/components/Estimator";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
-      <ScrollProgress />
       <Header />
       <main id="main-content">
         <Hero />
@@ -25,6 +24,7 @@ export default function Home() {
         <Services />
         <TechStack />
         <Process />
+        <Estimator />
         <Contact />
       </main>
       <Footer />

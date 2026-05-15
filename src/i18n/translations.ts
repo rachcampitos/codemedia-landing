@@ -74,6 +74,26 @@ export const translations: Record<Locale, Record<string, string>> = {
     "contact.email.time": "Respuesta en 24h habiles",
     "contact.location.desc": "Trabajamos remoto con clientes en todo el Peru",
 
+    // Estimator
+    "estimator.label": "Estimador",
+    "estimator.title": "Calcula tu proyecto",
+    "estimator.subtitle":
+      "Selecciona las caracteristicas y obtén un estimado instantaneo.",
+    "estimator.step1": "Tipo de proyecto",
+    "estimator.step2": "Funcionalidades",
+    "estimator.step3": "Plazo de entrega",
+    "estimator.estimate": "Estimado",
+    "estimator.weeks": "Tiempo estimado",
+    "estimator.cta": "Conversemos",
+    "estimator.terms": "Ver terminos del proyecto",
+    "estimator.termsTitle": "Como trabajamos",
+    "estimator.selectProject":
+      "Selecciona un tipo de proyecto para comenzar",
+    "estimator.noFeatures":
+      "Estimado base sin funcionalidades adicionales",
+    "estimator.termsClose": "Cerrar",
+    "estimator.weeksUnit": "semanas",
+
     // Footer
     "footer.rights": "Todos los derechos reservados.",
 
@@ -149,6 +169,24 @@ export const translations: Record<Locale, Record<string, string>> = {
     "contact.email.desc": "Technical proposal + timeline + budget",
     "contact.email.time": "Response in 24 business hours",
     "contact.location.desc": "We work remotely with clients across Peru",
+
+    // Estimator
+    "estimator.label": "Estimator",
+    "estimator.title": "Estimate your project",
+    "estimator.subtitle":
+      "Select features and get an instant estimate.",
+    "estimator.step1": "Project type",
+    "estimator.step2": "Features",
+    "estimator.step3": "Timeline",
+    "estimator.estimate": "Estimate",
+    "estimator.weeks": "Estimated timeline",
+    "estimator.cta": "Let's talk",
+    "estimator.terms": "View project terms",
+    "estimator.termsTitle": "How we work",
+    "estimator.selectProject": "Select a project type to get started",
+    "estimator.noFeatures": "Base estimate without additional features",
+    "estimator.termsClose": "Close",
+    "estimator.weeksUnit": "weeks",
 
     "footer.rights": "All rights reserved.",
 
