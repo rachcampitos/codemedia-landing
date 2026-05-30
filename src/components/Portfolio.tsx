@@ -385,19 +385,31 @@ const FIFA_STATS = [
 ];
 
 function RDMFutbolPreview() {
+  // active = 0-5 highlights that stat; -1 = "reveal all" pause between cycles
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setActive((p) => (p + 1) % FIFA_STATS.length), 900);
+    let step = 0;
+    const tick = () => {
+      step++;
+      if (step <= FIFA_STATS.length) {
+        setActive(step - 1);
+      } else {
+        // Pause showing all stats
+        setActive(-1);
+        setTimeout(() => { step = 0; }, 1200);
+      }
+    };
+    const t = setInterval(tick, 900);
     return () => clearInterval(t);
   }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#022008] flex items-center justify-center">
-      {/* Pitch texture glow */}
+      {/* Pitch glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(22,163,74,0.18)_0%,transparent_70%)]" />
 
-      {/* Floating dots (players on pitch) */}
+      {/* Floating dots — players on pitch */}
       {[
         { x: 20, y: 30 }, { x: 75, y: 25 }, { x: 50, y: 55 },
         { x: 30, y: 70 }, { x: 68, y: 65 }, { x: 15, y: 60 },
@@ -411,84 +423,109 @@ function RDMFutbolPreview() {
         />
       ))}
 
-      {/* FIFA card */}
+      {/* FIFA card — outer wrapper owns the shadow and 3D entry */}
       <motion.div
         className="relative z-10 select-none"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        style={{ width: 120, height: 168 }}
+        initial={{ opacity: 0, y: 16, rotateY: 15 }}
+        animate={{ opacity: 1, y: 0, rotateY: 0 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{
+          width: 160,
+          height: 224,
+          perspective: 600,
+          boxShadow: "0 8px 40px rgba(212,168,83,0.40), 0 0 0 1px rgba(212,168,83,0.20)",
+          borderRadius: 12,
+        }}
       >
-        {/* Card body — gold tier */}
+        {/* Card body */}
         <div
-          className="w-full h-full rounded-xl relative overflow-hidden shadow-[0_0_30px_rgba(212,168,83,0.35)]"
+          className="w-full h-full rounded-xl overflow-hidden flex flex-col relative"
           style={{
             background: "linear-gradient(145deg, #2a1a00 0%, #5c3d00 40%, #1a1000 100%)",
             border: "1px solid rgba(212,168,83,0.5)",
           }}
         >
-          {/* Gold shimmer */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(212,168,83,0.08) 0%, transparent 60%)" }} />
+          {/* Warm top shimmer */}
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(170deg, rgba(255,200,80,0.06) 0%, transparent 45%)" }} />
+          {/* Diagonal shimmer */}
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(212,168,83,0.07) 0%, transparent 55%)" }} />
 
-          {/* Top area */}
-          <div className="absolute top-3 left-3 flex flex-col items-center">
-            <span className="text-[#D4A853] font-black text-xl leading-none">82</span>
-            <span className="text-[#D4A853]/60 text-[8px] font-bold tracking-wide mt-0.5">CAM</span>
-          </div>
-
-          {/* Club badge placeholder */}
-          <div className="absolute top-3 right-3 w-6 h-6 rounded-full border border-[#D4A853]/30 bg-[#D4A853]/10 flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(212,168,83,0.6)" strokeWidth="1.5" className="w-3.5 h-3.5">
-              <path d="M12 2l3 6h6l-5 4 2 7-6-4-6 4 2-7L3 8h6z" />
-            </svg>
-          </div>
-
-          {/* Player silhouette */}
-          <div className="absolute inset-x-0 top-8 flex justify-center">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-b from-[#D4A853]/20 to-transparent flex items-end justify-center overflow-hidden">
-              <svg viewBox="0 0 40 48" fill="none" className="w-12 h-12" style={{ marginBottom: -2 }}>
-                <circle cx="20" cy="12" r="8" fill="rgba(212,168,83,0.7)" />
-                <path d="M4 48c0-10 7-17 16-17s16 7 16 17H4z" fill="rgba(212,168,83,0.5)" />
+          {/* HEADER ZONE — 44px */}
+          <div className="flex justify-between items-start px-3 pt-3" style={{ height: 44 }}>
+            <div className="flex flex-col items-center">
+              <span className="text-[#D4A853] font-black leading-none" style={{ fontSize: 28 }}>82</span>
+              <span className="text-[#D4A853]/60 font-bold tracking-wide" style={{ fontSize: 9 }}>CAM</span>
+            </div>
+            {/* Country + badge centered */}
+            <div className="flex flex-col items-center justify-start pt-0.5 gap-0.5">
+              <span className="text-[#D4A853]/40 tracking-widest font-bold" style={{ fontSize: 7 }}>PER</span>
+            </div>
+            <div className="w-7 h-7 rounded-full border border-[#D4A853]/30 bg-[#D4A853]/10 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="rgba(212,168,83,0.65)" strokeWidth="1.5" style={{ width: 14, height: 14 }}>
+                <path d="M12 2l3 6h6l-5 4 2 7-6-4-6 4 2-7L3 8h6z" />
               </svg>
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="absolute left-3 right-3 h-px bg-[#D4A853]/20" style={{ top: 90 }} />
-
-          {/* Name */}
-          <div className="absolute left-0 right-0 text-center" style={{ top: 95 }}>
-            <span className="text-[#D4A853] font-black text-[9px] tracking-[0.12em] uppercase">R. MENDOZA</span>
+          {/* AVATAR ZONE — 80px */}
+          <div className="flex items-center justify-center" style={{ height: 80 }}>
+            <div
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: 72,
+                height: 72,
+                background: "linear-gradient(to bottom, rgba(212,168,83,0.22), rgba(212,168,83,0.04))",
+                boxShadow: "0 0 0 1px rgba(212,168,83,0.28)",
+              }}
+            >
+              <span className="font-black text-[#D4A853]" style={{ fontSize: 22, letterSpacing: "0.04em" }}>R.M.</span>
+            </div>
           </div>
 
-          {/* Stats grid */}
-          <div className="absolute bottom-4 left-2 right-2 grid grid-cols-3 gap-x-1 gap-y-1">
+          {/* DIVIDER — 12px */}
+          <div className="flex items-center px-3" style={{ height: 12 }}>
+            <div className="flex-1 h-px bg-[#D4A853]/20" />
+          </div>
+
+          {/* NAME ZONE — 20px */}
+          <div className="flex items-center justify-center" style={{ height: 20 }}>
+            <span className="text-[#D4A853] font-black tracking-[0.15em] uppercase" style={{ fontSize: 11 }}>R. MENDOZA</span>
+          </div>
+
+          {/* STATS ZONE — 68px */}
+          <div className="grid grid-cols-3 px-2 pb-3" style={{ height: 68 }}>
             {FIFA_STATS.map((s, i) => (
               <motion.div
                 key={s.key}
-                className="flex flex-col items-center"
-                animate={{ opacity: active === i ? 1 : 0.45 }}
-                transition={{ duration: 0.3 }}
+                className="flex flex-col items-center justify-center"
+                style={{ borderTop: i >= 3 ? "1px solid rgba(212,168,83,0.10)" : "none" }}
+                animate={{ scale: active === i ? 1.12 : 1 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
                 <span
-                  className="font-black text-[10px] leading-none"
-                  style={{ color: active === i ? "#D4A853" : "rgba(212,168,83,0.6)" }}
+                  className="font-black leading-none"
+                  style={{
+                    fontSize: 13,
+                    color: active === -1 || active === i ? "#D4A853" : "rgba(212,168,83,0.65)",
+                    transition: "color 0.25s ease",
+                  }}
                 >
                   {s.val}
                 </span>
-                <span className="text-[6px] text-white/30 tracking-wide">{s.key}</span>
+                <span className="text-white/35 tracking-wide" style={{ fontSize: 8 }}>{s.key}</span>
               </motion.div>
             ))}
           </div>
         </div>
       </motion.div>
 
-      {/* Label */}
+      {/* Bottom section labels */}
       <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-3">
         {["Esta Semana", "Jugadores", "Sorteo"].map((label, i) => (
           <motion.span
             key={label}
-            className="text-[7px] text-white/20 tracking-wider uppercase"
+            className="text-white/20 tracking-wider uppercase"
+            style={{ fontSize: 7 }}
             animate={{ opacity: [0.15, 0.4, 0.15] }}
             transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }}
           >
