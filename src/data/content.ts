@@ -184,6 +184,25 @@ export const getPortfolio = (locale: Locale): PortfolioProject[] => [
         ? ["Tarot/mystical theme", "Real-time RSVP", "Canvas animations"]
         : ["Tema tarot/mistico", "RSVP en tiempo real", "Animaciones canvas"],
   },
+  {
+    title: "RDM Futbol",
+    subtitle:
+      locale === "en"
+        ? "Community sports app"
+        : "App deportiva comunitaria",
+    description:
+      locale === "en"
+        ? "Web app for managing a weekly football group. FIFA-style player cards with stats, real-time attendance, team balancing algorithm, fine tracking and payment verification."
+        : "App web para gestionar un grupo de futbol semanal. Tarjetas de jugador estilo FIFA con stats, convocatoria en tiempo real, algoritmo de sorteo de equipos, control de multas y verificacion de pagos.",
+    gradient: "from-[#064e3b] to-[#16a34a]",
+    tags: ["React", "Firebase", "Cloudinary", "Vite"],
+    category: "Community App",
+    url: "https://rdm-futbol.pages.dev",
+    highlights:
+      locale === "en"
+        ? ["FIFA-style player cards", "Real-time Firestore", "Position-aware team balancing"]
+        : ["Tarjetas estilo FIFA", "Firestore en tiempo real", "Sorteo por posicion"],
+  },
 ];
 
 export const getProcess = (locale: Locale) => [
