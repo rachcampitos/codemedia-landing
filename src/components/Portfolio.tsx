@@ -374,10 +374,137 @@ function WeddingPreview() {
   );
 }
 
+/* ── RDM Fútbol FIFA card preview ── */
+const FIFA_STATS = [
+  { key: "PAC", val: 82 },
+  { key: "TIR", val: 75 },
+  { key: "PAS", val: 78 },
+  { key: "REG", val: 80 },
+  { key: "DEF", val: 44 },
+  { key: "FIS", val: 71 },
+];
+
+function RDMFutbolPreview() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setActive((p) => (p + 1) % FIFA_STATS.length), 900);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-[#022008] flex items-center justify-center">
+      {/* Pitch texture glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(22,163,74,0.18)_0%,transparent_70%)]" />
+
+      {/* Floating dots (players on pitch) */}
+      {[
+        { x: 20, y: 30 }, { x: 75, y: 25 }, { x: 50, y: 55 },
+        { x: 30, y: 70 }, { x: 68, y: 65 }, { x: 15, y: 60 },
+      ].map((pos, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 rounded-full bg-white/20"
+          style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+          animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.3, 1] }}
+          transition={{ duration: 2.5, delay: i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+
+      {/* FIFA card */}
+      <motion.div
+        className="relative z-10 select-none"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        style={{ width: 120, height: 168 }}
+      >
+        {/* Card body — gold tier */}
+        <div
+          className="w-full h-full rounded-xl relative overflow-hidden shadow-[0_0_30px_rgba(212,168,83,0.35)]"
+          style={{
+            background: "linear-gradient(145deg, #2a1a00 0%, #5c3d00 40%, #1a1000 100%)",
+            border: "1px solid rgba(212,168,83,0.5)",
+          }}
+        >
+          {/* Gold shimmer */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(212,168,83,0.08) 0%, transparent 60%)" }} />
+
+          {/* Top area */}
+          <div className="absolute top-3 left-3 flex flex-col items-center">
+            <span className="text-[#D4A853] font-black text-xl leading-none">82</span>
+            <span className="text-[#D4A853]/60 text-[8px] font-bold tracking-wide mt-0.5">CAM</span>
+          </div>
+
+          {/* Club badge placeholder */}
+          <div className="absolute top-3 right-3 w-6 h-6 rounded-full border border-[#D4A853]/30 bg-[#D4A853]/10 flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(212,168,83,0.6)" strokeWidth="1.5" className="w-3.5 h-3.5">
+              <path d="M12 2l3 6h6l-5 4 2 7-6-4-6 4 2-7L3 8h6z" />
+            </svg>
+          </div>
+
+          {/* Player silhouette */}
+          <div className="absolute inset-x-0 top-8 flex justify-center">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-b from-[#D4A853]/20 to-transparent flex items-end justify-center overflow-hidden">
+              <svg viewBox="0 0 40 48" fill="none" className="w-12 h-12" style={{ marginBottom: -2 }}>
+                <circle cx="20" cy="12" r="8" fill="rgba(212,168,83,0.7)" />
+                <path d="M4 48c0-10 7-17 16-17s16 7 16 17H4z" fill="rgba(212,168,83,0.5)" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="absolute left-3 right-3 h-px bg-[#D4A853]/20" style={{ top: 90 }} />
+
+          {/* Name */}
+          <div className="absolute left-0 right-0 text-center" style={{ top: 95 }}>
+            <span className="text-[#D4A853] font-black text-[9px] tracking-[0.12em] uppercase">R. MENDOZA</span>
+          </div>
+
+          {/* Stats grid */}
+          <div className="absolute bottom-4 left-2 right-2 grid grid-cols-3 gap-x-1 gap-y-1">
+            {FIFA_STATS.map((s, i) => (
+              <motion.div
+                key={s.key}
+                className="flex flex-col items-center"
+                animate={{ opacity: active === i ? 1 : 0.45 }}
+                transition={{ duration: 0.3 }}
+              >
+                <span
+                  className="font-black text-[10px] leading-none"
+                  style={{ color: active === i ? "#D4A853" : "rgba(212,168,83,0.6)" }}
+                >
+                  {s.val}
+                </span>
+                <span className="text-[6px] text-white/30 tracking-wide">{s.key}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Label */}
+      <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-3">
+        {["Esta Semana", "Jugadores", "Sorteo"].map((label, i) => (
+          <motion.span
+            key={label}
+            className="text-[7px] text-white/20 tracking-wider uppercase"
+            animate={{ opacity: [0.15, 0.4, 0.15] }}
+            transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }}
+          >
+            {label}
+          </motion.span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ── Preview resolver ── */
 const previews: Record<string, () => React.JSX.Element> = {
   NurseLite: NurseLitePreview,
   "Frankie & Rodrigo": WeddingPreview,
+  "RDM Futbol": RDMFutbolPreview,
 };
 
 export function Portfolio() {
