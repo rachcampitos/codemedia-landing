@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { siteConfig } from "@/data/content";
 import { useLanguage } from "@/i18n";
@@ -41,6 +41,7 @@ export function Hero() {
   const [phase, setPhase] = useState<Phase>("waiting");
   const [charIndex, setCharIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [industryIndex, setIndustryIndex] = useState(0);
 
   const codeLinesWithComment = useMemo(() => [
     ...codeLines,
@@ -88,6 +89,23 @@ export function Hero() {
 
   const contentReady = phase === "done";
   const isTyping = phase === "waiting" || phase === "typing";
+
+  const industries = [
+    { label: "Healthcare",     color: "#06B6D4" },
+    { label: "Retail POS",     color: "#D4500A" },
+    { label: "Weddings",       color: "#8B7BB8" },
+    { label: "Community Apps", color: "#16a34a" },
+  ];
+
+  useEffect(() => {
+    if (!contentReady || reducedMotion) return;
+    const delay = setTimeout(() => {
+      const t = setInterval(() => setIndustryIndex((p) => (p + 1) % industries.length), 2200);
+      return () => clearInterval(t);
+    }, 300);
+    return () => clearTimeout(delay);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contentReady, reducedMotion]);
 
   return (
     <section
@@ -169,6 +187,34 @@ export function Hero() {
               <p className="text-[var(--primary)] font-bold text-sm uppercase tracking-[0.2em] mb-4">
                 {t("hero.subtitle")}
               </p>
+
+              {/* Rotating industry pill */}
+              <div className="flex justify-center lg:justify-start mb-5" style={{ minHeight: 34 }}>
+                <AnimatePresence mode="wait">
+                  {contentReady && (
+                    <motion.span
+                      key={reducedMotion ? "static" : industries[industryIndex].label}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold"
+                      style={{
+                        border: `1.5px solid ${industries[reducedMotion ? 0 : industryIndex].color}`,
+                        color: industries[reducedMotion ? 0 : industryIndex].color,
+                        background: `${industries[reducedMotion ? 0 : industryIndex].color}14`,
+                        minWidth: 140,
+                      }}
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{ background: industries[reducedMotion ? 0 : industryIndex].color }}
+                      />
+                      {industries[reducedMotion ? 0 : industryIndex].label}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
                 {siteConfig.description(locale)}

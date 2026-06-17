@@ -537,10 +537,152 @@ function RDMFutbolPreview() {
   );
 }
 
+/* ── BodegaPOS tablet POS preview ── */
+const POS_PRODUCTS = [
+  { color: "#06B6D4", name: "Leche",  price: "4.50" },
+  { color: "#D4500A", name: "Arroz",  price: "3.20" },
+  { color: "#F4A823", name: "Azúcar", price: "3.80" },
+  { color: "#2A9D5C", name: "Fideo",  price: "2.50" },
+  { color: "#8B5CF6", name: "Atún",   price: "3.80" },
+  { color: "#EC4899", name: "Yogurt", price: "2.00" },
+  { color: "#D4500A", name: "Inka",   price: "2.50" },
+  { color: "#06B6D4", name: "Pan",    price: "0.30" },
+];
+
+function BodegaPOSPreview() {
+  const prefersReduced = useReducedMotion();
+  const [shimmer, setShimmer] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setShimmer((p) => (p >= POS_PRODUCTS.length - 1 ? 0 : p + 1)), 900);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden flex items-center justify-center">
+      {/* Ambient glows */}
+      <div className="absolute w-56 h-56 rounded-full bg-[#D4500A]/15 blur-[70px] -top-8 -left-8" />
+      <div className="absolute w-40 h-40 rounded-full bg-[#2A9D5C]/10 blur-[50px] bottom-4 right-4" />
+
+      {/* Tablet frame */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        className="relative"
+        style={{
+          width: 340, height: 220,
+          background: "#1c1c1e", borderRadius: 14, padding: 8,
+          boxShadow: "0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.07)",
+        }}
+      >
+        {/* Side buttons */}
+        <div className="absolute rounded-l" style={{ left: -4, top: 44, width: 4, height: 26, background: "#2a2a2c" }} />
+        <div className="absolute rounded-l" style={{ left: -4, top: 80, width: 4, height: 26, background: "#2a2a2c" }} />
+        <div className="absolute rounded-r" style={{ right: -4, top: 60, width: 4, height: 36, background: "#2a2a2c" }} />
+
+        {/* Screen */}
+        <div className="w-full h-full overflow-hidden flex" style={{ borderRadius: 8, background: "#F0ECE8" }}>
+
+          {/* LEFT 60% — catalogue */}
+          <div className="flex flex-col" style={{ width: "60%", background: "#FAF8F5", borderRight: "1px solid #E0D9D3" }}>
+            {/* Toolbar */}
+            <div className="flex items-center justify-between" style={{ background: "#D4500A", padding: "5px 8px" }}>
+              <span style={{ color: "#fff", fontSize: 9, fontWeight: 800 }}>🏪 Cobrar</span>
+              <div className="flex items-center justify-center" style={{ width: 15, height: 15, borderRadius: "50%", background: "rgba(255,255,255,0.2)" }}>
+                <span style={{ fontSize: 7 }}>🔍</span>
+              </div>
+            </div>
+            {/* Category chips */}
+            <div className="flex" style={{ gap: 3, padding: "4px 5px", borderBottom: "1px solid #E0D9D3" }}>
+              {["Abarrotes", "Bebidas", "Frescos", "Todos"].map((cat, i) => (
+                <div key={cat} style={{
+                  padding: "2px 5px", borderRadius: 10, fontSize: 6, fontWeight: 700,
+                  background: i === 0 ? "#D4500A" : "rgba(212,80,10,0.07)",
+                  color: i === 0 ? "#fff" : "#8A8A8A",
+                  border: i === 0 ? "1px solid #D4500A" : "1px solid #E0D9D3",
+                }}>
+                  {cat}
+                </div>
+              ))}
+            </div>
+            {/* 4×2 product grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 3, padding: 5, flex: 1 }}>
+              {POS_PRODUCTS.map((p, i) => (
+                <motion.div
+                  key={i}
+                  style={{
+                    background: "#fff", borderRadius: 6, padding: "4px 3px",
+                    display: "flex", flexDirection: "column", alignItems: "flex-start",
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+                    border: shimmer === i ? "1px solid rgba(212,80,10,0.40)" : "1px solid transparent",
+                  }}
+                  animate={!prefersReduced && shimmer === i ? { scale: 1.04 } : { scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div style={{ width: 12, height: 12, borderRadius: 4, background: p.color, marginBottom: 2, opacity: 0.85 }} />
+                  <div style={{ fontSize: 5.5, fontWeight: 700, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 1 }}>{p.name}</div>
+                  <div style={{ fontSize: 7, fontWeight: 800, color: "#D4500A" }}>S/{p.price}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT 40% — cart */}
+          <div className="flex flex-col" style={{ flex: 1, background: "#F0ECE8" }}>
+            {/* Cuenta tabs */}
+            <div className="flex items-center" style={{ background: "#FAF8F5", borderBottom: "1px solid #E0D9D3", padding: "5px 7px", gap: 4 }}>
+              <div style={{ padding: "2px 7px", borderRadius: 6, background: "#2563eb", color: "#fff", fontSize: 7, fontWeight: 700 }}>Cuenta 1</div>
+              <div style={{ padding: "2px 7px", borderRadius: 6, background: "transparent", border: "1px solid #2A9D5C", color: "#2A9D5C", fontSize: 7, fontWeight: 700 }}>Cuenta 2</div>
+              <div className="flex items-center justify-center" style={{ marginLeft: "auto", width: 16, height: 16, borderRadius: "50%", border: "1.5px dashed #D4500A", color: "#D4500A", fontSize: 11, fontWeight: 700 }}>+</div>
+            </div>
+            {/* Cart items */}
+            <div style={{ flex: 1 }}>
+              {[
+                { name: "Leche Gloria", qty: "×2", price: "S/ 9.00" },
+                { name: "Arroz Costeño", qty: "×1", price: "S/ 3.20" },
+                { name: "Azúcar Rubia", qty: "×1", price: "S/ 3.80" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center justify-between" style={{ padding: "5px 8px", borderBottom: "1px solid #E0D9D3" }}>
+                  <div>
+                    <div style={{ fontSize: 7.5, fontWeight: 700, color: "#1A1A1A" }}>{item.name}</div>
+                    <div style={{ fontSize: 6, color: "#8A8A8A" }}>{item.qty}</div>
+                  </div>
+                  <div style={{ fontSize: 8, fontWeight: 800, color: "#1A1A1A" }}>{item.price}</div>
+                </div>
+              ))}
+            </div>
+            {/* Cart footer */}
+            <div style={{ background: "#FAF8F5", borderTop: "1px solid #E0D9D3", padding: 8 }}>
+              <div className="flex items-center justify-between" style={{ marginBottom: 5 }}>
+                <span style={{ fontSize: 8, color: "#4A4A4A", fontWeight: 700 }}>Total</span>
+                <span style={{ fontSize: 13, fontWeight: 900, color: "#1A1A1A" }}>S/ 16.00</span>
+              </div>
+              <motion.div
+                style={{
+                  background: "#D4500A", borderRadius: 8, padding: "6px 8px",
+                  textAlign: "center", color: "#fff", fontSize: 8, fontWeight: 900,
+                  cursor: "default",
+                }}
+                animate={prefersReduced ? {} : { scale: [1, 1.03, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                ✅ COBRAR S/ 16.00
+              </motion.div>
+            </div>
+          </div>
+
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 /* ── Preview resolver ── */
 const previews: Record<string, () => React.JSX.Element> = {
   NurseLite: NurseLitePreview,
   "Frankie & Rodrigo": WeddingPreview,
+  BodegaPOS: BodegaPOSPreview,
   "RDM Futbol": RDMFutbolPreview,
 };
 

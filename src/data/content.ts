@@ -194,7 +194,7 @@ export const getPortfolio = (locale: Locale): PortfolioProject[] => [
       locale === "en"
         ? "Complete POS system tailored for Peruvian small retailers. Offline-first architecture, thermal receipt printing, credit ('fiado') tracking, barcode scanner integration, expiry date alerts and Excel data export."
         : "Sistema POS completo adaptado para minimarkets y bodegas peruanas. Arquitectura offline, tickets termicos, creditos (fiado), lector de codigos de barra, alertas de vencimiento y exportacion de datos en Excel.",
-    gradient: "from-[#0f2027] to-[#2c5364]",
+    gradient: "from-[#0d1a0f] to-[#1a2f1a]",
     tags: ["Ionic", "Angular", "NestJS", "MongoDB", "Cloudflare", "Railway"],
     category: "Retail SaaS",
     url: undefined,
