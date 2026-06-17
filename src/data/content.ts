@@ -185,6 +185,25 @@ export const getPortfolio = (locale: Locale): PortfolioProject[] => [
         : ["Tema tarot/mistico", "RSVP en tiempo real", "Animaciones canvas"],
   },
   {
+    title: "BodegaPOS",
+    subtitle:
+      locale === "en"
+        ? "Point-of-sale system for Peruvian bodegas"
+        : "Sistema POS para bodegas peruanas",
+    description:
+      locale === "en"
+        ? "Complete POS system tailored for Peruvian small retailers. Offline-first architecture, thermal receipt printing, credit ('fiado') tracking, barcode scanner integration, expiry date alerts and Excel data export."
+        : "Sistema POS completo adaptado para minimarkets y bodegas peruanas. Arquitectura offline, tickets termicos, creditos (fiado), lector de codigos de barra, alertas de vencimiento y exportacion de datos en Excel.",
+    gradient: "from-[#0f2027] to-[#2c5364]",
+    tags: ["Ionic", "Angular", "NestJS", "MongoDB", "Cloudflare", "Railway"],
+    category: "Retail SaaS",
+    url: undefined,
+    highlights:
+      locale === "en"
+        ? ["Offline-first (works without internet)", "Thermal receipt printing", "Credit & fiado tracking"]
+        : ["Funciona sin internet", "Tickets para impresora termica", "Control de creditos y fiado"],
+  },
+  {
     title: "RDM Futbol",
     subtitle:
       locale === "en"
