@@ -189,21 +189,20 @@ export function Hero() {
               </p>
 
               {/* Rotating industry pill */}
-              <div className="flex justify-center lg:justify-start mb-5" style={{ minHeight: 34 }}>
+              <div className="flex justify-center lg:justify-start mb-4 h-8 overflow-hidden">
                 <AnimatePresence mode="wait">
                   {contentReady && (
                     <motion.span
                       key={reducedMotion ? "static" : industries[industryIndex].label}
-                      initial={{ opacity: 0, y: 6 }}
+                      initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.28, ease: "easeOut" }}
-                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold"
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap"
                       style={{
                         border: `1.5px solid ${industries[reducedMotion ? 0 : industryIndex].color}`,
                         color: industries[reducedMotion ? 0 : industryIndex].color,
-                        background: `${industries[reducedMotion ? 0 : industryIndex].color}14`,
-                        minWidth: 140,
+                        background: `${industries[reducedMotion ? 0 : industryIndex].color}18`,
                       }}
                     >
                       <span
