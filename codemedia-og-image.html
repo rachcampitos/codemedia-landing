@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1200" />
+  <title>Code Media OG Image — 1200×630</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    body {
+      background: transparent;
+    }
+
+    .canvas {
+      width: 1200px;
+      height: 630px;
+      background: #0F172A;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* ── Background blobs ── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 70%);
+      top: -120px; right: 60px;
+    }
+    .blob-2 {
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(30,64,175,0.22) 0%, transparent 70%);
+      bottom: -80px; left: 300px;
+    }
+    .blob-3 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(139,92,246,0.10) 0%, transparent 70%);
+      top: 80px; left: 60px;
+    }
+
+    /* ── Grid dots ── */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(148,163,184,0.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* ── Left side ── */
+    .left {
+      position: relative;
+      z-index: 10;
+      padding: 56px 52px 56px 64px;
+      flex: 0 0 610px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* Location pill */
+    .location-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(6,182,212,0.12);
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #22D3EE;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
+      margin-bottom: 22px;
+    }
+    .location-dot {
+      width: 6px; height: 6px;
+      background: #22D3EE;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(34,211,238,0.8);
+    }
+
+    /* Brand */
+    .brand {
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .brand-code { color: #F8FAFC; }
+    .brand-media {
+      background: linear-gradient(90deg, #06B6D4 0%, #3B82F6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .brand-slash { color: #06B6D4; }
+
+    /* Tagline */
+    .tagline {
+      font-size: 20px;
+      font-weight: 500;
+      color: #94A3B8;
+      line-height: 1.4;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .tagline strong { color: #CBD5E1; font-weight: 600; }
+
+    /* Proof points */
+    .proof-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #CBD5E1;
+    }
+    .proof-icon {
+      width: 22px; height: 22px;
+      background: rgba(6,182,212,0.15);
+      border: 1px solid rgba(6,182,212,0.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #22D3EE;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* URL bar */
+    .url-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #64748B;
+      width: fit-content;
+    }
+    .url-dot { width: 7px; height: 7px; background: #22D3EE; border-radius: 50%; }
+    .url-text { color: #94A3B8; }
+
+    /* ── Right side — Editor ── */
+    .right {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-right: 48px;
+    }
+
+    .editor {
+      width: 460px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 0 0 1px rgba(6,182,212,0.15),
+        0 24px 64px rgba(0,0,0,0.6),
+        0 0 80px rgba(6,182,212,0.08);
+    }
+
+    /* Title bar */
+    .editor-bar {
+      background: #1a1a2e;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .dots { display: flex; gap: 6px; }
+    .dot {
+      width: 11px; height: 11px; border-radius: 50%;
+    }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .editor-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #546e7a;
+      margin-left: 4px;
+    }
+    .editor-lang {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #28c840;
+    }
+
+    /* Code area */
+    .editor-body {
+      background: #0d1117;
+      padding: 20px 20px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+    .line { display: flex; align-items: baseline; gap: 0; }
+    .ln {
+      color: #546e7a;
+      width: 28px;
+      text-align: right;
+      margin-right: 16px;
+      font-size: 11px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .kw  { color: #c792ea; }
+    .id  { color: #eeffff; }
+    .op  { color: #89ddff; }
+    .str { color: #c3e88d; }
+    .fn  { color: #82aaff; }
+    .num { color: #f78c6c; }
+    .cm  { color: #546e7a; }
+    .key { color: #f07178; }
+    .indent-1 { padding-left: 20px; }
+    .indent-2 { padding-left: 40px; }
+    .cursor {
+      display: inline-block;
+      width: 2px; height: 14px;
+      background: #06B6D4;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+
+    /* Status bar */
+    .editor-status {
+      background: #0F172A;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 5px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #546e7a;
+    }
+    .status-left { display: flex; align-items: center; gap: 12px; }
+    .status-branch { color: #28c840; display: flex; align-items: center; gap: 4px; }
+    .status-branch::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #28c840;
+      border-radius: 50%;
+    }
+    .status-right { display: flex; gap: 10px; }
+    .prettier { color: #06B6D4; }
+
+    /* ── Divider ── */
+    .divider {
+      position: absolute;
+      left: 610px;
+      top: 60px;
+      bottom: 60px;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(6,182,212,0.15) 30%, rgba(6,182,212,0.15) 70%, transparent);
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="grid-overlay"></div>
+  <div class="divider"></div>
+
+  <!-- Left -->
+  <div class="left">
+    <div class="location-pill">
+      <span class="location-dot"></span>
+      Lima, Perú · Disponibles
+    </div>
+
+    <div class="brand">
+      <span class="brand-code">Code</span><span class="brand-media">Media</span><span class="brand-slash">/</span>
+    </div>
+
+    <p class="tagline">
+      Desarrollo de software <strong>a medida</strong><br/>
+      para empresas que crecen
+    </p>
+
+    <div class="proof-list">
+      <div class="proof-item">
+        <div class="proof-icon">✓</div>
+        Código en producción con usuarios reales
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">✓</div>
+        1,000+ usuarios activos · 99.9% uptime
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">✓</div>
+        768 tests automatizados · 82% cobertura
+      </div>
+    </div>
+
+    <div class="url-bar">
+      <span class="url-dot"></span>
+      <span class="url-text">codemediaperu.com</span>
+    </div>
+  </div>
+
+  <!-- Right — Editor -->
+  <div class="right">
+    <div class="editor">
+
+      <!-- Title bar -->
+      <div class="editor-bar">
+        <div class="dots">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+        </div>
+        <span class="editor-filename">app.config.ts</span>
+        <span class="editor-lang">TypeScript</span>
+      </div>
+
+      <!-- Code -->
+      <div class="editor-body">
+        <div class="line"><span class="ln">1</span><span class="kw">const</span><span class="id"> app </span><span class="op">=</span><span class="id"> </span><span class="fn">createApp</span><span class="op">({</span></div>
+        <div class="line"><span class="ln">2</span><span class="indent-1"><span class="key">name</span><span class="op">:</span><span class="str"> "NurseLite"</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln">3</span><span class="indent-1"><span class="key">stack</span><span class="op">:</span><span class="op"> [</span><span class="str">"NestJS"</span><span class="op">,</span><span class="str"> "Ionic"</span><span class="op">,</span><span class="str"> "MongoDB"</span><span class="op">],</span></span></div>
+        <div class="line"><span class="ln">4</span><span class="indent-1"><span class="key">tests</span><span class="op">:</span><span class="num"> 768</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln">5</span><span class="indent-1"><span class="key">coverage</span><span class="op">:</span><span class="str"> "82%"</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln">6</span><span class="indent-1"><span class="key">uptime</span><span class="op">:</span><span class="str"> "99.9%"</span><span class="op">,</span></span></div>
+        <div class="line"><span class="ln">7</span><span class="op">});</span></div>
+        <div class="line"><span class="ln">8</span></div>
+        <div class="line"><span class="ln">9</span><span class="kw">await</span><span class="id"> app</span><span class="op">.</span><span class="fn">deploy</span><span class="op">(</span><span class="str">"production"</span><span class="op">);</span></div>
+        <div class="line"><span class="ln">10</span></div>
+        <div class="line"><span class="ln">11</span><span class="cm">// ✓ Build exitoso — 0 errores</span></div>
+        <div class="line"><span class="ln">12</span><span class="cm">// ✓ Deploy completado en 2.4s</span></div>
+        <div class="line"><span class="ln">13</span><span class="id"> </span><span class="cursor"></span></div>
+      </div>
+
+      <!-- Status bar -->
+      <div class="editor-status">
+        <div class="status-left">
+          <span class="status-branch">main</span>
+          <span>UTF-8</span>
+        </div>
+        <div class="status-right">
+          <span>Ln 13, Col 1</span>
+          <span class="prettier">Prettier</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

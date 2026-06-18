@@ -90,12 +90,19 @@ export function Hero() {
   const contentReady = phase === "done";
   const isTyping = phase === "waiting" || phase === "typing";
 
-  const industries = [
-    { label: "Healthcare",     color: "#06B6D4" },
-    { label: "Retail POS",     color: "#D4500A" },
-    { label: "Weddings",       color: "#8B7BB8" },
-    { label: "Community Apps", color: "#16a34a" },
-  ];
+  const industries = locale === "en"
+    ? [
+        { label: "Healthcare",     color: "#06B6D4" },
+        { label: "Retail POS",     color: "#D4500A" },
+        { label: "Weddings",       color: "#8B7BB8" },
+        { label: "Community Apps", color: "#16a34a" },
+      ]
+    : [
+        { label: "Salud",          color: "#06B6D4" },
+        { label: "Retail POS",     color: "#D4500A" },
+        { label: "Bodas",          color: "#8B7BB8" },
+        { label: "Apps Comunidad", color: "#16a34a" },
+      ];
 
   useEffect(() => {
     if (!contentReady || reducedMotion) return;
@@ -118,7 +125,7 @@ export function Hero() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#06B6D4] opacity-[0.07] blur-[100px]"
-          animate={{
+          animate={reducedMotion ? {} : {
             x: [0, 30, -20, 0],
             y: [0, -40, 30, 0],
             scale: [1, 1.1, 0.9, 1],
@@ -128,7 +135,7 @@ export function Hero() {
         />
         <motion.div
           className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-[#1E40AF] opacity-[0.05] blur-[80px]"
-          animate={{
+          animate={reducedMotion ? {} : {
             x: [0, -20, 30, 0],
             y: [0, 30, -40, 0],
             scale: [1, 0.9, 1.1, 1],
@@ -138,7 +145,7 @@ export function Hero() {
         />
         <motion.div
           className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-[#8B5CF6] opacity-[0.04] blur-[90px]"
-          animate={{
+          animate={reducedMotion ? {} : {
             x: [0, 40, -30, 0],
             y: [0, -20, 40, 0],
             scale: [1, 1.15, 0.85, 1],
@@ -189,16 +196,22 @@ export function Hero() {
               </p>
 
               {/* Rotating industry pill */}
-              <div className="flex justify-center lg:justify-start mb-4 h-8 overflow-hidden">
+              <div
+                className="flex justify-center lg:justify-start mb-4 h-8 overflow-hidden"
+                aria-live="polite"
+                aria-atomic="true"
+              >
                 <AnimatePresence mode="wait">
                   {contentReady && (
-                    <motion.span
+                    <motion.a
+                      href="#portafolio"
+                      onClick={(e) => scrollTo(e, "portafolio")}
                       key={reducedMotion ? "static" : industries[industryIndex].label}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap"
+                      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap cursor-pointer"
                       style={{
                         border: `1.5px solid ${industries[reducedMotion ? 0 : industryIndex].color}`,
                         color: industries[reducedMotion ? 0 : industryIndex].color,
@@ -210,7 +223,7 @@ export function Hero() {
                         style={{ background: industries[reducedMotion ? 0 : industryIndex].color }}
                       />
                       {industries[reducedMotion ? 0 : industryIndex].label}
-                    </motion.span>
+                    </motion.a>
                   )}
                 </AnimatePresence>
               </div>
@@ -227,16 +240,17 @@ export function Hero() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a
-                  href="#estimador"
-                  onClick={(e) => scrollTo(e, "estimador")}
+                  href={siteConfig.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-primary justify-center"
                 >
                   {t("hero.cta1")}
                   <ArrowDown className="w-4 h-4" />
                 </a>
                 <a
-                  href="#contacto"
-                  onClick={(e) => scrollTo(e, "contacto")}
+                  href="#estimador"
+                  onClick={(e) => scrollTo(e, "estimador")}
                   className="btn-secondary justify-center"
                 >
                   {t("hero.cta2")}
@@ -247,6 +261,7 @@ export function Hero() {
 
           {/* Code Editor */}
           <motion.div
+            aria-hidden="true"
             className="flex-1 flex justify-center w-full"
             initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
             animate={contentReady ? { opacity: 1, y: 0 } : {}}

@@ -25,17 +25,17 @@ export const siteConfig = {
 
 export const getNavLinks = (locale: Locale) => [
   { href: "#inicio", label: locale === "en" ? "Home" : "Inicio", sectionId: "inicio" },
-  { href: "#nosotros", label: locale === "en" ? "About" : "Nosotros", sectionId: "nosotros" },
   { href: "#portafolio", label: locale === "en" ? "Portfolio" : "Portafolio", sectionId: "portafolio" },
   { href: "#servicios", label: locale === "en" ? "Services" : "Servicios", sectionId: "servicios" },
+  { href: "#proceso", label: locale === "en" ? "Process" : "Proceso", sectionId: "proceso" },
   { href: "#estimador", label: locale === "en" ? "Estimator" : "Estimador", sectionId: "estimador" },
   { href: "#contacto", label: locale === "en" ? "Contact" : "Contacto", sectionId: "contacto" },
 ];
 
 export const getStats = (locale: Locale) => [
-  { value: "1,000+", label: locale === "en" ? "Active Users" : "Usuarios Activos" },
+  { value: "1,000+", label: locale === "en" ? "Users on NurseLite" : "Usuarios en NurseLite" },
   { value: "99.9%", label: locale === "en" ? "Production Uptime" : "Uptime Produccion" },
-  { value: "80%+", label: locale === "en" ? "Test Coverage" : "Cobertura de Tests" },
+  { value: "30 días", label: locale === "en" ? "Post-launch Support" : "Soporte post-lanzamiento" },
 ];
 
 export interface Service {
@@ -143,6 +143,7 @@ export interface PortfolioProject {
   category: string;
   url?: string;
   highlights: string[];
+  whatsappMsg?: string;
 }
 
 export const getPortfolio = (locale: Locale): PortfolioProject[] => [
@@ -166,25 +167,6 @@ export const getPortfolio = (locale: Locale): PortfolioProject[] => [
         : ["1,000+ usuarios activos", "768 tests automatizados", "Chat en tiempo real"],
   },
   {
-    title: "Frankie & Rodrigo",
-    subtitle:
-      locale === "en"
-        ? "Interactive wedding website"
-        : "Sitio web de boda interactivo",
-    description:
-      locale === "en"
-        ? "Wedding website with mystical tarot aesthetic. Includes RSVP with database, photo gallery, animated countdown, FAQ system and admin panel."
-        : "Pagina web de boda con estetica mistica y tarot. Incluye RSVP con base de datos, galeria de fotos, countdown animado, sistema de FAQ y panel de administracion.",
-    gradient: "from-[#1a1025] to-[#8B7BB8]",
-    tags: ["HTML/CSS/JS", "Express.js", "MongoDB", "Cloudflare"],
-    category: "Web Design",
-    url: undefined,
-    highlights:
-      locale === "en"
-        ? ["Tarot/mystical theme", "Real-time RSVP", "Canvas animations"]
-        : ["Tema tarot/mistico", "RSVP en tiempo real", "Animaciones canvas"],
-  },
-  {
     title: "BodegaPOS",
     subtitle:
       locale === "en"
@@ -202,6 +184,10 @@ export const getPortfolio = (locale: Locale): PortfolioProject[] => [
       locale === "en"
         ? ["Offline-first (works without internet)", "Thermal receipt printing", "Credit & fiado tracking"]
         : ["Funciona sin internet", "Tickets para impresora termica", "Control de creditos y fiado"],
+    whatsappMsg:
+      locale === "en"
+        ? "Hi Code Media, I'm interested in a POS system like BodegaPOS for my business"
+        : "Hola Code Media, me interesa un sistema POS como BodegaPOS para mi negocio",
   },
   {
     title: "RDM Futbol",
@@ -221,6 +207,29 @@ export const getPortfolio = (locale: Locale): PortfolioProject[] => [
       locale === "en"
         ? ["FIFA-style player cards", "Real-time Firestore", "Position-aware team balancing"]
         : ["Tarjetas estilo FIFA", "Firestore en tiempo real", "Sorteo por posicion"],
+  },
+  {
+    title: "Frankie & Rodrigo",
+    subtitle:
+      locale === "en"
+        ? "Interactive wedding website"
+        : "Sitio web de boda interactivo",
+    description:
+      locale === "en"
+        ? "Wedding website with mystical tarot aesthetic. Includes RSVP with database, photo gallery, animated countdown, FAQ system and admin panel."
+        : "Pagina web de boda con estetica mistica y tarot. Incluye RSVP con base de datos, galeria de fotos, countdown animado, sistema de FAQ y panel de administracion.",
+    gradient: "from-[#1a1025] to-[#8B7BB8]",
+    tags: ["HTML/CSS/JS", "Express.js", "MongoDB", "Cloudflare"],
+    category: "Web Design",
+    url: undefined,
+    highlights:
+      locale === "en"
+        ? ["Tarot/mystical theme", "Real-time RSVP", "Canvas animations"]
+        : ["Tema tarot/mistico", "RSVP en tiempo real", "Animaciones canvas"],
+    whatsappMsg:
+      locale === "en"
+        ? "Hi Code Media, I'm interested in a wedding website similar to Frankie & Rodrigo"
+        : "Hola Code Media, me interesa un sitio web de boda similar al de Frankie & Rodrigo",
   },
 ];
 
@@ -264,8 +273,8 @@ export const getProcess = (locale: Locale) => [
         : "Produccion + soporte",
     description:
       locale === "en"
-        ? "Automatic deployment, 24/7 monitoring. We don't leave you alone after launch."
-        : "Deploy automatico, monitoreo 24/7. No te dejamos solo despues del lanzamiento.",
+        ? "Automatic deployment, 24/7 monitoring. 30 days of post-launch support included — bugs fixed at no extra cost."
+        : "Deploy automatico, monitoreo 24/7. 30 dias de soporte post-lanzamiento incluidos — bugs corregidos sin costo adicional.",
   },
 ];
 

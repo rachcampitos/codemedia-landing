@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { getProcess } from "@/data/content";
+import { getProcess, siteConfig } from "@/data/content";
 import { useLanguage } from "@/i18n";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
@@ -61,6 +61,27 @@ export function Process() {
             </div>
           </div>
         </div>
+
+        {/* End CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-[var(--text-secondary)] mb-4 text-lg">
+            {t("process.endCta")}
+          </p>
+          <a
+            href={siteConfig.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex"
+          >
+            {t("process.endCtaBtn")}
+          </a>
+        </motion.div>
       </div>
     </section>
   );

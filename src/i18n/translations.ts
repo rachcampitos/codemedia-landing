@@ -10,8 +10,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     // Hero
     "hero.subtitle": "Desarrollo de Software",
     "hero.availability": "Disponibles para nuevos proyectos",
-    "hero.cta1": "Estima tu proyecto",
-    "hero.cta2": "Agendar consultoria",
+    "hero.cta1": "Hablemos por WhatsApp",
+    "hero.cta2": "Estima tu proyecto",
     "hero.codeComment": "// \u2713 Build exitoso \u2014 0 errores",
 
     // TrustBar
@@ -25,7 +25,7 @@ export const translations: Record<Locale, Record<string, string>> = {
       "Somos un equipo de ingenieros especializados en aplicaciones de alto rendimiento. Nuestro codigo esta en produccion, atendiendo usuarios reales todos los dias.",
     "about.founder.role": "Fundador & Lead Engineer",
     "about.founder.bio":
-      "Ingeniero de software con experiencia en aplicaciones de alto rendimiento para produccion. Fundador de NurseLite, plataforma de enfermeria a domicilio con usuarios reales en Peru.",
+      "Hola, soy Raul — ingeniero de software en Lima. Funde Code Media para que las PYMEs peruanas tengan software de calidad sin pagar precios de agencia grande. NurseLite, nuestro propio producto, tiene mas de 1,000 usuarios activos en produccion.",
 
     // Product
     "product.label": "Lo Que Construimos",
@@ -43,6 +43,9 @@ export const translations: Record<Locale, Record<string, string>> = {
       "Software real, funcionando, con usuarios reales. Cada proyecto resuelve un problema concreto.",
     "portfolio.viewProject": "Ver proyecto",
     "portfolio.privateProject": "Proyecto privado",
+    "portfolio.requestStudy": "Solicitar caso de estudio",
+    "portfolio.endCtaTitle": "¿Tu proyecto podria ser el proximo?",
+    "portfolio.endCtaBtn": "Cuentanos tu idea",
 
     // Services
     "services.label": "Servicios",
@@ -62,6 +65,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     "process.title": "Como trabajamos",
     "process.description":
       "Transparencia total. Sabes que estamos haciendo en cada momento.",
+    "process.endCta": "¿Listo para empezar?",
+    "process.endCtaBtn": "Hablemos por WhatsApp",
 
     // Contact
     "contact.label": "Contacto",
@@ -69,13 +74,16 @@ export const translations: Record<Locale, Record<string, string>> = {
     "contact.titleHighlight": "comenzar?",
     "contact.description":
       "Agenda una consultoria tecnica gratuita. Conversemos sobre tu idea, presupuesto y timeline.",
-    "contact.whatsapp.title": "Respuesta Inmediata",
-    "contact.whatsapp.desc": "Escribenos y conversamos hoy mismo",
+    "contact.available": "Disponibles ahora",
+    "contact.availableDesc": "Respondemos en menos de 2 horas en horario laboral",
+    "contact.whatsapp.title": "Hablemos hoy mismo",
+    "contact.whatsapp.desc": "Escribenos por WhatsApp y conversamos sobre tu proyecto sin compromiso",
     "contact.whatsapp.time": "Responde en <1 hora",
+    "contact.whatsapp.cta": "Escribir ahora",
     "contact.email.title": "Cotizacion Formal",
-    "contact.email.desc": "Propuesta tecnica + timeline + presupuesto",
+    "contact.email.desc": "Propuesta tecnica + timeline + presupuesto detallado",
     "contact.email.time": "Respuesta en 24h habiles",
-    "contact.location.desc": "Trabajamos remoto con clientes en todo el Peru",
+    "contact.location.desc": "Trabajamos remoto con clientes en todo Peru y Latinoamerica",
 
     // Estimator
     "estimator.label": "Estimador",
@@ -103,6 +111,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     // FAQ
     "faq.label": "Preguntas Frecuentes",
     "faq.title": "Lo que suelen preguntar",
+    "faq.endCtaText": "¿Tienes otra pregunta?",
+    "faq.endCtaBtn": "Preguntanos por WhatsApp",
     "faq.q1.q": "¿Cuánto cuesta desarrollar mi proyecto?",
     "faq.q1.a": "Depende del tipo de proyecto y las funcionalidades que necesitas. Nuestra Landing Page parte desde $500 USD y un sistema completo puede llegar a $14,000 USD. Usa el estimador interactivo de esta misma página para obtener un rango personalizado en menos de un minuto.",
     "faq.q2.q": "¿Trabajan con clientes fuera de Lima o fuera de Perú?",
@@ -136,8 +146,8 @@ export const translations: Record<Locale, Record<string, string>> = {
 
     "hero.subtitle": "Software Development",
     "hero.availability": "Available for new projects",
-    "hero.cta1": "Estimate your project",
-    "hero.cta2": "Book a consultation",
+    "hero.cta1": "Let's talk on WhatsApp",
+    "hero.cta2": "Estimate your project",
     "hero.codeComment": "// \u2713 Build successful \u2014 0 errors",
 
     "trustbar.label": "Production Stack",
@@ -149,7 +159,7 @@ export const translations: Record<Locale, Record<string, string>> = {
       "We're a team of engineers specialized in high-performance applications. Our code is in production, serving real users every day.",
     "about.founder.role": "Founder & Lead Engineer",
     "about.founder.bio":
-      "Software engineer with experience in high-performance production applications. Founder of NurseLite, a home nursing platform with real users in Peru.",
+      "Hi, I'm Raul — a software engineer based in Lima. I founded Code Media so Peruvian SMBs could get quality software without paying big-agency prices. NurseLite, our own product, has over 1,000 active users in production.",
 
     "product.label": "What We Build",
     "product.tagline":
@@ -165,6 +175,9 @@ export const translations: Record<Locale, Record<string, string>> = {
       "Real software, running, with real users. Each project solves a concrete problem.",
     "portfolio.viewProject": "View project",
     "portfolio.privateProject": "Private project",
+    "portfolio.requestStudy": "Request case study",
+    "portfolio.endCtaTitle": "Could your project be next?",
+    "portfolio.endCtaBtn": "Tell us your idea",
 
     "services.label": "Services",
     "services.title": "End-to-end services",
@@ -181,19 +194,24 @@ export const translations: Record<Locale, Record<string, string>> = {
     "process.title": "How we work",
     "process.description":
       "Total transparency. You know what we're doing at every moment.",
+    "process.endCta": "Ready to get started?",
+    "process.endCtaBtn": "Let's talk on WhatsApp",
 
     "contact.label": "Contact",
     "contact.title": "Ready to",
     "contact.titleHighlight": "get started?",
     "contact.description":
       "Book a free technical consultation. Let's discuss your idea, budget and timeline.",
-    "contact.whatsapp.title": "Instant Response",
-    "contact.whatsapp.desc": "Write to us and let's talk today",
+    "contact.available": "Available now",
+    "contact.availableDesc": "We respond in under 2 hours during business hours",
+    "contact.whatsapp.title": "Let's talk today",
+    "contact.whatsapp.desc": "Message us on WhatsApp and let's discuss your project with no commitment",
     "contact.whatsapp.time": "Responds in <1 hour",
+    "contact.whatsapp.cta": "Write now",
     "contact.email.title": "Formal Quote",
-    "contact.email.desc": "Technical proposal + timeline + budget",
+    "contact.email.desc": "Technical proposal + timeline + detailed budget",
     "contact.email.time": "Response in 24 business hours",
-    "contact.location.desc": "We work remotely with clients across Peru",
+    "contact.location.desc": "We work remotely with clients across Peru and Latin America",
 
     // Estimator
     "estimator.label": "Estimator",
@@ -219,6 +237,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     // FAQ
     "faq.label": "FAQ",
     "faq.title": "Common questions",
+    "faq.endCtaText": "Have another question?",
+    "faq.endCtaBtn": "Ask us on WhatsApp",
     "faq.q1.q": "How much does my project cost?",
     "faq.q1.a": "It depends on the project type and features you need. A Landing Page starts at $500 USD and a full system can reach $14,000 USD. Use the interactive estimator on this page to get a personalized range in under a minute.",
     "faq.q2.q": "Do you work with clients outside Lima or outside Peru?",

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ThemeToggle } from "./ui/ThemeToggle";
 import { LanguageToggle } from "./ui/LanguageToggle";
 import { useLanguage } from "@/i18n";
-import { getNavLinks } from "@/data/content";
+import { getNavLinks, siteConfig } from "@/data/content";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -144,8 +144,9 @@ export function Header() {
               <LanguageToggle />
               <ThemeToggle />
               <a
-                href="#contacto"
-                onClick={(e) => scrollToSection(e, "#contacto")}
+                href={siteConfig.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary !py-3 !px-6 text-sm"
               >
                 {t("header.contact")}
@@ -158,7 +159,7 @@ export function Header() {
               <ThemeToggle />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 text-[var(--secondary)] dark:text-white"
+                className="p-3 text-[var(--secondary)] dark:text-white"
                 aria-label={
                   isMobileMenuOpen ? t("header.closeMenu") : t("header.openMenu")
                 }
@@ -215,8 +216,9 @@ export function Header() {
 
               <div className="pt-6 border-t border-[var(--border)]">
                 <a
-                  href="#contacto"
-                  onClick={(e) => scrollToSection(e, "#contacto")}
+                  href={siteConfig.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-primary text-center w-full justify-center"
                 >
                   {t("header.contact")}

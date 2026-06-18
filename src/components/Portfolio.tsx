@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatedSection } from "./ui/AnimatedSection";
-import { getPortfolio } from "@/data/content";
+import { getPortfolio, siteConfig } from "@/data/content";
 import { useLanguage } from "@/i18n";
 import {
   motion,
@@ -779,6 +779,16 @@ export function Portfolio() {
                           {t("portfolio.viewProject")}
                           <ExternalLink className="w-4 h-4" />
                         </Link>
+                      ) : project.whatsappMsg ? (
+                        <Link
+                          href={`https://wa.me/51939175392?text=${encodeURIComponent(project.whatsappMsg)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-[#06B6D4] dark:text-[#22D3EE] font-semibold hover:gap-3 transition-all"
+                        >
+                          {t("portfolio.requestStudy")}
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
                       ) : (
                         <span className="inline-flex items-center gap-2 text-[var(--text-muted)] text-sm">
                           <ArrowRight className="w-4 h-4" />
@@ -792,6 +802,28 @@ export function Portfolio() {
             );
           })}
         </div>
+
+        {/* End CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <p className="text-[var(--text-secondary)] mb-4 text-lg">
+            {t("portfolio.endCtaTitle")}
+          </p>
+          <Link
+            href={siteConfig.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex"
+          >
+            {t("portfolio.endCtaBtn")}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

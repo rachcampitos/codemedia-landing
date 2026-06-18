@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { AnimatedSection } from "./ui/AnimatedSection";
 import { useLanguage } from "@/i18n";
+import { siteConfig } from "@/data/content";
 
 const FAQ_KEYS = ["q1", "q2", "q3", "q4", "q5", "q6"] as const;
 
@@ -72,6 +73,27 @@ export function FAQ() {
             );
           })}
         </div>
+
+        {/* End CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-[var(--text-secondary)] mb-4">
+            {t("faq.endCtaText")}
+          </p>
+          <a
+            href={siteConfig.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex"
+          >
+            {t("faq.endCtaBtn")}
+          </a>
+        </motion.div>
       </div>
     </section>
   );
